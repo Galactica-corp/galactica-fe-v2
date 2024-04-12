@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env
+
+# zero-installs
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.vscode/settings
+
+.env.development
+.env.production
+.env.local

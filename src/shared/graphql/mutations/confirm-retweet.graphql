@@ -1,0 +1,5 @@
+mutation ConfirmRetweet {
+  confirmRetweet {
+    success
+  }
+}
