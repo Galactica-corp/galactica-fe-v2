@@ -21,6 +21,7 @@ module.exports = {
       iron: "#E0E2E5",
       athensGray: "#F2F4F7",
       desertStorm: "#F0EFEE",
+      paleSky: "#667085",
       transparent: "transparent",
     },
     extend: {

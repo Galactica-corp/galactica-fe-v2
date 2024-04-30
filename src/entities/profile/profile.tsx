@@ -4,6 +4,8 @@ import { useAccount } from "wagmi";
 
 import { shortAddress } from "shared/web3/utils";
 
+import { Avatar } from "./avatar";
+
 type Props = {
   action?: ReactNode;
   avatarUrl?: string;
@@ -14,12 +16,7 @@ export const Profile = ({ avatarUrl, action }: Props) => {
 
   return (
     <div className="flex items-center gap-x-3">
-      <div
-        className="flex size-10 rounded-xl bg-desertStorm bg-cover bg-no-repeat"
-        style={{
-          backgroundImage: `url(${avatarUrl})`,
-        }}
-      />
+      <Avatar avatarUrl={avatarUrl} />
       <div className="flex flex-col">
         <h4 className="inline-flex text-sm font-semibold text-oxfordBlue">
           Mike Tyson

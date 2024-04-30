@@ -1,24 +1,27 @@
 import { PropsWithChildren } from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
 
+import { ClassName } from "shared/types";
 import { IconName } from "shared/ui/icon";
 
 import { Item } from "./item";
 
 type Props = {
   iconName: IconName;
-} & NavLinkProps;
+} & Omit<NavLinkProps, "className"> &
+  ClassName;
 
 export const Link = ({
   iconName,
   children,
+  className,
   ...props
 }: PropsWithChildren<Props>) => {
   return (
-    <NavLink {...props}>
+    <NavLink {...props} className="inline-flex">
       {({ isActive }) => {
         return (
-          <Item iconName={iconName} isActive={isActive}>
+          <Item className={className} iconName={iconName} isActive={isActive}>
             {children}
           </Item>
         );

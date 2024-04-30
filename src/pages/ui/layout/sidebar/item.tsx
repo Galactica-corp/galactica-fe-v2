@@ -13,12 +13,12 @@ export const Item = (props: PropsWithChildren<Props>) => {
   return (
     <span
       className={twMerge(
-        "flex grow items-center gap-x-3 overflow-hidden rounded-md px-3 py-2 hover:bg-[#F3F3F2]/50",
+        "flex items-center gap-x-3 overflow-hidden whitespace-nowrap rounded-md px-3 py-2 transition-colors hover:bg-[#F3F3F2]/50",
         isActive && "bg-[#F3F3F2]/50",
         className
       )}
     >
-      <Icon className="text-oxfordBlue" name={iconName} />
+      <Icon className="text-paleSky" name={iconName} />
       {children}
     </span>
   );
