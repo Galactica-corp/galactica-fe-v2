@@ -42,7 +42,7 @@ export const Sidebar = () => {
     <motion.aside
       animate={isExpanded ? "expanded" : "collapsed"}
       className={twMerge(
-        "flex max-w-80 grow flex-col items-start overflow-hidden border-r border-r-athensGray py-8 grid-in-sidebar"
+        "flex max-w-80 grow select-none flex-col overflow-hidden border-r border-r-athensGray py-8 grid-in-sidebar"
       )}
       initial={false}
       variants={sidebarVariants}
@@ -57,11 +57,7 @@ export const Sidebar = () => {
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
         {topGroupLinks.map(({ text, iconName, to }) => {
           return (
-            <Link
-              className={isExpanded ? "grow" : "shrink"}
-              iconName={iconName}
-              to={to}
-            >
+            <Link iconName={iconName} to={to}>
               {isExpanded && text}
             </Link>
           );
@@ -69,10 +65,7 @@ export const Sidebar = () => {
         <Collapse>
           <Collapse.Trigger className="inline-flex">
             {({ isOpen }) => (
-              <Item
-                className={isExpanded ? "grow" : "shrink"}
-                iconName="building"
-              >
+              <Item iconName="building">
                 {isExpanded && (
                   <>
                     Governance
@@ -93,20 +86,13 @@ export const Sidebar = () => {
       </nav>
 
       <nav className="mt-auto flex flex-col gap-y-1 px-4">
-        <Link
-          className={isExpanded ? "grow" : "shrink"}
-          iconName="stars"
-          to="/my-passports"
-        >
+        <Link iconName="stars" to="/my-passports">
           {isExpanded && "My passport"}
         </Link>
         <Collapse>
           <Collapse.Trigger className="inline-flex">
             {({ isOpen }) => (
-              <Item
-                className={isExpanded ? "grow" : "shrink"}
-                iconName="certificate"
-              >
+              <Item iconName="certificate">
                 {isExpanded && (
                   <>
                     My Certificates
@@ -127,10 +113,7 @@ export const Sidebar = () => {
         <Collapse>
           <Collapse.Trigger className="inline-flex">
             {({ isOpen }) => (
-              <Item
-                className={isExpanded ? "grow" : "shrink"}
-                iconName="passwordLock"
-              >
+              <Item iconName="passwordLock">
                 {isExpanded && (
                   <>
                     My SBTs
@@ -148,18 +131,10 @@ export const Sidebar = () => {
           </Collapse.Trigger>
           <Collapse.Content>My SBTs</Collapse.Content>
         </Collapse>
-        <Link
-          className={isExpanded ? "grow" : "shrink"}
-          iconName="passwordLock"
-          to="/my-achievements"
-        >
+        <Link iconName="passwordLock" to="/my-achievements">
           {isExpanded && "My Achievements"}
         </Link>
-        <Link
-          className={isExpanded ? "grow" : "shrink"}
-          iconName="lifebuoy"
-          to="/Support"
-        >
+        <Link iconName="lifebuoy" to="/Support">
           {isExpanded && "Support"}
         </Link>
       </nav>
