@@ -4,6 +4,7 @@ import invariant from "tiny-invariant";
 
 export type CollapseContext = {
   isOpen: boolean;
+  keepMount: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 

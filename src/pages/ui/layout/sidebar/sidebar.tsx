@@ -81,7 +81,9 @@ export const Sidebar = () => {
               </Item>
             )}
           </Collapse.Trigger>
-          <Collapse.Content>Content</Collapse.Content>
+          <Collapse.Content>
+            Content <br /> <br /> CONTENT
+          </Collapse.Content>
         </Collapse>
       </nav>
 

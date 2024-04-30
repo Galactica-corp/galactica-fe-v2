@@ -12,12 +12,12 @@ export const Trigger = <Element extends ElementType = "button">(
   props: PolymorphicProps<Element, Props>
 ) => {
   const { as: Comp = "button", children, className } = props;
-  const { setIsOpen, isOpen } = useCollapseCtx();
+  const { setIsOpen, isOpen, keepMount } = useCollapseCtx();
 
   return (
     <Comp className={className} onClick={() => setIsOpen((isOpen) => !isOpen)}>
       {typeof children === "function"
-        ? children?.({ isOpen, setIsOpen })
+        ? children?.({ isOpen, setIsOpen, keepMount })
         : children}
     </Comp>
   );
