@@ -1,3 +1,13 @@
+import { Auth } from "widget/auth";
+
+import { Layout } from "pages/ui/layout";
+
 export const Home = () => {
-  return <div>Home</div>;
+  return (
+    <Layout>
+      <div>
+        <Auth />
+      </div>
+    </Layout>
+  );
 };

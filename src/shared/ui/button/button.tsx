@@ -39,14 +39,18 @@ export const Button = <E extends ElementType = "button">(
       className={twMerge(
         "shadow-xs relative inline-flex cursor-pointer select-none justify-center rounded-lg px-[18px] py-2 text-center font-medium transition-colors",
         (isLoading || disabled) && "pointer-events-none",
+
+        // jaffa
         theme === "jaffa" &&
           "bg-jaffa text-white hover:bg-jaffa hover:brightness-110 focus:bg-jaffa focus:brightness-90 active:brightness-90",
         theme === "jaffa" && disabled && "bg-jaffa/50",
 
+        // white
         theme === "white" &&
           "bg-white text-jaffa inner-border inner-border-jaffa/50 hover:bg-white hover:brightness-95 focus:bg-athensGray active:brightness-95",
         theme === "white" && disabled && "text-jaffa",
 
+        // oxfordBlue
         theme === "oxfordBlue" &&
           "bg-oxfordBlue text-white hover:brightness-90 active:brightness-105",
         theme === "oxfordBlue" && disabled && "bg-oxfordBlue/80",

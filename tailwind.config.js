@@ -5,6 +5,7 @@ module.exports = {
     require("tailwindcss-inner-border"),
     require("tailwind-hamburgers"),
     require("tailwind-scrollbar"),
+    require("@savvywombat/tailwindcss-grid-areas"),
   ],
   theme: {
     backgroundImage: {
@@ -19,11 +20,15 @@ module.exports = {
       oxfordBlue: "#344054",
       iron: "#E0E2E5",
       athensGray: "#F2F4F7",
+      desertStorm: "#F0EFEE",
       transparent: "transparent",
     },
     extend: {
       boxShadow: {
         xs: "box-shadow: 0px 1px 2px 0px #1018280D",
+      },
+      gridTemplateAreas: {
+        layout: ["sidebar main"],
       },
     },
   },
