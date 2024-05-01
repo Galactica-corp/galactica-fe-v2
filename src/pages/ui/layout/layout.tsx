@@ -1,14 +1,19 @@
 import { PropsWithChildren } from "react";
+import { Outlet } from "react-router-dom";
 
 import { twMerge } from "tailwind-merge";
 
 import { Sidebar } from "./sidebar/sidebar";
 
-export const Layout = ({ children }: PropsWithChildren) => {
+export const Layout = () => {
   return (
-    <div className={twMerge("grid grow grid-areas-layout")}>
+    <div
+      className={twMerge("grid grow grid-cols-[auto,1fr] grid-areas-layout")}
+    >
       <Sidebar />
-      <main className="grid-in-main">{children}</main>
+      <main className="grid-in-main">
+        <Outlet />
+      </main>
     </div>
   );
 };
