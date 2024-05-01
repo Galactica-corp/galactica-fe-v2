@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import { Outlet } from "react-router-dom";
 
 import { twMerge } from "tailwind-merge";

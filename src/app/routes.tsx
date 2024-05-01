@@ -6,8 +6,13 @@ import { Layout } from "pages/ui/layout";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+    ],
   },
   { element: <Layout />, children: [{ path: "/auth", element: <AuthPage /> }] },
 ]);
