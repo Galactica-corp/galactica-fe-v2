@@ -6,9 +6,9 @@ import { ClassName, PolymorphicProps } from "shared/types";
 
 import { Spinner } from "../spinner";
 
-type Theme = "jaffa" | "oxfordBlue" | "white";
+export type Theme = "jaffa" | "jaffa-transparent" | "oxfordBlue" | "white";
 
-type Props = {
+export type Props = {
   disabled?: boolean;
   isLoading?: boolean;
   theme?: Theme;
@@ -37,13 +37,18 @@ export const Button = <E extends ElementType = "button">(
     <Comp
       {...restProps}
       className={twMerge(
-        "shadow-xs relative inline-flex cursor-pointer select-none justify-center rounded-lg px-[18px] py-2 text-center font-medium transition-colors",
+        "shadow-xs relative inline-flex cursor-pointer select-none items-center justify-center rounded-lg px-[18px] py-2 text-center font-medium transition-colors",
         (isLoading || disabled) && "pointer-events-none",
 
         // jaffa
         theme === "jaffa" &&
           "bg-jaffa text-white hover:bg-jaffa hover:brightness-110 focus:bg-jaffa focus:brightness-90 active:brightness-90",
         theme === "jaffa" && disabled && "bg-jaffa/50",
+
+        // jaffa-transparent
+        theme === "jaffa-transparent" &&
+          "bg-transparent inner-border inner-border-jaffa",
+        theme === "jaffa-transparent" && disabled && "bg-jaffa/50",
 
         // white
         theme === "white" &&

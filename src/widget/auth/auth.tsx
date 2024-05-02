@@ -1,15 +1,34 @@
-export const Auth = () => {
+import { twMerge } from "tailwind-merge";
+
+import { ConnectWalletButton } from "features/connect-wallet";
+import { ClassName } from "shared/types";
+
+import galacticaNetworkSrc from "./galactica-network.svg";
+import swirlSrc from "./swirl.png";
+
+export const Auth = ({ className }: ClassName) => {
   return (
     <div
-      className="flex bg-cover bg-no-repeat"
+      className={twMerge(
+        "flex w-[480px] max-w-[480px] flex-col items-center rounded-xl bg-cover bg-no-repeat py-14 shadow-2xl",
+        className
+      )}
       style={{
-        background: `url("/texture-wave.png")`,
+        backgroundImage: `url("/texture-wave.png")`,
       }}
     >
-      Hello world Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-      Quisquam amet esse commodi rem inventore unde iure accusamus quis quaerat
-      corporis? Corrupti iste exercitationem hic, veritatis quaerat eveniet
-      dolorem commodi ab!
+      <h2 className="mb-12 font-ptm text-[40px] uppercase leading-[130%]">
+        Passport
+      </h2>
+      <img alt="swirl" className="h-[283px] w-[290px]" src={swirlSrc} />
+      <ConnectWalletButton
+        className="mt-10 h-[54px] w-[227px] font-ptm uppercase inner-border-jaffa/75"
+        connectContent={
+          <span className="tracking-tighter">Login with MetaMask</span>
+        }
+        theme="jaffa-transparent"
+      />
+      <img className="mt-8" src={galacticaNetworkSrc} />
     </div>
   );
 };

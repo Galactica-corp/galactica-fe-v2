@@ -8,6 +8,10 @@ module.exports = {
     require("@savvywombat/tailwindcss-grid-areas"),
   ],
   theme: {
+    fontFamily: {
+      inter: "Inter",
+      ptm: "Publico Text Mono",
+    },
     backgroundImage: {
       main: "url('/assets/bg-galactica-dataguardian.png')",
     },
