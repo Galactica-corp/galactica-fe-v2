@@ -14,7 +14,7 @@
 
   body {
     font-family: "Inter", sans-serif;
-    @apply text-mineShaft min-h-full h-full;
+    @apply text-balticSea min-h-full h-full;
   }
 
   #app {
@@ -24,7 +24,7 @@
   .hamburger-item,
   .hamburger-item::before,
   .hamburger-item::after {
-    @apply !bg-mineShaft hover:!bg-mineShaft !select-none;
+    @apply !bg-balticSea hover:!bg-balticSea !select-none;
     border-radius: 0 !important;
     height: 2px !important;
   }

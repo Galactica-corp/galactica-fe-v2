@@ -22,11 +22,11 @@ export const Auth = ({ className }: ClassName) => {
       </h2>
       <img alt="swirl" className="h-[283px] w-[290px]" src={swirlSrc} />
       <ConnectWalletButton
-        className="mt-10 h-[54px] w-[227px] font-ptm uppercase inner-border-jaffa/75"
+        className="mt-10 h-[54px] w-[227px] font-ptm uppercase inner-border-basketBallOrange/75"
         connectContent={
           <span className="tracking-tighter">Login with MetaMask</span>
         }
-        theme="jaffa-transparent"
+        theme="basketBallOrange-transparent"
       />
       <img className="mt-8" src={galacticaNetworkSrc} />
     </div>

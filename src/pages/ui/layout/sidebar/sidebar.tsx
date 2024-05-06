@@ -42,7 +42,7 @@ export const Sidebar = () => {
     <motion.aside
       animate={isExpanded ? "expanded" : "collapsed"}
       className={twMerge(
-        "flex max-w-80 grow select-none flex-col overflow-hidden border-r border-r-athensGray py-8 grid-in-sidebar"
+        "flex max-w-80 grow select-none flex-col overflow-hidden border-r border-r-catskillWhite py-8 grid-in-sidebar"
       )}
       initial={false}
       variants={sidebarVariants}
@@ -71,7 +71,7 @@ export const Sidebar = () => {
                     Governance
                     <Icon
                       className={twJoin(
-                        "ml-auto size-5 text-paleSky",
+                        "ml-auto size-5 text-mistBlue",
                         isOpen && "rotate-180"
                       )}
                       name="chevronDown"
@@ -100,7 +100,7 @@ export const Sidebar = () => {
                     My Certificates
                     <Icon
                       className={twJoin(
-                        "ml-auto size-5 text-paleSky",
+                        "ml-auto size-5 text-mistBlue",
                         isOpen && "rotate-180"
                       )}
                       name="chevronDown"
@@ -121,7 +121,7 @@ export const Sidebar = () => {
                     My SBTs
                     <Icon
                       className={twJoin(
-                        "ml-auto size-5 text-paleSky",
+                        "ml-auto size-5 text-mistBlue",
                         isOpen && "rotate-180"
                       )}
                       name="chevronDown"
@@ -141,7 +141,7 @@ export const Sidebar = () => {
         </Link>
       </nav>
 
-      <div className="mt-6 flex border-t border-t-athensGray pl-6 pr-4 pt-6">
+      <div className="mt-6 flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
         {isExpanded ? (
           <Profile
             action={
