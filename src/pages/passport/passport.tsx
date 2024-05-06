@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 import { Icon } from "shared/ui/icon";
 
 export const Passport = () => {
@@ -36,10 +38,23 @@ export const Passport = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-x-5 gap-y-6">
-                <Field />
-                <Field />
-                <Field />
-                <Field />
+                <Field label="My Level" value="1" />
+                <Field
+                  icon={<Icon className="size-5" name="lightning" />}
+                  label="Score"
+                  theme="orange"
+                  value="95"
+                />
+                <Field disabled label="Your GNC" value="—" />
+                <Field disabled label="GNC Wave" value="—" />
+                <Field disabled label="Reputation" value="—" />
+                <Field
+                  disabled
+                  icon={<Icon className="size-5" name="hand" />}
+                  label="Voting Power"
+                  theme="blue"
+                  value="—"
+                />
               </div>
             </div>
           </div>
@@ -51,19 +66,47 @@ export const Passport = () => {
   );
 };
 
-const Field = () => {
+interface FieldProps {
+  disabled?: boolean;
+  icon?: React.ReactNode;
+  label: string;
+  theme?: "blue" | "default" | "orange";
+  value: string;
+}
+
+const Field = ({
+  value,
+  icon,
+  label,
+  disabled = false,
+  theme = "default",
+}: FieldProps) => {
   return (
-    <div>
+    <div className={twMerge(disabled && "pointer-events-none opacity-35")}>
       <div className="flex items-center space-x-1">
         <div className="whitespace-nowrap text-sm leading-5 text-riverBed">
-          My Level
+          {label}
         </div>
         <Icon
           className="size-3 shrink-0 cursor-pointer text-mistBlue/35"
           name="message"
         />
       </div>
-      <div className="text-2xl font-semibold leading-8 text-balticSea">1</div>
+      <div className="flex items-center space-x-1">
+        <div
+          className={twMerge(
+            "whitespace-nowrap text-2xl font-semibold leading-8",
+            theme === "default" && "text-balticSea",
+            theme === "orange" &&
+              "bg-gradient-to-r from-sunriseOrange to-fadedOrange bg-clip-text text-transparent",
+            theme === "blue" &&
+              "bg-gradient-to-b from-skyBlue to-brightBlue bg-clip-text text-transparent"
+          )}
+        >
+          {value}
+        </div>
+        {icon}
+      </div>
     </div>
   );
 };

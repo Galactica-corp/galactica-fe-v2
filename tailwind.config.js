@@ -48,6 +48,8 @@ module.exports = {
       fadedOrange: "#F49756",
       whiteSmoke: "#F6F5F4",
       softPeach: "#EEEDEC",
+      skyBlue: "#00C6FB",
+      brightBlue: "#005BEA",
     },
   },
 };
