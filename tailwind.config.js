@@ -43,13 +43,17 @@ module.exports = {
       mistBlue: "#667085",
       transparent: "transparent",
 
-      dawnPink: "#EAECF0",
-      sunriseOrange: "#F26F56",
-      fadedOrange: "#F49756",
-      whiteSmoke: "#F6F5F4",
-      softPeach: "#EEEDEC",
-      skyBlue: "#00C6FB",
+      // sort later
+      blackSqueeze: "#ECFDF3",
       brightBlue: "#005BEA",
+      dawnPink: "#EAECF0",
+      fadedOrange: "#F49756",
+      magicMint: "#ABEFC6",
+      shamrockGreen: "#079455",
+      skyBlue: "#00C6FB",
+      softPeach: "#EEEDEC",
+      sunriseOrange: "#F26F56",
+      whiteSmoke: "#F6F5F4",
     },
   },
 };

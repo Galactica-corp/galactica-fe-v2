@@ -1,5 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
+import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
 export const Passport = () => {
@@ -58,9 +59,78 @@ export const Passport = () => {
               </div>
             </div>
           </div>
+          <div
+            className="relative mt-6 h-[200px] w-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('p-bg.png')" }}
+          >
+            <div className="absolute left-1/2 top-1/2 w-[70%] -translate-x-1/2 -translate-y-1/2">
+              <div className="text-center text-[16px] font-medium leading-6 text-balticSea">
+                Upload your KYC-file to get access to all the benefits of the
+                Galactica Network
+              </div>
+              <div className="mt-3 flex space-x-3">
+                <Button className="w-full whitespace-nowrap text-xs">
+                  Check KYC Guardians
+                </Button>
+                <Button
+                  className="w-full whitespace-nowrap text-xs"
+                  theme="white"
+                >
+                  Upload KYC-file
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="pl-8">2</div>
+        <div className="pl-8">
+          <div className="flex flex-col space-y-5">
+            <div className="flex space-x-4">
+              <Icon className="size-16" name="logo" />
+              <div className="flex flex-col">
+                <div className="text-sm leading-5 text-riverBed">
+                  GNET Balance
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="text-4xl font-semibold leading-[44px] text-balticSea">
+                    0
+                  </div>
+                  <div
+                    className="whitespace-nowrap rounded-[6px] border border-magicMint bg-blackSqueeze
+                    px-2 py-[2px] text-sm leading-5 text-shamrockGreen shadow-sm"
+                  >
+                    $0
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-[6px] border border-whiteSmoke/30 bg-white px-3 py-8"></div>
+            <div className="grid grid-cols-[1fr,1fr,1.5fr] gap-2">
+              <div>
+                <div className="text-sm leading-5 text-riverBed">
+                  GNET Balance
+                </div>
+                <div className="whitespace-nowrap text-2xl font-semibold leading-8">
+                  0
+                </div>
+              </div>
+
+              <div>
+                <div className="text-sm leading-5 text-riverBed">APY</div>
+                <div className="whitespace-nowrap text-2xl font-semibold leading-8">
+                  32.1%
+                </div>
+              </div>
+
+              <Button
+                className="w-full text-sm font-semibold"
+                theme="basketBallOrange-secondary"
+              >
+                Go to Staking
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

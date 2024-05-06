@@ -10,6 +10,7 @@ export { default as hand } from "./hand.svg?react";
 export { default as lifebuoy } from "./lifebuoy.svg?react";
 export { default as lightning } from "./lightning.svg?react";
 export { default as linkedin } from "./linkedin-social.svg?react";
+export { default as logo } from "./logo.svg?react";
 export { default as logout } from "./logout.svg?react";
 export { default as message } from "./message.svg?react";
 export { default as passwordLock } from "./password-lock.svg?react";
