@@ -19,7 +19,7 @@ export const Passport = () => {
             </div>
             <div className="flex flex-col space-y-6">
               <div>
-                <div className="mb-1 text-sm leading-5 text-fiord">
+                <div className="mb-1 text-sm leading-5 text-riverBed">
                   Your Cypher Book ID
                 </div>
                 <div
@@ -55,15 +55,15 @@ const Field = () => {
   return (
     <div>
       <div className="flex items-center space-x-1">
-        <div className="whitespace-nowrap text-sm leading-5 text-fiord">
+        <div className="whitespace-nowrap text-sm leading-5 text-riverBed">
           My Level
         </div>
         <Icon
-          className="size-3 shrink-0 cursor-pointer text-paleSky/35"
+          className="size-3 shrink-0 cursor-pointer text-mistBlue/35"
           name="message"
         />
       </div>
-      <div className="text-2xl font-semibold leading-8 text-mineShaft">1</div>
+      <div className="text-2xl font-semibold leading-8 text-balticSea">1</div>
     </div>
   );
 };

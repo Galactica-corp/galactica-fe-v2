@@ -1,9 +1,3 @@
-import { Auth } from "widget/auth";
-
 export const Home = () => {
-  return (
-    <div>
-      <Auth />
-    </div>
-  );
+  return <div>HOME_PAGE</div>;
 };

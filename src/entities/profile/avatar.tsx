@@ -10,7 +10,7 @@ export const Avatar = ({ className, avatarUrl }: Props) => {
   return (
     <div
       className={twMerge(
-        "flex size-10 shrink-0 rounded-xl bg-desertStorm bg-cover bg-no-repeat",
+        "flex size-10 shrink-0 rounded-xl bg-softPeach bg-cover bg-no-repeat",
         className
       )}
       style={{

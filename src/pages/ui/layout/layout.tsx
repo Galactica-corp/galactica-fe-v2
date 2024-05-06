@@ -10,7 +10,7 @@ export const Layout = () => {
       className={twMerge("grid grow grid-cols-[auto,1fr] grid-areas-layout")}
     >
       <Sidebar />
-      <main className="flex flex-col bg-desertStorm grid-in-main">
+      <main className="flex flex-col bg-softPeach grid-in-main">
         <Outlet />
       </main>
     </div>

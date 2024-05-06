@@ -9,13 +9,14 @@ import {
   useSwitchChain,
 } from "wagmi";
 
+import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
-import { Spinner } from "shared/ui/spinner";
 import { shortAddress } from "shared/web3/utils";
 
 type Props = {
   connectContent?: ReactNode;
+  installSnapContent?: ReactNode;
   switchChainContent?: ReactNode;
 } & ButtonProps &
   ClassName;
@@ -24,6 +25,7 @@ export function ConnectButton({
   className,
   connectContent = "Connect MetaMask",
   switchChainContent = "Switch chain",
+  installSnapContent = "Install MetaMask snap",
   ...props
 }: Props) {
   const {
@@ -35,8 +37,11 @@ export function ConnectButton({
   } = useAccount();
   const chainId = useChainId();
 
-  const { switchChain } = useSwitchChain();
-  const { disconnect } = useDisconnect();
+  const query = useGetSnapQuery();
+  const mutation = useInstallSnapMutation();
+
+  const { switchChain, isPending: isSwitchChainPending } = useSwitchChain();
+  const { disconnect, isPending: isDisconnectPending } = useDisconnect();
   const { connect, connectors } = useConnect();
 
   const handleConnect = () => {
@@ -53,7 +58,10 @@ export function ConnectButton({
   };
 
   const btnProps: ComponentProps<typeof Button> = {
-    className: twMerge("w-[18.75rem] space-x-[0.9rem]", className),
+    className: twMerge(
+      "w-[18.75rem] space-x-[0.9rem] whitespace-nowrap",
+      className
+    ),
     isLoading: isConnecting,
     ...props,
   };
@@ -65,7 +73,12 @@ export function ConnectButton({
     )
   ) {
     return (
-      <Button as="a" href="https://metamask.io/download" {...btnProps}>
+      <Button
+        as="a"
+        href="https://metamask.io/download"
+        target="_blank"
+        {...btnProps}
+      >
         Install Metamask
       </Button>
     );
@@ -73,8 +86,8 @@ export function ConnectButton({
 
   if (isDisconnected || isConnecting) {
     return (
-      <Button {...btnProps} onClick={handleConnect}>
-        {isConnecting ? <Spinner /> : connectContent}
+      <Button {...btnProps} isLoading={isConnecting} onClick={handleConnect}>
+        {connectContent}
       </Button>
     );
   }
@@ -83,6 +96,7 @@ export function ConnectButton({
     return (
       <Button
         {...btnProps}
+        isLoading={isSwitchChainPending}
         onClick={() => switchChain({ connector: connector, chainId })}
       >
         {switchChainContent}
@@ -90,9 +104,25 @@ export function ConnectButton({
     );
   }
 
+  if (query.isSuccess && !query.data) {
+    return (
+      <Button
+        {...btnProps}
+        isLoading={mutation.isPending}
+        onClick={mutation.mutate}
+      >
+        {installSnapContent}
+      </Button>
+    );
+  }
+
   return (
-    <Button {...btnProps} onClick={() => disconnect()}>
-      <span className="mr-1.5">{shortAddress(address, 4, 4)}</span>
+    <Button
+      {...btnProps}
+      isLoading={isDisconnectPending}
+      onClick={() => disconnect()}
+    >
+      {shortAddress(address, 4, 4)}
     </Button>
   );
 }
