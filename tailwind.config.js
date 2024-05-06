@@ -12,11 +12,24 @@ module.exports = {
       inter: "Inter",
       ptm: "Publico Text Mono",
     },
-    backgroundImage: {
-      main: "url('/assets/bg-galactica-dataguardian.png')",
+    extend: {
+      boxShadow: {
+        xs: "box-shadow: 0px 1px 2px 0px #1018280D",
+      },
+      gridTemplateAreas: {
+        layout: ["sidebar main"],
+      },
+      opacity: {
+        3: "0.03",
+        7: "0.07",
+      },
+      backgroundImage: {
+        main: "url('/assets/bg-galactica-dataguardian.png')",
+      },
     },
     colors: {
       white: "#ffffff",
+      black: "#000",
       jaffa: "#F37A57",
       mischka: "#D0D5DD",
       mineShaft: "#2B2B2B",
@@ -27,14 +40,12 @@ module.exports = {
       desertStorm: "#F0EFEE",
       paleSky: "#667085",
       transparent: "transparent",
-    },
-    extend: {
-      boxShadow: {
-        xs: "box-shadow: 0px 1px 2px 0px #1018280D",
-      },
-      gridTemplateAreas: {
-        layout: ["sidebar main"],
-      },
+      dawnPink: "#EAECF0",
+      sunriseOrange: "#F26F56",
+      fadedOrange: "#F49756",
+      whiteSmoke: "#F6F5F4",
+      riverBed: "#475467",
+      softPeach: "#EEEDEC",
     },
   },
 };

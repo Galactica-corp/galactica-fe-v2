@@ -124,8 +124,22 @@
   font-family: "Publico Text Mono";
   src:
     local("Publico Text Mono"),
-    url("./fonts/PTM/PublicoTextMono-Roman.woff2") format("woff2"),
-    url("./fonts/PTM/PublicoTextMono-Roman.woff") format("woff");
+    url("./fonts/PublicoTextMono-Roman.woff2") format("woff2"),
+    url("./fonts/PublicoTextMono-Roman.woff") format("woff");
   font-weight: 400;
   font-style: normal;
+}
+
+.no-data-gradient {
+  background-image: linear-gradient(
+    45deg,
+    #f4f3f2 25%,
+    #f0efee 25%,
+    #f0efee 50%,
+    #f4f3f2 50%,
+    #f4f3f2 75%,
+    #f0efee 75%,
+    #f0efee 100%
+  );
+  background-size: 56.57px 56.57px;
 }

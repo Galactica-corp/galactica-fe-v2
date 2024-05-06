@@ -9,6 +9,7 @@ export { default as google } from "./google-socal.svg?react";
 export { default as lifebuoy } from "./lifebuoy.svg?react";
 export { default as linkedin } from "./linkedin-social.svg?react";
 export { default as logout } from "./logout.svg?react";
+export { default as message } from "./message.svg?react";
 export { default as passwordLock } from "./password-lock.svg?react";
 export { default as plus } from "./plus.svg?react";
 export { default as reddit } from "./reddit-socail.svg?react";
