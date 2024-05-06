@@ -57,7 +57,7 @@ export const Sidebar = () => {
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
         {topGroupLinks.map(({ text, iconName, to }) => {
           return (
-            <Link iconName={iconName} to={to}>
+            <Link iconName={iconName} key={iconName} to={to}>
               {isExpanded && text}
             </Link>
           );
@@ -152,6 +152,7 @@ export const Sidebar = () => {
                 }}
               />
             }
+            className="grow"
           />
         ) : (
           <Avatar />

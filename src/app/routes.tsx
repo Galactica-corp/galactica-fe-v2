@@ -1,20 +1,25 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { AuthPage } from "pages/auth";
 import { HomePage } from "pages/home";
 import { Layout } from "pages/ui/layout";
+
+import { AuthGuard } from "./guards/auth";
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <HomePage />,
+        element: <AuthGuard />,
+        children: [
+          {
+            path: "/",
+            element: <HomePage />,
+          },
+        ],
       },
     ],
   },
-  { element: <Layout />, children: [{ path: "/auth", element: <AuthPage /> }] },
 ]);
 
 export const AppRoutes = () => {
