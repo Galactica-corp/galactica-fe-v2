@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   plugins: [
@@ -16,16 +17,17 @@ module.exports = {
       main: "url('/assets/bg-galactica-dataguardian.png')",
     },
     colors: {
+      // https://colors.artyclick.com/color-name-finder/
       white: "#ffffff",
-      jaffa: "#F37A57",
-      mischka: "#D0D5DD",
-      mineShaft: "#2B2B2B",
-      fiord: "#475467",
-      oxfordBlue: "#344054",
-      iron: "#E0E2E5",
-      athensGray: "#F2F4F7",
-      desertStorm: "#F0EFEE",
-      paleSky: "#667085",
+      basketBallOrange: "#F37A57",
+      iron: "#D0D5DD",
+      balticSea: "#2B2B2B",
+      riverBed: "#475467",
+      pickledBluewood: "#344054",
+      platinum: "#E0E2E5",
+      catskillWhite: "#F2F4F7",
+      softPeach: "#F0EFEE",
+      mistBlue: "#667085",
       transparent: "transparent",
     },
     extend: {
