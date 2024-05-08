@@ -14,6 +14,15 @@ module.exports = {
       ptm: "Publico Text Mono",
     },
     extend: {
+      backgroundImage: {
+        certCardBg: "url('/cert-card-bg2.png')",
+      },
+      backgroundPosition: {
+        certCardBg: "left -203px top -128px",
+      },
+      backgroundSize: {
+        certCardBg: "150%",
+      },
       boxShadow: {
         xs: "box-shadow: 0px 1px 2px 0px #1018280D",
       },
@@ -22,10 +31,9 @@ module.exports = {
       },
       opacity: {
         3: "0.03",
+        4: "0.04",
+        6: "0.06",
         7: "0.07",
-      },
-      backgroundImage: {
-        main: "url('/assets/bg-galactica-dataguardian.png')",
       },
     },
     colors: {
@@ -54,6 +62,10 @@ module.exports = {
       softPeach: "#EEEDEC",
       sunriseOrange: "#F26F56",
       whiteSmoke: "#F6F5F4",
+      porcelain: "#F2F2F2",
+      santaGrey: "#98A2B3",
+      caribbeanGreen: "#01C38C",
+      pastelGrey: "#CDCDCD",
     },
   },
 };
