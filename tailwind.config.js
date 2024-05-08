@@ -13,12 +13,33 @@ module.exports = {
       inter: "Inter",
       ptm: "Publico Text Mono",
     },
-    backgroundImage: {
-      main: "url('/assets/bg-galactica-dataguardian.png')",
+    extend: {
+      backgroundImage: {
+        certCardBg: "url('/cert-card-bg2.png')",
+      },
+      backgroundPosition: {
+        certCardBg: "left -203px top -128px",
+      },
+      backgroundSize: {
+        certCardBg: "150%",
+      },
+      boxShadow: {
+        xs: "box-shadow: 0px 1px 2px 0px #1018280D",
+      },
+      gridTemplateAreas: {
+        layout: ["sidebar main"],
+      },
+      opacity: {
+        3: "0.03",
+        4: "0.04",
+        6: "0.06",
+        7: "0.07",
+      },
     },
     colors: {
       // https://colors.artyclick.com/color-name-finder/
       white: "#ffffff",
+      black: "#000",
       basketBallOrange: "#F37A57",
       iron: "#D0D5DD",
       balticSea: "#2B2B2B",
@@ -30,14 +51,22 @@ module.exports = {
       mistBlue: "#667085",
       santaGrey: "#98A2B3",
       transparent: "transparent",
-    },
-    extend: {
-      boxShadow: {
-        xs: "box-shadow: 0px 1px 2px 0px #1018280D",
-      },
-      gridTemplateAreas: {
-        layout: ["sidebar main"],
-      },
+
+      // sort later
+      blackSqueeze: "#ECFDF3",
+      brightBlue: "#005BEA",
+      dawnPink: "#EAECF0",
+      fadedOrange: "#F49756",
+      magicMint: "#ABEFC6",
+      shamrockGreen: "#079455",
+      skyBlue: "#00C6FB",
+      softPeach: "#EEEDEC",
+      sunriseOrange: "#F26F56",
+      whiteSmoke: "#F6F5F4",
+      porcelain: "#F2F2F2",
+      santaGrey: "#98A2B3",
+      caribbeanGreen: "#01C38C",
+      pastelGrey: "#CDCDCD",
     },
   },
 };

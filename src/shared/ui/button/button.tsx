@@ -8,6 +8,7 @@ import { Spinner } from "../spinner";
 
 export type Theme =
   | "basketBallOrange"
+  | "basketBallOrange-secondary"
   | "basketBallOrange-transparent"
   | "pickledBluewood"
   | "white";
@@ -53,6 +54,13 @@ export const Button = <E extends ElementType = "button">(
         theme === "basketBallOrange-transparent" &&
           "bg-transparent inner-border inner-border-basketBallOrange",
         theme === "basketBallOrange-transparent" &&
+          disabled &&
+          "bg-basketBallOrange/50",
+
+        // basketBallOrange-secondary
+        theme === "basketBallOrange-secondary" &&
+          "bg-sunriseOrange/5 text-sunriseOrange inner-border inner-border-sunriseOrange",
+        theme === "basketBallOrange-secondary" &&
           disabled &&
           "bg-basketBallOrange/50",
 
