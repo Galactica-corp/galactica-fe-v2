@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import { DataGuardiansPage } from "pages/data-guardians";
 import { HomePage } from "pages/home";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { PassportPage } from "pages/passport";
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
             path: "/kyc-guardians",
             element: <KYCGuardiansPage />,
           },
+          { path: "/data-guardians", element: <DataGuardiansPage /> },
         ],
       },
       {
