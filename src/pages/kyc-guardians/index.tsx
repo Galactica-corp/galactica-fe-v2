@@ -1,15 +1,5 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 
-import { Skeleton } from "./skeleton";
-
-const Page = lazy(() =>
+export const KYCGuardiansPage = lazy(() =>
   import("./kyc-guardians").then((module) => ({ default: module.KYCGuardians }))
 );
-
-export const KYCGuardiansPage = () => {
-  return (
-    <Suspense fallback={<Skeleton />}>
-      <Page />
-    </Suspense>
-  );
-};

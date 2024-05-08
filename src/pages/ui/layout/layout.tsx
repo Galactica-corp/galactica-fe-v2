@@ -1,6 +1,9 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 import { twMerge } from "tailwind-merge";
+
+import { Spinner } from "shared/ui/spinner";
 
 import { Sidebar } from "./sidebar/sidebar";
 
@@ -11,7 +14,15 @@ export const Layout = () => {
     >
       <Sidebar />
       <main className="flex flex-col bg-softPeach grid-in-main">
-        <Outlet />
+        <Suspense
+          fallback={
+            <div className="flex grow items-center justify-center">
+              <Spinner />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );
