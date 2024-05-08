@@ -11,10 +11,7 @@ export type Method =
   | "updateMerkleProof"
   | "updateMerkleProofURL";
 
-export interface WalletInvokeSnap<
-  Return = unknown,
-  RequestParams extends Record<string, unknown> | undefined = undefined,
-> {
+export interface WalletInvokeSnap<Return = unknown, RequestParams = void> {
   Method: "wallet_invokeSnap";
   Parameters: {
     request: { method: Method; params?: RequestParams };

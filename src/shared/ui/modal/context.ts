@@ -4,7 +4,6 @@ import invariant from "invariant";
 
 export type ModalContextType = {
   isOpen: boolean;
-  onAnimationEnd: () => void;
   onChange: (isOpen: boolean) => void;
 };
 

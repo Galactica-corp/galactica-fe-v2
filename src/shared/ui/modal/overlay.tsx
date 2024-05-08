@@ -10,19 +10,18 @@ export const Overlay = ({
   onClick,
   ...props
 }: ComponentProps<typeof motion.div>) => {
-  const { onChange, isOpen, onAnimationEnd } = useModalContext();
+  const { onChange } = useModalContext();
 
   return (
     <motion.div
-      animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       className={twMerge(
-        "fixed inset-0 z-0 flex flex-col overflow-y-auto overscroll-contain bg-[#0C111D]/70 p-8 backdrop-blur-sm",
+        "fixed inset-0 z-0 flex flex-col overflow-y-auto overscroll-contain bg-[#141414]/70 p-8 backdrop-blur-sm",
         className
       )}
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       key="overlay"
-      onAnimationComplete={onAnimationEnd}
       onClick={(e) => {
         if (e.target !== e.currentTarget) return;
         onChange(false);

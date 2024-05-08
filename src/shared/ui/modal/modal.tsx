@@ -1,41 +1,33 @@
-import { PropsWithChildren, useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { AnimatePresence } from "framer-motion";
 
 import { Content } from "./content";
-import { ModalContext } from "./context";
+import { ModalContext, ModalContextType } from "./context";
 import { Overlay } from "./overlay";
 
 export type ModalProps = {
-  isOpen: boolean;
+  children?: ((props: ModalContextType) => ReactNode) | ReactNode;
   onClose: (isOpen: false) => void;
 };
 
-export const Modal = (props: PropsWithChildren<ModalProps>) => {
-  const { isOpen, children, onClose } = props;
+export const Modal = (props: ModalProps) => {
+  const { children, onClose } = props;
 
-  const [isOpenState, setIsStateOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleChange = () => {
-    setIsStateOpen(false);
+    setIsOpen(false);
   };
 
-  const handleAnimationEnd = () => {
-    if (isOpenState) return;
-    console.log("animationEnd");
-    onClose?.(false);
-    setIsStateOpen(false);
-  };
+  const ctx = { isOpen, onChange: handleChange };
 
   return (
-    <ModalContext.Provider
-      value={{
-        isOpen: isOpenState,
-        onChange: handleChange,
-        onAnimationEnd: handleAnimationEnd,
-      }}
-    >
-      {children}
+    <ModalContext.Provider value={ctx}>
+      <AnimatePresence onExitComplete={() => onClose?.(false)}>
+        {isOpen &&
+          (typeof children === "function" ? children?.(ctx) : children)}
+      </AnimatePresence>
     </ModalContext.Provider>
   );
 };

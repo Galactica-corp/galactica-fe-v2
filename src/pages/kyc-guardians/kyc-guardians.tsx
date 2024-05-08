@@ -20,35 +20,34 @@ const guardians = [
       title: "Very fast",
       description: "~35 min",
     },
+    link: "https://kyc-reticulum.galactica.com",
   },
 ];
 
-const cls = "grid-cols-[34px,repeat(6,minmax(0,1fr))]";
+type KYCGuardian = (typeof guardians)[number];
 
-export const KycGuardians = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+const cls = "grid-cols-[34px,repeat(6,minmax(160px,1fr))]";
+
+export const KYCGuardians = () => {
+  const [guardian, setGuardian] = useState<KYCGuardian | undefined>();
 
   return (
     <>
       <div className="flex flex-col p-8">
         <h1 className="text-3xl font-semibold">KYC Guardians</h1>
-        <div className="mt-8">Tabs</div>
         <div
           className={twJoin(
             cls,
             "mt-6 grid items-center border-b border-b-iron px-1 py-3 text-xs font-medium text-riverBed"
           )}
         >
-          <div className="py-4 pl-6">#</div>
-          <div className="px-6 py-4">KYC Provider</div>
-          <div>Score</div>
-          <div>Total documents issued</div>
-          <div>Documents/month</div>
-          <div>Avg. issue time</div>
-          <div />
+          <div className="pl-6">#</div>
+          <div className="px-6">KYC Provider</div>
+          <div className="px-6">Score</div>
+          <div className="px-6">Total documents issued</div>
+          <div className="px-6">Documents/month</div>
+          <div className="px-6">Avg. issue time</div>
+          <div className="px-6" />
         </div>
 
         {guardians.map((guardian) => {
@@ -60,29 +59,39 @@ export const KycGuardians = () => {
               )}
               key={guardian.provider.title}
             >
-              <div>1</div>
-              <div>
+              <div className="pl-6">1</div>
+              <div className="px-6">
                 <GuardianInfo {...guardian.provider} />
               </div>
-              <div>
+              <div className="px-6">
                 <span className="flex w-16 justify-center rounded-full bg-basketBallOrange py-1 text-white">
                   {guardian.score}
                 </span>
               </div>
-              <div>{guardian.totalDocsCount}</div>
-              <div>{guardian.docsPerMonth}</div>
-              <div>
+              <div className="px-6">{guardian.totalDocsCount}</div>
+              <div className="px-6">{guardian.docsPerMonth}</div>
+              <div className="px-6">
                 {guardian.avgIssueTime.title} <br />
                 <span>{guardian.avgIssueTime.description}</span>
               </div>
-              <Button className="h-10" onClick={handleClick}>
-                Start KYC
-              </Button>
+              <div className="flex px-6">
+                <Button
+                  className="h-10 basis-full"
+                  onClick={() => setGuardian(guardian)}
+                >
+                  Start KYC
+                </Button>
+              </div>
             </div>
           );
         })}
       </div>
-      <GenerateCommitmentHashModal onClose={handleClick} />
+      {guardian && (
+        <GenerateCommitmentHashModal
+          onClose={() => setGuardian(undefined)}
+          redirectLink={guardian.link}
+        />
+      )}
     </>
   );
 };

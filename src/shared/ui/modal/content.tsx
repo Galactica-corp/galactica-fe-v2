@@ -5,22 +5,25 @@ import { twMerge } from "tailwind-merge";
 
 import { ClassName } from "shared/types";
 
-import { useModalContext } from "./context";
+import bgPattern from "./bg-pattern.svg";
 
 type Props = ClassName;
 
 export const Content = ({ children, className }: PropsWithChildren<Props>) => {
-  const { isOpen } = useModalContext();
   return (
     <motion.div
-      animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       className={twMerge(
-        "z-10 m-auto flex flex-col rounded-xl bg-white shadow-xl",
+        "z-10 m-auto flex flex-col rounded-xl bg-[center_top] bg-no-repeat shadow-xl",
         className
       )}
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       key="modal"
+      style={{
+        backgroundColor: "white",
+        backgroundImage: `url(${bgPattern})`,
+      }}
     >
       {children}
     </motion.div>

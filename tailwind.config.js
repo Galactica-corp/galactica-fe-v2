@@ -28,6 +28,7 @@ module.exports = {
       catskillWhite: "#F2F4F7",
       softPeach: "#F0EFEE",
       mistBlue: "#667085",
+      santaGrey: "#98A2B3",
       transparent: "transparent",
     },
     extend: {
