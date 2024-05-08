@@ -36,7 +36,7 @@ export const UploadKYC = () => {
           <div className="flex items-start justify-between">
             <div className="flex items-center justify-between">
               <div className="relative size-[50px] rounded-[10px] border border-caribbeanGreen/10 bg-white">
-                <Icon className="place-center size-[33px]" name="certLogo" />
+                <Icon className="place-center size-[33px]" name="swissborg" />
               </div>
             </div>
             <div className="text-riverBed/70">

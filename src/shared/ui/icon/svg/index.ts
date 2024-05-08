@@ -1,5 +1,4 @@
 export { default as building } from "./building.svg?react";
-export { default as certLogo } from "./cert-logo.svg?react";
 export { default as certificate } from "./certificate.svg?react";
 export { default as chevronDown } from "./chevron-down.svg?react";
 export { default as cross } from "./cross.svg?react";
@@ -20,5 +19,6 @@ export { default as reddit } from "./reddit-socail.svg?react";
 export { default as scan } from "./scan.svg?react";
 export { default as shieldZap } from "./shield-zap.svg?react";
 export { default as stars } from "./stars.svg?react";
+export { default as swissborg } from "./swissborg.svg?react";
 export { default as tg } from "./tg-social.svg?react";
 export { default as trophy } from "./trophy.svg?react";

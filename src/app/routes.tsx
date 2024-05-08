@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { HomePage } from "pages/home";
+import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { PassportPage } from "pages/passport";
 import { Layout } from "pages/ui/layout";
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <HomePage />,
+          },
+          {
+            path: "/kyc-guardians",
+            element: <KYCGuardiansPage />,
           },
         ],
       },

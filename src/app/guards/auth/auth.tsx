@@ -8,12 +8,12 @@ import { Spinner } from "shared/ui/spinner";
 
 export const Auth = () => {
   const { isConnected } = useAccount();
-  const { data } = useGetSnapQuery();
+  const { data, isPending } = useGetSnapQuery();
 
-  if (!isConnected) {
+  if (isPending && isConnected) {
     return (
-      <div className="flex grow items-center py-9">
-        <AuthWidget className="m-auto" />
+      <div className="flex grow items-center justify-center">
+        <Spinner />
       </div>
     );
   }
@@ -21,8 +21,8 @@ export const Auth = () => {
   if (isConnected && data) return <Outlet />;
 
   return (
-    <div className="flex grow items-center justify-center">
-      <Spinner />
+    <div className="flex grow items-center py-9">
+      <AuthWidget className="m-auto" />
     </div>
   );
 };
