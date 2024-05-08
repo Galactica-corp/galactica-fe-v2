@@ -1,7 +1,7 @@
 import { lazy } from "react";
 
 export const PassportPage = lazy(() =>
-  import("./passport").then((module) => {
+  import("./ui/passport").then((module) => {
     return { default: module.Passport };
   })
 );
