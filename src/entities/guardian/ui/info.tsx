@@ -8,7 +8,7 @@ type Props = {
 
 export const GuardianInfo = ({ title, description, img }: Props) => {
   return (
-    <div className="flex gap-x-3">
+    <div className="flex items-center gap-x-3">
       {typeof img == "string" ? <img className="size-10" src={img} /> : img}
       <div className="flex flex-col">
         <div className="text-sm font-medium">{title}</div>

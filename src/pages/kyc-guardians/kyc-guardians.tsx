@@ -5,13 +5,18 @@ import { twJoin } from "tailwind-merge";
 import { GuardianInfo } from "entities/guardian/ui/info";
 import { GenerateCommitmentHashModal } from "features/generate-commitment-hash";
 import { Button } from "shared/ui/button";
+import { Icon } from "shared/ui/icon";
 
 const guardians = [
   {
     provider: {
       title: "SwissBorg",
       description: "swissborg.com",
-      img: "/assets/swissborg-logo.png",
+      img: (
+        <div className="rounded-full bg-white p-1 inner-border-santaGrey">
+          <Icon className="size-8" name="swissborg" />
+        </div>
+      ),
     },
     score: "9.9",
     totalDocsCount: "32,956",

@@ -47,9 +47,7 @@ module.exports = {
       pickledBluewood: "#344054",
       platinum: "#E0E2E5",
       catskillWhite: "#F2F4F7",
-      softPeach: "#F0EFEE",
       mistBlue: "#667085",
-      santaGrey: "#98A2B3",
       transparent: "transparent",
 
       // sort later
