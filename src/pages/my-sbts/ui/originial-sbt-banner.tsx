@@ -1,10 +1,19 @@
+import { toast } from "react-toastify";
+
 import { twMerge } from "tailwind-merge";
 
 import { SBTCard } from "entities/sbt";
 import { ClassName } from "shared/types";
 import { Button } from "shared/ui/button";
 
+import { ToastTask } from "./toast";
+
 export const OriginalSBTBanner = ({ className }: ClassName) => {
+  const handleLearnMoreClick = () => {
+    toast(<ToastTask />);
+    console.log("hello world");
+  };
+
   return (
     <div
       className={twMerge(
@@ -29,7 +38,9 @@ export const OriginalSBTBanner = ({ className }: ClassName) => {
       </div>
 
       <div className="ml-auto flex items-start gap-x-2">
-        <Button theme="pickledBluewood-white">Learn more</Button>
+        <Button onClick={handleLearnMoreClick} theme="pickledBluewood-white">
+          Learn more
+        </Button>
         <Button>Generate SBT</Button>
       </div>
     </div>

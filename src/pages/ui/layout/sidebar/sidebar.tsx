@@ -115,7 +115,7 @@ export const Sidebar = () => {
         <Link iconName="passwordLock" to="/my-sbts">
           {isExpanded && "My SBTs"}
         </Link>
-        <Link iconName="passwordLock" to="/my-achievements">
+        <Link iconName="trophy" to="/my-achievements">
           {isExpanded && "My Achievements"}
         </Link>
         <Link iconName="lifebuoy" to="/Support">

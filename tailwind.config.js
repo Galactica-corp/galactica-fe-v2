@@ -69,6 +69,7 @@ module.exports = {
       mistyRose: "#FEE5D7",
       alabaster: "#F9FAFB",
       blackCow: "#4E4845",
+      aquaHaze: "#F3F3F2",
     },
   },
 };
