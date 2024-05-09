@@ -11,6 +11,7 @@ export type Theme =
   | "basketBallOrange-secondary"
   | "basketBallOrange-transparent"
   | "pickledBluewood"
+  | "pickledBluewood-white"
   | "white";
 
 export type Props = {
@@ -42,7 +43,7 @@ export const Button = <E extends ElementType = "button">(
     <Comp
       {...restProps}
       className={twMerge(
-        "shadow-xs relative inline-flex cursor-pointer select-none items-center justify-center rounded-lg px-[18px] py-2 text-center font-medium transition-colors",
+        "relative inline-flex cursor-pointer select-none items-center justify-center rounded-lg px-[18px] py-2 text-center font-medium shadow-xs transition",
         (isLoading || disabled) && "pointer-events-none",
 
         // basketBallOrange
@@ -73,6 +74,12 @@ export const Button = <E extends ElementType = "button">(
         theme === "pickledBluewood" &&
           "bg-pickledBluewood text-white hover:brightness-90 active:brightness-105",
         theme === "pickledBluewood" && disabled && "bg-pickledBluewood/80",
+
+        // white-pickledBluewood
+        theme === "pickledBluewood-white" &&
+          "bg-white text-pickledBluewood inner-border inner-border-iron hover:brightness-90 active:brightness-105",
+        theme === "pickledBluewood-white" && disabled && "bg-white/80",
+
         className
       )}
     >

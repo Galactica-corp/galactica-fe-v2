@@ -24,7 +24,8 @@ module.exports = {
         certCardBg: "150%",
       },
       boxShadow: {
-        xs: "box-shadow: 0px 1px 2px 0px #1018280D",
+        xs: "0px 1px 2px 0px #1018280D",
+        xl: "0px 8px 8px -4px #10182808,0px 20px 24px -4px #10182814",
       },
       gridTemplateAreas: {
         layout: ["sidebar main"],
@@ -65,6 +66,9 @@ module.exports = {
       santaGrey: "#98A2B3",
       caribbeanGreen: "#01C38C",
       pastelGrey: "#CDCDCD",
+      mistyRose: "#FEE5D7",
+      alabaster: "#F9FAFB",
+      blackCow: "#4E4845",
     },
   },
 };
