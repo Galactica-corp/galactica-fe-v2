@@ -135,7 +135,7 @@
     @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
 
-  .orange-gradient {
+  .orange-gradient-text {
     @apply bg-gradient-to-r from-sunriseOrange to-fadedOrange bg-clip-text text-transparent;
   }
 
