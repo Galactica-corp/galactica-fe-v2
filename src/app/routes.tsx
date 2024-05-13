@@ -4,6 +4,7 @@ import { DataGuardiansPage } from "pages/data-guardians";
 import { HomePage } from "pages/home";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { PassportPage } from "pages/passport";
+import { MyCertificatesPage } from "pages/my-certificates";
 import { Layout } from "pages/ui/layout";
 
 import { AuthGuard } from "./guards/auth";
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
             element: <KYCGuardiansPage />,
           },
           { path: "/data-guardians", element: <DataGuardiansPage /> },
+          { path: "/my-certificates", element: <MyCertificatesPage /> },
         ],
       },
       {

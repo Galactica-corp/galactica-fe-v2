@@ -1,6 +1,7 @@
 export { default as building } from "./building.svg?react";
 export { default as certificate } from "./certificate.svg?react";
 export { default as chevronDown } from "./chevron-down.svg?react";
+export { default as cloud } from "./cloud.svg?react";
 export { default as cross } from "./cross.svg?react";
 export { default as faceId } from "./face-id.svg?react";
 export { default as filterLines } from "./filter-lines.svg?react";
