@@ -26,7 +26,7 @@ export const Passport = () => {
                   Your Cypher Book ID
                 </div>
                 <div
-                  className="orange-gradient flex items-end
+                  className="orange-gradient-text flex items-end
                   whitespace-nowrap font-ptm text-[38px] leading-none
                   tracking-[-2px]
                   "

@@ -33,7 +33,7 @@ export const Field = ({
           className={twMerge(
             "whitespace-nowrap text-2xl font-semibold leading-8",
             theme === "default" && "text-balticSea",
-            theme === "orange" && "orange-gradient",
+            theme === "orange" && "orange-gradient-text",
             theme === "blue" &&
               "bg-gradient-to-b from-skyBlue to-brightBlue bg-clip-text text-transparent"
           )}
