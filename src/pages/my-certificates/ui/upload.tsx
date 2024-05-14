@@ -1,50 +1,59 @@
-import { Icon } from "shared/ui/icon";
+import { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
+
 import { twMerge } from "tailwind-merge";
+
+import { Icon } from "shared/ui/icon";
+import { Spinner } from "shared/ui/spinner";
+import { sleep } from "shared/utils";
 
 type UploadProps = {
   className?: string;
 };
 
 export const Upload = ({ className }: UploadProps) => {
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files;
-    console.log(f);
-  };
+  const [loading, setLoading] = useState(false);
+
+  const onDrop = useCallback(async () => {
+    // test
+    setLoading(true);
+    await sleep(1000);
+    setLoading(false);
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
     <div
       className={twMerge(
-        "relative w-full h-[500px] bg-white border border-dawnPink rounded-xl",
+        "relative flex h-[500px] w-full items-center justify-center rounded-xl border border-dawnPink bg-white",
+        isDragActive && "bg-iron",
         className
       )}
+      {...getRootProps()}
     >
-      <div className="absolute w-[300px] h-auto place-center">
-        <div className="relative w-full h-full">
-          <div className="border border-dawnPink m-auto mb-3 rounded-lg size-[40px] relative">
-            <Icon className="place-center size-5" name="cloud" />
-          </div>
-          <div className="text-center">
-            <label
-              htmlFor="file"
-              className="text-sm leading-none orange-gradient-text mr-1 cursor-pointer font-semibold"
-            >
-              <input
-                className="hidden"
-                id="file"
-                type="file"
-                onChange={handleFileChange}
-                accept="application/json"
-              />
-              Click to upload
-            </label>
-            <span className="text-sm leading-none text-riverBed">
-              or drag and drop
-            </span>
-            <div className="text-xs mt-1 leading-none text-riverBed">
-              JSON file (max. 3mb)
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="place-center absolute h-auto w-[300px]">
+          <div className="relative size-full">
+            <div className="relative m-auto mb-3 size-[40px] rounded-lg border border-dawnPink">
+              <Icon className="place-center size-5" name="cloud" />
+            </div>
+            <div className="text-center">
+              <span className="orange-gradient-text mr-1 cursor-pointer text-sm font-semibold leading-none">
+                <input {...getInputProps()} />
+                Click to upload
+              </span>
+              <span className="text-sm leading-none text-riverBed">
+                or drag and drop
+              </span>
+              <div className="mt-1 text-xs leading-none text-riverBed">
+                JSON file (max. 3mb)
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

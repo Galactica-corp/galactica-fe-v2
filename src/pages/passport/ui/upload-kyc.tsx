@@ -1,4 +1,5 @@
 import { Button } from "shared/ui/button";
+import { Certificate } from "shared/ui/certificate";
 import { Icon } from "shared/ui/icon";
 
 export const UploadKYC = () => {
@@ -26,31 +27,8 @@ export const UploadKYC = () => {
 
   const uploaded = (
     <div className="relative">
-      <div
-        className="relative z-10 mt-[36px] w-[480px]
-        overflow-hidden rounded-xl border border-black/4
-        bg-whiteSmoke bg-certCardBg bg-no-repeat shadow-xl"
-      >
-        <div className="absolute z-0 size-full bg-gradient-to-r from-caribbeanGreen/0 to-caribbeanGreen/6 " />
-        <div className="relative z-10 px-6 py-5">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center justify-between">
-              <div className="relative size-[50px] rounded-[10px] border border-caribbeanGreen/10 bg-white">
-                <Icon className="place-center size-[33px]" name="swissborg" />
-              </div>
-            </div>
-            <div className="text-riverBed/70">
-              <div className="text-xs">Expiry date</div>
-              <div className="text-sm">118 days</div>
-            </div>
-          </div>
-          <div className="mt-9 text-balticSea">
-            <div className="text-sm font-medium leading-5">Your active KYC</div>
-            <div className="text-2xl font-semibold leading-8">
-              Swissborg KYC
-            </div>
-          </div>
-        </div>
+      <div className="w-[480px]">
+        <Certificate type="swissborg" view="big" />
       </div>
       <div className="absolute left-[60px] top-8 z-0 h-[171px] w-[480px] rounded-xl border border-black/3 bg-softPeach">
         <Icon
