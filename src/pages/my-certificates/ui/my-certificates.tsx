@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Certificate, CertificateType } from "shared/ui/certificate";
+import { KYCCard, KYCName } from "entities/kyc-card";
 
 import { Tab } from "./tab";
 import { Upload } from "./upload";
@@ -10,13 +10,13 @@ export const MyCertificates = () => {
   const [activeBottom, setActiveBottom] = useState(1);
 
   // test
-  const activeCerts = [{ type: "swissborg" }, { type: "xCom" }] as {
-    type: CertificateType;
+  const activeCerts = [{ name: "swissborg" }, { name: "xCom" }] as {
+    name: KYCName;
   }[];
 
   // test
   const expiredCerts = [] as {
-    type: CertificateType;
+    name: KYCName;
   }[];
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
@@ -58,18 +58,18 @@ export const MyCertificates = () => {
           <div className="grid grid-cols-[repeat(3,338px)] gap-8">
             {activeBottom === 1
               ? activeCerts.map((cert) => (
-                  <Certificate
-                    key={`a${cert.type}`}
-                    type={cert.type}
+                  <KYCCard
+                    key={`a${cert.name}`}
+                    name={cert.name}
                     view="small"
                   />
                 ))
               : null}
             {activeBottom === 2
               ? expiredCerts.map((cert) => (
-                  <Certificate
-                    key={`e${cert.type}`}
-                    type={cert.type}
+                  <KYCCard
+                    key={`e${cert.name}`}
+                    name={cert.name}
                     view="small"
                   />
                 ))

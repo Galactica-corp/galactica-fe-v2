@@ -1,42 +1,46 @@
 import { twJoin, twMerge } from "tailwind-merge";
 
-import { Icon, IconName } from "../icon";
+import { Icon, IconName } from "shared/ui/icon";
 
-export type CertType = "swissborg" | "xCom";
+export type KYCName = "swissborg" | "xCom";
 
 export type Props = {
   className?: string;
-  type: CertType;
+  name: KYCName;
   view: "big" | "small";
 };
 
-export const Certificate = ({ type, view }: Props) => {
-  const nameMap: Record<CertType, string> = {
-    swissborg: "Swissborg KYC",
-    xCom: "X.com KYC",
-  };
+const CARDS_MAP: Record<
+  KYCName,
+  {
+    background?: string;
+    border?: string;
+    icon: IconName;
+    name: string;
+    title: string;
+  }
+> = {
+  swissborg: {
+    name: "swissborg",
+    title: "SwissBorg KYC",
+    background: "from-transparent to-caribbeanGreen/6",
+    border: "border-caribbeanGreen/10",
+    icon: "swissborg",
+  },
+  xCom: {
+    name: "xCom",
+    title: "X.com KYC",
+    background: "from-transparent to-azure/8",
+    border: "border-azure/10",
+    icon: "cross",
+  },
+};
 
-  const name = nameMap[type];
-
-  const bgMap: Record<CertType, string> = {
-    swissborg: "from-transparent to-caribbeanGreen/6",
-    xCom: "from-transparent to-azure/8",
-  };
-
-  const borderMap: Record<CertType, string> = {
-    swissborg: "border-caribbeanGreen/10",
-    xCom: "border-azure/10",
-  };
-
-  const gradient = bgMap[type];
-  const border = borderMap[type];
-
-  const iconNameMap: Record<CertType, IconName> = {
-    swissborg: "swissborg",
-    xCom: "cross",
-  };
-
-  const iconName = iconNameMap[type];
+export const KYCCard = ({ name, view }: Props) => {
+  const gradient = CARDS_MAP[name].background;
+  const border = CARDS_MAP[name].border;
+  const iconName = CARDS_MAP[name].icon;
+  const title = CARDS_MAP[name].title;
 
   return (
     <div
@@ -54,7 +58,7 @@ export const Certificate = ({ type, view }: Props) => {
       >
         <div className="place-center absolute size-[200%] -rotate-45">
           {Array(40)
-            .fill(name)
+            .fill(title)
             .map((e, i) => (
               <span
                 className="mr-4 text-lg font-semibold leading-[30px] text-balticSea/2"
@@ -90,7 +94,7 @@ export const Certificate = ({ type, view }: Props) => {
         </div>
         <div className="mt-9 text-balticSea">
           <div className="text-sm font-medium leading-5">Your active KYC</div>
-          <div className="text-2xl font-semibold leading-8">{name}</div>
+          <div className="text-2xl font-semibold leading-8">{title}</div>
         </div>
       </div>
     </div>

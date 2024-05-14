@@ -1,5 +1,5 @@
+import { KYCCard } from "entities/kyc-card";
 import { Button } from "shared/ui/button";
-import { Certificate } from "shared/ui/certificate";
 import { Icon } from "shared/ui/icon";
 
 export const UploadKYC = () => {
@@ -28,7 +28,7 @@ export const UploadKYC = () => {
   const uploaded = (
     <div className="relative">
       <div className="w-[480px]">
-        <Certificate type="swissborg" view="big" />
+        <KYCCard name="swissborg" view="big" />
       </div>
       <div className="absolute left-[60px] top-8 z-0 h-[171px] w-[480px] rounded-xl border border-black/3 bg-softPeach">
         <Icon
