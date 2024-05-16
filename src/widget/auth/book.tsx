@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { motion } from "framer-motion";
+import { motion, useAnimate } from "framer-motion";
 
 type Props = {
   children: React.ReactNode;
@@ -9,48 +9,71 @@ type Props = {
 
 export const Book = ({ children, onComplete }: Props) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const duration = 1.5;
 
-  const onStart = () => {
+  const onStart = useCallback(() => {
     document.body.classList.add("no-scrollbar");
-  };
-  const onEnd = () => {
-    document.body.classList.remove("no-scrollbar");
-    onComplete;
-  };
+  }, []);
 
+  const onEnd = useCallback(() => {
+    document.body.classList.remove("no-scrollbar");
+    // onComplete;
+  }, []);
+
+  const [zIndex, setZIndex] = useState(2);
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    if (!scope.current) return;
+
+    if (isFlipped) {
+      animate(
+        scope.current,
+        { translateX: "50%" },
+        {
+          duration: 2,
+          onPlay: onStart,
+          onComplete: onEnd,
+          onUpdate: (x) => {
+            if (x > 10) setZIndex(0);
+          },
+        }
+      );
+    }
+  }, [isFlipped, onStart, onEnd, animate, scope]);
   return (
     <div className="relative w-full" onClick={() => setIsFlipped(true)}>
       <motion.div
-        animate={{
-          translateX: isFlipped ? "50%" : 0,
-        }}
         className="relative m-auto h-[665px] w-[480px] rounded-xl shadow-2xl"
+        initial={false}
         onAnimationComplete={onEnd}
         onAnimationStart={onStart}
+        ref={scope}
         style={{
           perspective: "2000px",
           transformStyle: "preserve-3d",
         }}
-        transition={{ translateX: { duration } }}
+        transition={{
+          translateX: { duration: 2 },
+        }}
       >
         <motion.div
           animate={{
             rotateY: isFlipped ? -180 : 0,
-            transition: { rotateY: { duration } },
+            transition: { rotateY: { duration: 2 } },
           }}
-          className="absolute left-0 top-0 size-full rounded-xl shadow-2xl"
+          className="absolute left-0 top-0 size-full rounded-xl"
+          initial={false}
           style={{
             backfaceVisibility: "hidden",
             position: "absolute",
             transformOrigin: "left",
             transformStyle: "preserve-3d",
-            zIndex: 2,
+            zIndex,
           }}
         >
           {children}
           <img
-            className="absolute left-0 top-0 size-full rounded-xl object-cover"
+            className="absolute left-0 top-0 size-full rounded-xl object-cover shadow-2xl"
             src="/passport/back.png"
             style={{
               transform: "rotateY(180deg)",
