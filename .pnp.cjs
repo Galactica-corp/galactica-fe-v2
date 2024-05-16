@@ -37,6 +37,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.29.2"],\
           ["@tanstack/react-query-devtools", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.29.2"],\
           ["@types/eslint", "npm:8.56.6"],\
+          ["@types/gsap", "npm:3.0.0"],\
           ["@types/invariant", "npm:2.2.37"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/react", "npm:18.2.77"],\
@@ -60,6 +61,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:11.1.7"],\
           ["graphql", "npm:16.8.1"],\
           ["graphql-request", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:6.1.0"],\
+          ["gsap", "npm:3.12.5"],\
           ["invariant", "npm:2.2.4"],\
           ["postcss", "npm:8.4.38"],\
           ["pre-commit", "npm:1.2.2"],\
@@ -4794,6 +4796,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/gsap", [\
+      ["npm:3.0.0", {\
+        "packageLocation": "./.yarn/cache/@types-gsap-npm-3.0.0-fef431ee14-dae482196e.zip/node_modules/@types/gsap/",\
+        "packageDependencies": [\
+          ["@types/gsap", "npm:3.0.0"],\
+          ["gsap", "npm:3.12.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/har-format", [\
       ["npm:1.2.15", {\
         "packageLocation": "./.yarn/cache/@types-har-format-npm-1.2.15-34780135b5-fcb3977410.zip/node_modules/@types/har-format/",\
@@ -9215,6 +9227,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/graphql",\
           "graphql"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["gsap", [\
+      ["npm:3.12.5", {\
+        "packageLocation": "./.yarn/cache/gsap-npm-3.12.5-5f40c203df-192e9f6b11.zip/node_modules/gsap/",\
+        "packageDependencies": [\
+          ["gsap", "npm:3.12.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -14961,6 +14982,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.29.2"],\
           ["@tanstack/react-query-devtools", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.29.2"],\
           ["@types/eslint", "npm:8.56.6"],\
+          ["@types/gsap", "npm:3.0.0"],\
           ["@types/invariant", "npm:2.2.37"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/react", "npm:18.2.77"],\
@@ -14984,6 +15006,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:11.1.7"],\
           ["graphql", "npm:16.8.1"],\
           ["graphql-request", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:6.1.0"],\
+          ["gsap", "npm:3.12.5"],\
           ["invariant", "npm:2.2.4"],\
           ["postcss", "npm:8.4.38"],\
           ["pre-commit", "npm:1.2.2"],\

@@ -3298,6 +3298,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gsap@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/gsap@npm:3.0.0"
+  dependencies:
+    gsap: "npm:*"
+  checksum: 10/dae482196e21b65bdfae927d6794b2918325f42cd31d88989e0d09373f91412d315ff4ceb11e93ac13068aa44bf5e99dcfdf6b3465112f0522c630bffcdde116
+  languageName: node
+  linkType: hard
+
 "@types/har-format@npm:*":
   version: 1.2.15
   resolution: "@types/har-format@npm:1.2.15"
@@ -6904,6 +6913,13 @@ __metadata:
   version: 16.8.1
   resolution: "graphql@npm:16.8.1"
   checksum: 10/7a09d3ec5f75061afe2bd2421a2d53cf37273d2ecaad8f34febea1f1ac205dfec2834aec3419fa0a10fcc9fb345863b2f893562fb07ea825da2ae82f6392893c
+  languageName: node
+  linkType: hard
+
+"gsap@npm:*, gsap@npm:^3.12.5":
+  version: 3.12.5
+  resolution: "gsap@npm:3.12.5"
+  checksum: 10/192e9f6b11e54d8a0d26cff76573278d42748c6a54906fa42c81425390238ea8f6abbba5c0bca75c4bba32e4f2db957f22c2158fab1be7d4a8d71fc2fb24e8c3
   languageName: node
   linkType: hard
 
@@ -11755,6 +11771,7 @@ __metadata:
     "@tanstack/react-query": "npm:^5.29.2"
     "@tanstack/react-query-devtools": "npm:^5.29.2"
     "@types/eslint": "npm:^8.56.6"
+    "@types/gsap": "npm:^3.0.0"
     "@types/invariant": "npm:^2.2.37"
     "@types/node": "npm:^20.12.7"
     "@types/react": "npm:^18.2.77"
@@ -11778,6 +11795,7 @@ __metadata:
     framer-motion: "npm:^11.1.7"
     graphql: "npm:^16.8.1"
     graphql-request: "npm:^6.1.0"
+    gsap: "npm:^3.12.5"
     invariant: "npm:^2.2.4"
     postcss: "npm:^8.4.38"
     pre-commit: "npm:^1.2.2"

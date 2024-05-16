@@ -21,6 +21,8 @@ export const MyCertificates = () => {
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
+  // const mutation = useInvokeSnapMutation<any>("listZkCerts");
+
   return (
     <div className="flex flex-col p-8">
       <h1 className="text-3xl font-semibold">My Certificates</h1>
