@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { DataGuardiansPage } from "pages/data-guardians";
-import { HomePage } from "pages/home";
+// import { HomePage } from "pages/home";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { MyCertificatesPage } from "pages/my-certificates";
 import { PassportPage } from "pages/passport";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <HomePage />,
+            element: <PassportPage />,
           },
           {
             path: "/kyc-guardians",
@@ -27,10 +27,6 @@ const router = createBrowserRouter([
           { path: "/data-guardians", element: <DataGuardiansPage /> },
           { path: "/my-certificates", element: <MyCertificatesPage /> },
         ],
-      },
-      {
-        path: "/my-passports",
-        element: <PassportPage />,
       },
     ],
   },

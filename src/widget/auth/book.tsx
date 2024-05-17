@@ -4,44 +4,49 @@ import { motion, useAnimate } from "framer-motion";
 
 type Props = {
   children: React.ReactNode;
+  isTriggered: boolean;
   onComplete?(): void;
 };
 
-export const Book = ({ children, onComplete }: Props) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+export const Book = ({ children, isTriggered, onComplete }: Props) => {
+  const duration = 2;
 
   const onStart = useCallback(() => {
+    // может, придется добавить глобальный класс для body, пока неизвестно
     document.body.classList.add("no-scrollbar");
   }, []);
 
   const onEnd = useCallback(() => {
     document.body.classList.remove("no-scrollbar");
-    // onComplete;
-  }, []);
+    onComplete?.();
+  }, [onComplete]);
 
   const [zIndex, setZIndex] = useState(2);
   const [scope, animate] = useAnimate();
 
-  useEffect(() => {
-    if (!scope.current) return;
+  const run = useCallback(() => {
+    animate(
+      scope.current,
+      { translateX: "50%" },
+      {
+        duration: 2,
+        onComplete: onEnd,
+        onPlay: onStart,
+        onUpdate: (x) => {
+          if (x > 10) setZIndex(0);
+        },
+      }
+    );
+  }, [onEnd, onStart, animate, scope]);
 
-    if (isFlipped) {
-      animate(
-        scope.current,
-        { translateX: "50%" },
-        {
-          duration: 2,
-          onPlay: onStart,
-          onComplete: onEnd,
-          onUpdate: (x) => {
-            if (x > 10) setZIndex(0);
-          },
-        }
-      );
+  useEffect(() => {
+    if (isTriggered) {
+      run();
     }
-  }, [isFlipped, onStart, onEnd, animate, scope]);
+  }, [isTriggered, run]);
+
   return (
-    <div className="relative w-full" onClick={() => setIsFlipped(true)}>
+    <div className="relative w-full">
       <motion.div
         className="relative m-auto h-[665px] w-[480px] rounded-xl shadow-2xl"
         initial={false}
@@ -58,8 +63,8 @@ export const Book = ({ children, onComplete }: Props) => {
       >
         <motion.div
           animate={{
-            rotateY: isFlipped ? -180 : 0,
-            transition: { rotateY: { duration: 2 } },
+            rotateY: isTriggered ? -180 : 0,
+            transition: { rotateY: { duration } },
           }}
           className="absolute left-0 top-0 size-full rounded-xl"
           initial={false}

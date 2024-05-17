@@ -1,18 +1,21 @@
 import { twMerge } from "tailwind-merge";
+import { useAccount } from "wagmi";
 
 import { ConnectWalletButton } from "features/connect-wallet";
-import { ClassName } from "shared/types";
 
 import { Book } from "./book";
 import galacticaNetworkSrc from "./galactica-network.svg";
 import swirlSrc from "./swirl.png";
 
-export const Auth = ({ className }: ClassName) => {
-  const onComplete = () => {
-    console.log("complete");
-  };
+type Props = {
+  className?: string;
+  onComplete?(): void;
+};
+
+export const Auth = ({ className, ...props }: Props) => {
+  const { isConnected } = useAccount();
   return (
-    <Book onComplete={onComplete}>
+    <Book isTriggered={isConnected} onComplete={props.onComplete}>
       <div
         className="absolute left-0 top-0 size-full rounded-xl bg-whiteSmoke object-cover"
         style={{ backfaceVisibility: "hidden" }}

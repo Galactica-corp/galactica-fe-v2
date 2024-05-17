@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { useAccount } from "wagmi";
@@ -9,8 +10,13 @@ import { Spinner } from "shared/ui/spinner";
 export const Auth = () => {
   const { isConnected } = useAccount();
   const { data, isPending } = useGetSnapQuery();
+  const [holdAnimation, setHoldAnimation] = useState(!isConnected);
 
-  if (isPending && isConnected) {
+  const onComplete = () => {
+    setHoldAnimation(false);
+  };
+
+  if (isPending && isConnected && !holdAnimation) {
     return (
       <div className="flex grow items-center justify-center">
         <Spinner />
@@ -18,11 +24,11 @@ export const Auth = () => {
     );
   }
 
-  if (isConnected && data) return <Outlet />;
+  if (isConnected && data && !holdAnimation) return <Outlet />;
 
   return (
     <div className="flex grow items-center py-9">
-      <AuthWidget className="m-auto" />
+      <AuthWidget className="m-auto" onComplete={onComplete} />
     </div>
   );
 };
