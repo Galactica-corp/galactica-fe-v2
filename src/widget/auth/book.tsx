@@ -1,15 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { motion, useAnimate } from "framer-motion";
+import { useAccount, useAccountEffect } from "wagmi";
 
 type Props = {
   children: React.ReactNode;
-  isTriggered: boolean;
   onComplete?(): void;
 };
 
-export const Book = ({ children, isTriggered, onComplete }: Props) => {
+export const Book = ({ children, onComplete }: Props) => {
   const duration = 2;
+  const { isConnected } = useAccount();
 
   const onStart = useCallback(() => {
     // может, придется добавить глобальный класс для body, пока неизвестно
@@ -39,11 +40,11 @@ export const Book = ({ children, isTriggered, onComplete }: Props) => {
     );
   }, [onEnd, onStart, animate, scope]);
 
-  useEffect(() => {
-    if (isTriggered) {
+  useAccountEffect({
+    onConnect() {
       run();
-    }
-  }, [isTriggered, run]);
+    },
+  });
 
   return (
     <div className="relative w-full">
@@ -63,7 +64,7 @@ export const Book = ({ children, isTriggered, onComplete }: Props) => {
       >
         <motion.div
           animate={{
-            rotateY: isTriggered ? -180 : 0,
+            rotateY: isConnected ? -180 : 0,
             transition: { rotateY: { duration } },
           }}
           className="absolute left-0 top-0 size-full rounded-xl"

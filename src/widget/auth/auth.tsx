@@ -1,5 +1,4 @@
 import { twMerge } from "tailwind-merge";
-import { useAccount } from "wagmi";
 
 import { ConnectWalletButton } from "features/connect-wallet";
 
@@ -13,9 +12,8 @@ type Props = {
 };
 
 export const Auth = ({ className, ...props }: Props) => {
-  const { isConnected } = useAccount();
   return (
-    <Book isTriggered={isConnected} onComplete={props.onComplete}>
+    <Book onComplete={props.onComplete}>
       <div
         className="absolute left-0 top-0 size-full rounded-xl bg-whiteSmoke object-cover"
         style={{ backfaceVisibility: "hidden" }}
