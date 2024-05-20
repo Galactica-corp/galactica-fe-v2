@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
@@ -5,7 +7,11 @@ import { AddCertField, Field, UploadKYC } from ".";
 
 export const Passport = () => {
   return (
-    <div className="mt-[100px] flex items-center justify-center">
+    <motion.div
+      animate={{ opacity: 1 }}
+      className="mt-[100px] flex items-center justify-center"
+      initial={{ opacity: 0 }}
+    >
       <div
         className={
           "grid w-[1216px] max-w-[1216px] grid-cols-2 rounded-xl border border-black/7 bg-whiteSmoke p-8 shadow-2xl"
@@ -135,6 +141,6 @@ export const Passport = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

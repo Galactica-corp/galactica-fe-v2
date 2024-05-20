@@ -21,7 +21,13 @@ export const Upload = ({ className }: UploadProps) => {
     setLoading(false);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "application/json": [".json"],
+    },
+    maxFiles: 1,
+  });
   return (
     <div
       className={twMerge(
