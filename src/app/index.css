@@ -156,4 +156,7 @@
     );
     background-size: 46.57px 46.57px;
   }
+  .no-scrollbar {
+    overflow: hidden;
+  }
 }
