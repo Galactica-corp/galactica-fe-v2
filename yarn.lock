@@ -1122,24 +1122,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@galactica-net/galactica-types@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "@galactica-net/galactica-types@npm:0.2.4"
+"@galactica-net/galactica-types@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@galactica-net/galactica-types@npm:0.3.0"
   dependencies:
     "@types/circomlibjs": "npm:^0.1.5"
     buffer: "npm:^6.0.3"
-  checksum: 10/9d4bbe1d84d8e2c689f4431ca3c4bb56c6d6364a7b851d89d51dab89941287b389289f60daebe87817c0d52123f484c589971472865987eb9c04a5b3f6db5f5b
+  checksum: 10/231e7ee1ac57b0cfa16b9f9bdf4c9c638f1bebf39188f30aaf9f2fd6b36e2479d7e457e995659ddfde11805d6fafa484d187e43e85434b5c008a164add668d89
   languageName: node
   linkType: hard
 
-"@galactica-net/snap-api@npm:^0.1.11":
-  version: 0.1.11
-  resolution: "@galactica-net/snap-api@npm:0.1.11"
+"@galactica-net/snap-api@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@galactica-net/snap-api@npm:0.2.1"
   dependencies:
-    "@galactica-net/galactica-types": "npm:^0.2.4"
+    "@galactica-net/galactica-types": "npm:^0.3.0"
     "@types/node": "npm:^20.4.6"
     typescript: "npm:^5.1.6"
-  checksum: 10/78cbe5830c60a26e27d7a1bd8d706cd0d1b0daf3f5367bf4d4f21b62ec56dff01fe8c5ff38d17bb42b81f6c3b9282a87fc4f862c67b526836ad77f6c7a9152a5
+  checksum: 10/1a45ca324912ee9a94d4c4d8709d2c244866434627fa2472e484a6ea7629a1b37331f9f3678705d84d61f6ae9ff7fcb7421cb6e0428c7777af079943342642a5
   languageName: node
   linkType: hard
 
@@ -11744,7 +11744,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:."
   dependencies:
-    "@galactica-net/snap-api": "npm:^0.1.11"
+    "@galactica-net/snap-api": "npm:^0.2.1"
     "@graphql-codegen/cli": "npm:5.0.2"
     "@graphql-codegen/typescript": "npm:^4.0.6"
     "@graphql-codegen/typescript-operations": "npm:^4.2.0"

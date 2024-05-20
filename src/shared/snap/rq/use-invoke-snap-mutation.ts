@@ -1,19 +1,29 @@
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 
-import { Method, WalletInvokeSnap } from "../types";
+import { WalletInvokeSnapMethod } from "../types/rpc-schema";
+import { GetInvokeSnapParams, GetInvokeSnapResponse } from "../types/utils";
 import { useSnapClient } from "../wagmi";
 
-export const useInvokeSnapMutation = <TReturn = unknown, Params = void>(
-  method: Method,
-  options?: UseMutationOptions<TReturn, Error, Params>
+export const useInvokeSnapMutation = <
+  RequestMethod extends WalletInvokeSnapMethod,
+  TContext = unknown,
+>(
+  method: RequestMethod,
+  options?: UseMutationOptions<
+    GetInvokeSnapResponse<RequestMethod>,
+    unknown,
+    GetInvokeSnapParams<RequestMethod>,
+    TContext
+  >
 ) => {
   const { client } = useSnapClient();
 
   return useMutation({
-    mutationFn: async (params?: Params) => {
+    mutationFn: async (params) => {
       invariant(client);
-      return await client.request<WalletInvokeSnap<TReturn, Params>>({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const response = await client.request<any>({
         method: "wallet_invokeSnap",
         params: {
           snapId: import.meta.env.VITE_SNAP_ID,
@@ -23,6 +33,8 @@ export const useInvokeSnapMutation = <TReturn = unknown, Params = void>(
           },
         },
       });
+
+      return response as GetInvokeSnapResponse<RequestMethod>;
     },
     ...options,
   });

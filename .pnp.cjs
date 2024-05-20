@@ -26,7 +26,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
+          ["@galactica-net/snap-api", "npm:0.2.1"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.6"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.0"],\
@@ -1746,10 +1746,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@galactica-net/galactica-types", [\
-      ["npm:0.2.4", {\
-        "packageLocation": "./.yarn/cache/@galactica-net-galactica-types-npm-0.2.4-6bb0048b81-9d4bbe1d84.zip/node_modules/@galactica-net/galactica-types/",\
+      ["npm:0.3.0", {\
+        "packageLocation": "./.yarn/cache/@galactica-net-galactica-types-npm-0.3.0-dfb0d55286-231e7ee1ac.zip/node_modules/@galactica-net/galactica-types/",\
         "packageDependencies": [\
-          ["@galactica-net/galactica-types", "npm:0.2.4"],\
+          ["@galactica-net/galactica-types", "npm:0.3.0"],\
           ["@types/circomlibjs", "npm:0.1.6"],\
           ["buffer", "npm:6.0.3"]\
         ],\
@@ -1757,11 +1757,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@galactica-net/snap-api", [\
-      ["npm:0.1.11", {\
-        "packageLocation": "./.yarn/cache/@galactica-net-snap-api-npm-0.1.11-d0f79ed0ea-78cbe5830c.zip/node_modules/@galactica-net/snap-api/",\
+      ["npm:0.2.1", {\
+        "packageLocation": "./.yarn/cache/@galactica-net-snap-api-npm-0.2.1-f4cbf74042-1a45ca3249.zip/node_modules/@galactica-net/snap-api/",\
         "packageDependencies": [\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
-          ["@galactica-net/galactica-types", "npm:0.2.4"],\
+          ["@galactica-net/snap-api", "npm:0.2.1"],\
+          ["@galactica-net/galactica-types", "npm:0.3.0"],\
           ["@types/node", "npm:20.11.25"],\
           ["typescript", "patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"]\
         ],\
@@ -14950,7 +14950,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["web", "workspace:."],\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
+          ["@galactica-net/snap-api", "npm:0.2.1"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.6"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.0"],\

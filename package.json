@@ -16,7 +16,7 @@
   },
   "pre-commit": "lint",
   "dependencies": {
-    "@galactica-net/snap-api": "^0.1.11",
+    "@galactica-net/snap-api": "patch:@galactica-net/snap-api@npm%3A0.2.1#~/.yarn/patches/@galactica-net-snap-api-npm-0.2.1-f4cbf74042.patch",
     "@tanstack/react-query": "^5.29.2",
     "@tanstack/react-query-devtools": "^5.29.2",
     "@types/shallowequal": "^1.1.5",

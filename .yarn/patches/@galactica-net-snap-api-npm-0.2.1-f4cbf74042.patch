@@ -1,0 +1,408 @@
+diff --git a/dist/main.js b/dist/main.js
+index a4530e5b501d499236ffc48c239de7096caca9d4..e050f1feec861cff69e4ca2eac6eb2270d3c1045 100644
+--- a/dist/main.js
++++ b/dist/main.js
+@@ -5,15 +5,21 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
+ var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+ var __hasOwnProp = Object.prototype.hasOwnProperty;
+ var __propIsEnum = Object.prototype.propertyIsEnumerable;
+-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
++var __defNormalProp = (obj, key, value) =>
++  key in obj
++    ? __defProp(obj, key, {
++        enumerable: true,
++        configurable: true,
++        writable: true,
++        value,
++      })
++    : (obj[key] = value);
+ var __spreadValues = (a, b) => {
+   for (var prop in b || (b = {}))
+-    if (__hasOwnProp.call(b, prop))
+-      __defNormalProp(a, prop, b[prop]);
++    if (__hasOwnProp.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+   if (__getOwnPropSymbols)
+     for (var prop of __getOwnPropSymbols(b)) {
+-      if (__propIsEnum.call(b, prop))
+-        __defNormalProp(a, prop, b[prop]);
++      if (__propIsEnum.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+     }
+   return a;
+ };
+@@ -22,14 +28,18 @@ var __export = (target, all) => {
+     __defProp(target, name, { get: all[name], enumerable: true });
+ };
+ var __copyProps = (to, from, except, desc) => {
+-  if (from && typeof from === "object" || typeof from === "function") {
++  if ((from && typeof from === "object") || typeof from === "function") {
+     for (let key of __getOwnPropNames(from))
+       if (!__hasOwnProp.call(to, key) && key !== except)
+-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
++        __defProp(to, key, {
++          get: () => from[key],
++          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
++        });
+   }
+   return to;
+ };
+-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
++var __toCommonJS = (mod) =>
++  __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+ 
+ // src/main.ts
+ var main_exports = {};
+@@ -57,7 +67,7 @@ __export(main_exports, {
+   listZkCerts: () => listZkCerts,
+   sdkConfig: () => sdkConfig,
+   updateMerkleProof: () => updateMerkleProof,
+-  updateMerkleProofURL: () => updateMerkleProofURL
++  updateMerkleProofURL: () => updateMerkleProofURL,
+ });
+ module.exports = __toCommonJS(main_exports);
+ 
+@@ -79,7 +89,8 @@ var RpcMethods = /* @__PURE__ */ ((RpcMethods2) => {
+ var RpcResponseErr = /* @__PURE__ */ ((RpcResponseErr2) => {
+   RpcResponseErr2["RejectedConfirm"] = "User rejected confirmation.";
+   RpcResponseErr2["UnknownMethod"] = "Method not found.";
+-  RpcResponseErr2["MissingHolder"] = "No holders imported. Please import a holding address first.";
++  RpcResponseErr2["MissingHolder"] =
++    "No holders imported. Please import a holding address first.";
+   RpcResponseErr2["RejectedConnect"] = "User rejected the request.";
+   RpcResponseErr2["RejectedSignature"] = "User denied message signature.";
+   RpcResponseErr2["RejectedSelect"] = "User did not choose a zkCertificate.";
+@@ -92,20 +103,20 @@ var sdkConfig = {
+   defaultSnapVersion: "0.7.1",
+   contracts: {
+     41238: {
+-      kycGuardianWhitelist: "0xB95314E42d8Da05b1D805039F7b96e3935584543",
+-      zkKycRegistry: "0x0415E990e55071F0d448F87CD170528C7783A484",
+-      verificationSbt: "0x062DaB74A2709EC730FE11b3d9C00033B0FBAf92",
+-      exampleZkKycAgeProof: "0x1554B2D7422941Be9903040d9946da60d9f2bC3C",
+-      exampleZkpVerifier: "0xA437DFE87F9096e52E4dEcAA7cfc14d82A5aE07e",
+-      exampleDapp: "0xBD2FAA4835E1A462Ea4FDA39352F24C58e237e2a",
++      kycGuardianWhitelist: "0x6f46D544EecaCFacB3dE448D9A478f41821dd8AD",
++      zkKycRegistry: "0xbc196948e8c1Bc416aEaCf309a63DCEFfdf0cE31",
++      verificationSbt: "0x45d01dbaF0C7F746709279E36Ed1fc6f4225b240",
++      exampleZkKycAgeProof: "0xFDDF30c895C42E50767f73742e55df9d693bEa56",
++      exampleZkpVerifier: "0x3A7b8BCe6ecEC1e64294C8d24C3F5b073e111ec4",
++      exampleDapp: "0xB36A81DbF704209108A3F6b6613733A55e1ed05D",
+       exampleInstitution: [
+-        "0x5E523B1c7c04eB971D3b851C82d3935b91fb4b3e",
+-        "0xcc433436B6c01142EC9B95a1b80B3734CD4849f3",
+-        "0x8d5ebACB647aea8a76082A36C93997765A50AF0E"
++        "0xe331bf40260FB9CDA7AdA540DB820A596C47330a",
++        "0x98781F908CeA24cb125DD036634CD51bE3aAfE90",
++        "0x9642cEA0b0aEF4f94Fd43adc74a4Bbb53B06F304",
+       ],
+-      exampleZkKyc: "0xD95efF72F06079DEcE33b18B165fc3A7a4bdc1fD",
+-      repeatableZkpTest: "0xa99fcD678D985fB2ac8aD3fE913aED88705A44fc",
+-      devnetGuardian: "0x71d80ea7744302E5b1cFD61a7a26153FF221ca9E"
++      exampleZkKyc: "0x87A09B720341B79694dc5A53eCB45601902D48E3",
++      repeatableZkpTest: "0x70C90ED4C8059E5fB9D5327019Dbf50a5AD5dc0c",
++      devnetGuardian: "0xfE9e52d5B8D27cDeBF8582FeDc0E3cFd225e01Ca",
+     },
+     9302: {
+       kycGuardianWhitelist: "0x8Db9C6d860694d6bF151c961E2A55d3F51e2D138",
+@@ -117,13 +128,13 @@ var sdkConfig = {
+       exampleInstitution: [
+         "0xb8B1720908717E585d98A502c0A9743c06DC96E5",
+         "0xB9e011AD8849aeA1F2d9d30582987645bFAE3729",
+-        "0xC29A1e7aD2f3B938a1668d4e2702801BF21CE32C"
++        "0xC29A1e7aD2f3B938a1668d4e2702801BF21CE32C",
+       ],
+       exampleZkKyc: "0x6989febF9623FAD3c5FC25B84e0b8F2F0d9a68f0",
+       repeatableZkpTest: "0x4262b70fDBBF05C48a0887472b89988B84C98564",
+-      devnetGuardian: "0xEcE0BBeB552710718A1bD5E028443ff9B2f26BE5"
+-    }
+-  }
++      devnetGuardian: "0xEcE0BBeB552710718A1bD5E028443ff9B2f26BE5",
++    },
++  },
+ };
+ 
+ // src/utils/invoke-snap.ts
+@@ -132,18 +143,23 @@ var invokeSnap = async (request, snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   if (!window.ethereum) {
+     throw new Error("window.ethereum is undefined");
+   }
+-  return (_a = window.ethereum) == null ? void 0 : _a.request({
+-    method: "wallet_invokeSnap",
+-    params: {
+-      snapId: snapOrigin,
+-      request
+-    }
+-  });
++  return (_a = window.ethereum) == null
++    ? void 0
++    : _a.request({
++        method: "wallet_invokeSnap",
++        params: {
++          snapId: snapOrigin,
++          request,
++        },
++      });
+ };
+ 
+ // src/api/clear-storage.ts
+ var clearStorage = async (snapOrigin = sdkConfig.defaultSnapOrigin) => {
+-  return await invokeSnap({ method: "clearStorage" /* ClearStorage */ }, snapOrigin);
++  return await invokeSnap(
++    { method: "clearStorage" /* ClearStorage */ },
++    snapOrigin
++  );
+ };
+ 
+ // src/api/delete-zk-cert.ts
+@@ -151,7 +167,7 @@ var deleteZkCert = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   const response = await invokeSnap(
+     {
+       method: "deleteZkCert" /* DeleteZkCert */,
+-      params
++      params,
+     },
+     snapOrigin
+   );
+@@ -163,7 +179,7 @@ var exportZkCert = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   const response = await invokeSnap(
+     {
+       method: "exportZkCert" /* ExportZkCert */,
+-      params
++      params,
+     },
+     snapOrigin
+   );
+@@ -178,17 +194,18 @@ var GalacticaErrorBase = class extends Error {
+     this.message = message;
+   }
+ };
+-var GenericError = class extends GalacticaErrorBase {
+-};
++var GenericError = class extends GalacticaErrorBase {};
+ 
+ // src/api/gen-zk-cert-proof.ts
+-var GenZKPError = class extends GalacticaErrorBase {
+-};
+-var generateZKProof = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) => {
++var GenZKPError = class extends GalacticaErrorBase {};
++var generateZKProof = async (
++  params,
++  snapOrigin = sdkConfig.defaultSnapOrigin
++) => {
+   const response = await invokeSnap(
+     {
+       method: "genZkCertProof" /* GenZkCertProof */,
+-      params
++      params,
+     },
+     snapOrigin
+   );
+@@ -199,7 +216,7 @@ var generateZKProof = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) =
+ var getHolderCommitment = async (snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   const response = await invokeSnap(
+     {
+-      method: "getHolderCommitment" /* GetHolderCommitment */
++      method: "getHolderCommitment" /* GetHolderCommitment */,
+     },
+     snapOrigin
+   );
+@@ -219,7 +236,7 @@ var getZkCertHashes = async (snapOrigin = sdkConfig.defaultSnapOrigin) => {
+ var getZkStorageHashes = async (snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   const response = await invokeSnap(
+     {
+-      method: "getZkCertStorageHashes" /* GetZkCertStorageHashes */
++      method: "getZkCertStorageHashes" /* GetZkCertStorageHashes */,
+     },
+     snapOrigin
+   );
+@@ -227,13 +244,15 @@ var getZkStorageHashes = async (snapOrigin = sdkConfig.defaultSnapOrigin) => {
+ };
+ 
+ // src/api/import-zk-cert.ts
+-var ImportZkCertError = class extends GalacticaErrorBase {
+-};
+-var importZkCert = async (importParams, snapOrigin = sdkConfig.defaultSnapOrigin) => {
++var ImportZkCertError = class extends GalacticaErrorBase {};
++var importZkCert = async (
++  importParams,
++  snapOrigin = sdkConfig.defaultSnapOrigin
++) => {
+   const response = await invokeSnap(
+     {
+       method: "importZkCert" /* ImportZkCert */,
+-      params: importParams
++      params: importParams,
+     },
+     snapOrigin
+   );
+@@ -245,7 +264,7 @@ var listZkCerts = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) => {
+   const response = await invokeSnap(
+     {
+       method: "listZkCerts" /* ListZkCerts */,
+-      params
++      params,
+     },
+     snapOrigin
+   );
+@@ -253,11 +272,14 @@ var listZkCerts = async (params, snapOrigin = sdkConfig.defaultSnapOrigin) => {
+ };
+ 
+ // src/api/update-merkle-proof.ts
+-var updateMerkleProof = async (merkleUpdate, snapOrigin = sdkConfig.defaultSnapOrigin) => {
++var updateMerkleProof = async (
++  merkleUpdate,
++  snapOrigin = sdkConfig.defaultSnapOrigin
++) => {
+   const response = await invokeSnap(
+     {
+       method: "updateMerkleProof" /* UpdateMerkleProof */,
+-      params: merkleUpdate
++      params: merkleUpdate,
+     },
+     snapOrigin
+   );
+@@ -265,13 +287,15 @@ var updateMerkleProof = async (merkleUpdate, snapOrigin = sdkConfig.defaultSnapO
+ };
+ 
+ // src/api/update-merkle-proof-url.ts
+-var URLUpdateError = class extends GalacticaErrorBase {
+-};
+-var updateMerkleProofURL = async (update, snapOrigin = sdkConfig.defaultSnapOrigin) => {
++var URLUpdateError = class extends GalacticaErrorBase {};
++var updateMerkleProofURL = async (
++  update,
++  snapOrigin = sdkConfig.defaultSnapOrigin
++) => {
+   const response = await invokeSnap(
+     {
+       method: "updateMerkleProofURL" /* UpdateMerkleProofURL */,
+-      params: update
++      params: update,
+     },
+     snapOrigin
+   );
+@@ -284,16 +308,19 @@ var import_galactica_types = require("@galactica-net/galactica-types");
+ // src/api/snap.ts
+ var getSnaps = async () => {
+   return await window.ethereum.request({
+-    method: "wallet_getSnaps"
++    method: "wallet_getSnaps",
+   });
+ };
+-var connectSnap = async (snapId = sdkConfig.defaultSnapOrigin, params = { version: void 0 }) => {
++var connectSnap = async (
++  snapId = sdkConfig.defaultSnapOrigin,
++  params = { version: void 0 }
++) => {
+   console.log("Connecting to snap", snapId, params);
+   const res = await window.ethereum.request({
+     method: "wallet_requestSnaps",
+     params: {
+-      [snapId]: __spreadValues({}, params)
+-    }
++      [snapId]: __spreadValues({}, params),
++    },
+   });
+   console.log(JSON.stringify(res, null, 2));
+ };
+@@ -315,35 +342,37 @@ var RpcResponseMsg = /* @__PURE__ */ ((RpcResponseMsg2) => {
+   RpcResponseMsg2["StorageCleared"] = "zkCert storage cleared";
+   RpcResponseMsg2["ZkCertImported"] = "zkCert added to storage";
+   RpcResponseMsg2["MerkleProofsUpdated"] = "Updated Merkle proofs";
+-  RpcResponseMsg2["ZkCertAlreadyImported"] = "This zkCert has already been imported. Skipping it.";
++  RpcResponseMsg2["ZkCertAlreadyImported"] =
++    "This zkCert has already been imported. Skipping it.";
+   RpcResponseMsg2["ZkCertDeleted"] = "Deleted zkCert.";
+   return RpcResponseMsg2;
+ })(RpcResponseMsg || {});
+ // Annotate the CommonJS export names for ESM import in node:
+-0 && (module.exports = {
+-  GenZKPError,
+-  GenericError,
+-  ImportZkCertError,
+-  RpcMethods,
+-  RpcResponseErr,
+-  RpcResponseMsg,
+-  URLUpdateError,
+-  ZkCertStandard,
+-  clearStorage,
+-  connectSnap,
+-  deleteZkCert,
+-  exportZkCert,
+-  generateZKProof,
+-  getHolderCommitment,
+-  getSnap,
+-  getSnaps,
+-  getZkCertHashes,
+-  getZkStorageHashes,
+-  importZkCert,
+-  isLocalSnap,
+-  listZkCerts,
+-  sdkConfig,
+-  updateMerkleProof,
+-  updateMerkleProofURL
+-});
++0 &&
++  (module.exports = {
++    GenZKPError,
++    GenericError,
++    ImportZkCertError,
++    RpcMethods,
++    RpcResponseErr,
++    RpcResponseMsg,
++    URLUpdateError,
++    ZkCertStandard,
++    clearStorage,
++    connectSnap,
++    deleteZkCert,
++    exportZkCert,
++    generateZKProof,
++    getHolderCommitment,
++    getSnap,
++    getSnaps,
++    getZkCertHashes,
++    getZkStorageHashes,
++    importZkCert,
++    isLocalSnap,
++    listZkCerts,
++    sdkConfig,
++    updateMerkleProof,
++    updateMerkleProofURL,
++  });
+ //# sourceMappingURL=main.js.map
+diff --git a/dist/main.mjs b/dist/main.mjs
+index d2d2b69bde42bf84ffe65ab8e8541dcce797d195..681bdc4bc5a34617f089affb44473b196443ef66 100644
+--- a/dist/main.mjs
++++ b/dist/main.mjs
+@@ -46,20 +46,20 @@ var sdkConfig = {
+   defaultSnapVersion: "0.7.1",
+   contracts: {
+     41238: {
+-      kycGuardianWhitelist: "0xB95314E42d8Da05b1D805039F7b96e3935584543",
+-      zkKycRegistry: "0x0415E990e55071F0d448F87CD170528C7783A484",
+-      verificationSbt: "0x062DaB74A2709EC730FE11b3d9C00033B0FBAf92",
+-      exampleZkKycAgeProof: "0x1554B2D7422941Be9903040d9946da60d9f2bC3C",
+-      exampleZkpVerifier: "0xA437DFE87F9096e52E4dEcAA7cfc14d82A5aE07e",
+-      exampleDapp: "0xBD2FAA4835E1A462Ea4FDA39352F24C58e237e2a",
++      kycGuardianWhitelist: "0x6f46D544EecaCFacB3dE448D9A478f41821dd8AD",
++      zkKycRegistry: "0xbc196948e8c1Bc416aEaCf309a63DCEFfdf0cE31",
++      verificationSbt: "0x45d01dbaF0C7F746709279E36Ed1fc6f4225b240",
++      exampleZkKycAgeProof: "0xFDDF30c895C42E50767f73742e55df9d693bEa56",
++      exampleZkpVerifier: "0x3A7b8BCe6ecEC1e64294C8d24C3F5b073e111ec4",
++      exampleDapp: "0xB36A81DbF704209108A3F6b6613733A55e1ed05D",
+       exampleInstitution: [
+-        "0x5E523B1c7c04eB971D3b851C82d3935b91fb4b3e",
+-        "0xcc433436B6c01142EC9B95a1b80B3734CD4849f3",
+-        "0x8d5ebACB647aea8a76082A36C93997765A50AF0E"
++        "0xe331bf40260FB9CDA7AdA540DB820A596C47330a",
++        "0x98781F908CeA24cb125DD036634CD51bE3aAfE90",
++        "0x9642cEA0b0aEF4f94Fd43adc74a4Bbb53B06F304",
+       ],
+-      exampleZkKyc: "0xD95efF72F06079DEcE33b18B165fc3A7a4bdc1fD",
+-      repeatableZkpTest: "0xa99fcD678D985fB2ac8aD3fE913aED88705A44fc",
+-      devnetGuardian: "0x71d80ea7744302E5b1cFD61a7a26153FF221ca9E"
++      exampleZkKyc: "0x87A09B720341B79694dc5A53eCB45601902D48E3",
++      repeatableZkpTest: "0x70C90ED4C8059E5fB9D5327019Dbf50a5AD5dc0c",
++      devnetGuardian: "0xfE9e52d5B8D27cDeBF8582FeDc0E3cFd225e01Ca",
+     },
+     9302: {
+       kycGuardianWhitelist: "0x8Db9C6d860694d6bF151c961E2A55d3F51e2D138",
