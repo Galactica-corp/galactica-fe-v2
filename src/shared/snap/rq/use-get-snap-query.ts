@@ -4,12 +4,11 @@ import { useAccount } from "wagmi";
 
 import { QueryOptions } from "shared/types";
 
-import { WalletGetSnaps } from "../types";
+import { WalletGetSnaps } from "../types/rpc-schema";
 import { useSnapClient } from "../wagmi";
 import { getKey } from "./get-key";
 
 type Params = { id: string; version: string };
-
 type QueryFnData = WalletGetSnaps["ReturnType"][string];
 
 const useGetSnapQueryOptions = <TData = QueryFnData | null>(

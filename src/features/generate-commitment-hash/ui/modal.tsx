@@ -11,9 +11,7 @@ type HolderCommitmentData = {
 };
 
 export const Modal = ({ onClose, redirectLink }: Props) => {
-  const mutation = useInvokeSnapMutation<HolderCommitmentData>(
-    "getHolderCommitment"
-  );
+  const mutation = useInvokeSnapMutation("getHolderCommitment");
 
   const onGenerateCommitmentHash = (data: HolderCommitmentData) => {
     const url = new URL(redirectLink);

@@ -16,7 +16,6 @@
   },
   "pre-commit": "lint",
   "dependencies": {
-    "@galactica-net/snap-api": "^0.1.11",
     "@tanstack/react-query": "^5.29.2",
     "@tanstack/react-query-devtools": "^5.29.2",
     "@types/shallowequal": "^1.1.5",

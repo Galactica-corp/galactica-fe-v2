@@ -26,7 +26,6 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.6"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.0"],\
@@ -1741,29 +1740,6 @@ const RAW_RUNTIME_STATE =
           ["@ethereumjs/rlp", "npm:4.0.1"],\
           ["ethereum-cryptography", "npm:2.1.3"],\
           ["micro-ftch", "npm:0.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@galactica-net/galactica-types", [\
-      ["npm:0.2.4", {\
-        "packageLocation": "./.yarn/cache/@galactica-net-galactica-types-npm-0.2.4-6bb0048b81-9d4bbe1d84.zip/node_modules/@galactica-net/galactica-types/",\
-        "packageDependencies": [\
-          ["@galactica-net/galactica-types", "npm:0.2.4"],\
-          ["@types/circomlibjs", "npm:0.1.6"],\
-          ["buffer", "npm:6.0.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@galactica-net/snap-api", [\
-      ["npm:0.1.11", {\
-        "packageLocation": "./.yarn/cache/@galactica-net-snap-api-npm-0.1.11-d0f79ed0ea-78cbe5830c.zip/node_modules/@galactica-net/snap-api/",\
-        "packageDependencies": [\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
-          ["@galactica-net/galactica-types", "npm:0.2.4"],\
-          ["@types/node", "npm:20.11.25"],\
-          ["typescript", "patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4723,15 +4699,6 @@ const RAW_RUNTIME_STATE =
           ["@types/chrome", "npm:0.0.136"],\
           ["@types/filesystem", "npm:0.0.35"],\
           ["@types/har-format", "npm:1.2.15"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/circomlibjs", [\
-      ["npm:0.1.6", {\
-        "packageLocation": "./.yarn/cache/@types-circomlibjs-npm-0.1.6-ed3afb7472-96ca981b7f.zip/node_modules/@types/circomlibjs/",\
-        "packageDependencies": [\
-          ["@types/circomlibjs", "npm:0.1.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -14142,13 +14109,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["typescript", [\
-      ["patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c", {\
-        "packageLocation": "./.yarn/cache/typescript-patch-c145cea93e-f5f9a4133c.zip/node_modules/typescript/",\
-        "packageDependencies": [\
-          ["typescript", "patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c", {\
         "packageLocation": "./.yarn/cache/typescript-patch-6e159bfddb-760f7d92fb.zip/node_modules/typescript/",\
         "packageDependencies": [\
@@ -14950,7 +14910,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["web", "workspace:."],\
-          ["@galactica-net/snap-api", "npm:0.1.11"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.6"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.0"],\

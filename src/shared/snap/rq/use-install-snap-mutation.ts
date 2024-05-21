@@ -3,7 +3,7 @@ import invariant from "tiny-invariant";
 
 import { MutationOptions } from "shared/types";
 
-import { WalletRequestSnaps } from "../types";
+import { WalletRequestSnaps } from "../types/rpc-schema";
 import { useSnapClient } from "../wagmi";
 
 export type InstallSnapParams = {
@@ -14,7 +14,7 @@ export type InstallSnapParams = {
 type Data = WalletRequestSnaps["ReturnType"];
 
 export const useInstallSnapMutation = <TContext = unknown>(
-  options?: MutationOptions<Data, Error, InstallSnapParams, TContext>
+  options?: MutationOptions<Data, unknown, InstallSnapParams, TContext>
 ) => {
   const queryClient = useQueryClient();
 
