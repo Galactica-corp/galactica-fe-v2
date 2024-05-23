@@ -1,19 +1,22 @@
-import { Method, WalletMethod } from "../types";
+import {
+  WalletInvokeSnapMethod,
+  WalletMethod as WalletMethodType,
+} from "../types/rpc-schema";
 
 export function getKey<
-  TWalletMethod extends Exclude<WalletMethod, "wallet_invokeSnap">,
+  WalletMethod extends Exclude<WalletMethodType, "wallet_invokeSnap">,
   Params,
->(walletMethod: TWalletMethod, params: Params): ["snap", TWalletMethod, Params];
+>(walletMethod: WalletMethod, params: Params): ["snap", WalletMethod, Params];
 
 export function getKey<
-  TWalletMethod extends "wallet_invokeSnap",
-  TRequestMethod extends Method,
+  WalletMethod extends "wallet_invokeSnap",
+  RequestMethod extends WalletInvokeSnapMethod,
   Params,
 >(
-  walletMethod: TWalletMethod,
-  requestMethod: TRequestMethod,
+  walletMethod: WalletMethod,
+  requestMethod: RequestMethod,
   params: Params
-): ["snap", TWalletMethod, TRequestMethod, Params];
+): ["snap", WalletMethod, RequestMethod, Params];
 
 export function getKey(...args: unknown[]) {
   return ["snap", ...args];

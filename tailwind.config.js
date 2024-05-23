@@ -14,9 +14,7 @@ module.exports = {
       ptm: "Publico Text Mono",
     },
     extend: {
-      backgroundImage: {
-        certCardBg: "url('/cert-card-bg2.png')",
-      },
+      backgroundImage: {},
       backgroundPosition: {
         certCardBg: "left -203px top -128px",
       },
@@ -31,10 +29,12 @@ module.exports = {
         layout: ["sidebar main"],
       },
       opacity: {
+        2: "0.02",
         3: "0.03",
         4: "0.04",
         6: "0.06",
         7: "0.07",
+        8: "0.08",
       },
     },
     colors: {
@@ -66,7 +66,9 @@ module.exports = {
       santaGrey: "#98A2B3",
       caribbeanGreen: "#01C38C",
       pastelGrey: "#CDCDCD",
+      azure: "#0094FF",
       mistyRose: "#FEE5D7",
+      bianca: "#FFF9F5",
       alabaster: "#F9FAFB",
       blackCow: "#4E4845",
       aquaHaze: "#F3F3F2",

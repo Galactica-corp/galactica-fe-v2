@@ -1,1 +1,1 @@
-export type { SnapRpcSchema } from "./types";
+export type { SnapRpcSchema } from "./types/rpc-schema";

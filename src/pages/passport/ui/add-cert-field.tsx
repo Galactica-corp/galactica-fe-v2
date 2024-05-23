@@ -41,7 +41,7 @@ export const AddCertField = ({
         {reward && !disabled ? (
           <div className="relative h-[30px] w-[65px] rounded-lg bg-white">
             <div className="place-center absolute flex items-center">
-              <span className="orange-gradient font-semibold">{`+${reward}`}</span>
+              <span className="orange-gradient-text font-semibold">{`+${reward}`}</span>
               <Icon className="size-3" name="lightning" />
             </div>
           </div>
