@@ -19,7 +19,7 @@ export const Profile = ({ avatarUrl, action, className }: Props) => {
   return (
     <div className={twMerge("flex items-center gap-x-3", className)}>
       <Avatar avatarUrl={avatarUrl} />
-      <div className="mr-11 flex flex-col">
+      <div className="flex flex-col">
         <h4 className="inline-flex text-sm font-semibold text-pickledBluewood">
           Mike Tyson
         </h4>
@@ -28,7 +28,7 @@ export const Profile = ({ avatarUrl, action, className }: Props) => {
         </span>
       </div>
 
-      <div className="ml-auto">{action}</div>
+      <div className="ml-auto inline-flex shrink-0">{action}</div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { AnimationProps, motion } from "framer-motion";
 import { twJoin, twMerge } from "tailwind-merge";
+import { useDisconnect } from "wagmi";
 
 import { Avatar, Profile } from "entities/profile";
 import { Collapse } from "shared/ui/collapse";
@@ -37,6 +38,7 @@ const topGroupLinks: TLink[] = [
 
 export const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { disconnect } = useDisconnect();
 
   return (
     <motion.aside
@@ -126,14 +128,7 @@ export const Sidebar = () => {
       <div className="mt-6 flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
         {isExpanded ? (
           <Profile
-            action={
-              <Icon
-                name="logout"
-                onClick={() => {
-                  console.log("click");
-                }}
-              />
-            }
+            action={<Icon name="logout" onClick={() => disconnect()} />}
             className="grow"
           />
         ) : (
