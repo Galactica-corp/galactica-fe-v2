@@ -1,25 +1,45 @@
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useCallback } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
 
 import { twMerge } from "tailwind-merge";
+import { InternalRpcError } from "viem";
 
+import { EncryptedZkCert } from "shared/snap";
+import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Icon } from "shared/ui/icon";
 import { Spinner } from "shared/ui/spinner";
-import { sleep } from "shared/utils";
+import { readFileAsJSON } from "shared/utils";
 
 type UploadProps = {
   className?: string;
 };
 
 export const Upload = ({ className }: UploadProps) => {
-  const [loading, setLoading] = useState(false);
+  const mutation = useInvokeSnapMutation("importZkCert");
+  const mutateAsync = mutation.mutateAsync;
 
-  const onDrop = useCallback(async () => {
-    // test
-    setLoading(true);
-    await sleep(1000);
-    setLoading(false);
-  }, []);
+  const onDrop = useCallback(
+    async ([file]: File[], [rejectedFile]: FileRejection[]) => {
+      if (rejectedFile) {
+        // TODO: toast with error
+        return;
+      }
+
+      try {
+        const encryptedZkCert: EncryptedZkCert = await readFileAsJSON(file);
+        const response = await mutateAsync({
+          encryptedZkCert,
+          listZkCerts: true,
+        });
+        console.log(response);
+      } catch (error) {
+        if (error instanceof InternalRpcError) {
+          // TODO: toast
+        }
+      }
+    },
+    [mutateAsync]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -28,6 +48,7 @@ export const Upload = ({ className }: UploadProps) => {
     },
     maxFiles: 1,
   });
+
   return (
     <div
       className={twMerge(
@@ -37,7 +58,7 @@ export const Upload = ({ className }: UploadProps) => {
       )}
       {...getRootProps()}
     >
-      {loading ? (
+      {mutation.isPending ? (
         <Spinner />
       ) : (
         <div className="place-center absolute h-auto w-[300px]">

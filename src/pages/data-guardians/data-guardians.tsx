@@ -69,7 +69,11 @@ export const DataGuardians = () => {
             <div className="px-6">{guardian.total}</div>
             <div className="flex items-center gap-x-4 px-6">
               {guardian.socialCerts.map((cert) => (
-                <Icon className="size-5 min-h-5 min-w-5" name={cert} />
+                <Icon
+                  className="size-5 min-h-5 min-w-5"
+                  key={cert}
+                  name={cert}
+                />
               ))}
             </div>
             <div className="flex px-6">

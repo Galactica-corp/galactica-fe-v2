@@ -112,28 +112,10 @@ export const Sidebar = () => {
           </Collapse.Trigger>
           <Collapse.Content>Certificates</Collapse.Content>
         </Collapse>
-        <Collapse>
-          <Collapse.Trigger className="inline-flex">
-            {({ isOpen }) => (
-              <Item iconName="passwordLock">
-                {isExpanded && (
-                  <>
-                    My SBTs
-                    <Icon
-                      className={twJoin(
-                        "ml-auto size-5 text-mistBlue",
-                        isOpen && "rotate-180"
-                      )}
-                      name="chevronDown"
-                    />
-                  </>
-                )}
-              </Item>
-            )}
-          </Collapse.Trigger>
-          <Collapse.Content>My SBTs</Collapse.Content>
-        </Collapse>
-        <Link iconName="passwordLock" to="/my-achievements">
+        <Link iconName="passwordLock" to="/my-sbts">
+          {isExpanded && "My SBTs"}
+        </Link>
+        <Link iconName="trophy" to="/my-achievements">
           {isExpanded && "My Achievements"}
         </Link>
         <Link iconName="lifebuoy" to="/Support">
