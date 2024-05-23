@@ -68,6 +68,7 @@ const RAW_RUNTIME_STATE =
           ["react-dropzone", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.2.3"],\
           ["react-error-boundary", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.13"],\
           ["react-router-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:6.22.3"],\
+          ["react-toastify", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:10.0.5"],\
           ["shallowequal", "npm:1.1.0"],\
           ["tailwind-hamburgers", "npm:1.3.5"],\
           ["tailwind-merge", "npm:2.2.2"],\
@@ -6847,6 +6848,13 @@ const RAW_RUNTIME_STATE =
           ["clsx", "npm:1.2.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.1.1", {\
+        "packageLocation": "./.yarn/cache/clsx-npm-2.1.1-96125b98be-cdfb57fa6c.zip/node_modules/clsx/",\
+        "packageDependencies": [\
+          ["clsx", "npm:2.1.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["cluster-key-slot", [\
@@ -12558,6 +12566,33 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-toastify", [\
+      ["npm:10.0.5", {\
+        "packageLocation": "./.yarn/cache/react-toastify-npm-10.0.5-86b63c99fc-6630f4b6d6.zip/node_modules/react-toastify/",\
+        "packageDependencies": [\
+          ["react-toastify", "npm:10.0.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:10.0.5", {\
+        "packageLocation": "./.yarn/__virtual__/react-toastify-virtual-68634f5a2f/0/cache/react-toastify-npm-10.0.5-86b63c99fc-6630f4b6d6.zip/node_modules/react-toastify/",\
+        "packageDependencies": [\
+          ["react-toastify", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:10.0.5"],\
+          ["@types/react", "npm:18.2.77"],\
+          ["@types/react-dom", "npm:18.2.25"],\
+          ["clsx", "npm:2.1.1"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["read-cache", [\
       ["npm:1.0.0", {\
         "packageLocation": "./.yarn/cache/read-cache-npm-1.0.0-00fa89ed05-83a39149d9.zip/node_modules/read-cache/",\
@@ -14952,6 +14987,7 @@ const RAW_RUNTIME_STATE =
           ["react-dropzone", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.2.3"],\
           ["react-error-boundary", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.13"],\
           ["react-router-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:6.22.3"],\
+          ["react-toastify", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:10.0.5"],\
           ["shallowequal", "npm:1.1.0"],\
           ["tailwind-hamburgers", "npm:1.3.5"],\
           ["tailwind-merge", "npm:2.2.2"],\
