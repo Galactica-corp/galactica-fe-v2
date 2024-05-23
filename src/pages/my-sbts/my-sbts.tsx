@@ -1,9 +1,7 @@
 import { useState } from "react";
 
-import { twMerge } from "tailwind-merge";
-
 import { SBTCard } from "entities/sbt";
-import { Tab, Tabs } from "shared/ui/tabs";
+import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
 import { OriginalSBTBanner } from "./ui/originial-sbt-banner";
 
@@ -19,25 +17,19 @@ export const MySBTs = () => {
         <Tab
           className="gap-x-2"
           isActive={activeTab === "active"}
-          onClick={setActiveTab}
+          onClick={() => setActiveTab("active")}
           value="active"
         >
           Active SBTs
-          <span
-            className={twMerge(
-              "inline-flex size-5 items-center justify-center rounded-full border border-alabaster bg-white text-xs text-pickledBluewood",
-              activeTab === "active" && "border-mistyRose text-basketBallOrange"
-            )}
-          >
-            4
-          </span>
+          <TabIndicator isActive={activeTab === "active"}>4</TabIndicator>
         </Tab>
         <Tab
           isActive={activeTab === "expired"}
-          onClick={setActiveTab}
+          onClick={() => setActiveTab("expired")}
           value="expired"
         >
           Expired SBTs
+          <TabIndicator isActive={activeTab === "expired"}>1</TabIndicator>
         </Tab>
       </Tabs>
 

@@ -1,39 +1,41 @@
-import { ElementType, PropsWithChildren } from "react";
+import { ElementType, PropsWithChildren, useContext } from "react";
 
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
 import { ClassName, PolymorphicProps } from "shared/types";
 
-type Props<V> = {
+import { TabsContext } from "./context";
+
+type Props = {
   isActive?: boolean;
-  onClick?: (value: V) => void;
-  value: V;
+  onClick?: () => void;
 } & ClassName;
 
-export const Tab = <E extends ElementType = "li", V = void>(
-  props: PropsWithChildren<PolymorphicProps<E, Props<V>>>
+export const Tab = <E extends ElementType = "li">(
+  props: PropsWithChildren<PolymorphicProps<E, Props>>
 ) => {
   const {
     as: Comp = motion.li,
     children,
     className,
-    isActive = false,
+    isActive: isActiveProp = false,
     onClick,
-    value,
     ...restProps
   } = props;
+
+  const { lineLayoutId } = useContext(TabsContext);
+
+  const isActive = isActiveProp;
 
   return (
     <Comp
       className={twMerge(
-        "relative flex cursor-pointer items-center pb-3 text-sm text-mistBlue transition",
+        "relative flex cursor-pointer items-center gap-x-2 pb-3 text-sm text-mistBlue transition",
         isActive && "text-basketBallOrange",
         className
       )}
-      onClick={() => {
-        onClick?.(value);
-      }}
+      onClick={onClick}
       style={{
         WebkitTapHighlightColor: "transparent",
       }}
@@ -43,7 +45,7 @@ export const Tab = <E extends ElementType = "li", V = void>(
       {isActive && (
         <motion.span
           className="absolute inset-x-0 -bottom-px z-10 h-0.5 bg-basketBallOrange"
-          layoutId="bubble"
+          layoutId={`line-${lineLayoutId}`}
           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
         />
       )}

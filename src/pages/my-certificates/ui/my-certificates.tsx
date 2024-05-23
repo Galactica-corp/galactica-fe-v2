@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { KYCCard, KYCName } from "entities/kyc-card";
+import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
-import { Tab } from "./tab";
 import { Upload } from "./upload";
 
 export const MyCertificates = () => {
@@ -26,37 +26,41 @@ export const MyCertificates = () => {
   return (
     <div className="flex flex-col p-8">
       <h1 className="text-3xl font-semibold">My Certificates</h1>
-      <div className="mb-8 mt-6 flex space-x-3 border-b border-b-iron">
-        <Tab active={active === 1} onClick={() => setActive(1)}>
+      <Tabs className="mb-8 mt-6">
+        <Tab isActive={active === 1} onClick={() => setActive(1)}>
           My KYCs
         </Tab>
-        <Tab active={active === 2} onClick={() => setActive(2)}>
+        <Tab isActive={active === 2} onClick={() => setActive(2)}>
           My Social Accounts
         </Tab>
-        <Tab active={active === 3} onClick={() => setActive(3)}>
+        <Tab isActive={active === 3} onClick={() => setActive(3)}>
           Other Certificates
         </Tab>
-      </div>
+      </Tabs>
       <Upload className={hasCertificates ? "max-h-[170px]" : ""} />
 
       {hasCertificates ? (
         <>
-          <div className="mt-6 flex space-x-3 border-b border-b-iron">
+          <Tabs className="mt-6">
             <Tab
-              active={activeBottom === 1}
-              indicator={activeCerts.length}
+              isActive={activeBottom === 1}
               onClick={() => setActiveBottom(1)}
             >
               Active KYCs
+              <TabIndicator isActive={activeBottom === 1}>
+                {activeCerts.length}
+              </TabIndicator>
             </Tab>
             <Tab
-              active={activeBottom === 2}
-              indicator={expiredCerts.length}
+              isActive={activeBottom === 2}
               onClick={() => setActiveBottom(2)}
             >
               Expired KYCs
+              <TabIndicator isActive={activeBottom === 2}>
+                {expiredCerts.length}
+              </TabIndicator>
             </Tab>
-          </div>
+          </Tabs>
           <div className="grid grid-cols-[repeat(3,338px)] gap-8">
             {activeBottom === 1
               ? activeCerts.map((cert) => (
