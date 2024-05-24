@@ -10,7 +10,7 @@ import { Spinner } from "shared/ui/spinner";
 export const Auth = () => {
   const { isConnected } = useAccount();
   const { data, isPending } = useGetSnapQuery();
-  const [holdAnimation, setHoldAnimation] = useState(!isConnected);
+  const [holdAnimation, setHoldAnimation] = useState(!isConnected || !data);
 
   const onComplete = () => {
     setHoldAnimation(false);

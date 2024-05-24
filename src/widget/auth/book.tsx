@@ -1,59 +1,43 @@
-import { useCallback, useState } from "react";
+import { Variant, motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
+import { useAccount } from "wagmi";
 
-import { motion, useAnimate } from "framer-motion";
-import { useAccount, useAccountEffect } from "wagmi";
+import { useGetSnapQuery } from "shared/snap/rq";
 
 type Props = {
   children: React.ReactNode;
   onComplete?(): void;
 };
 
+const duration = 1;
+
+const open: Variant = {
+  rotateY: -180,
+  z: 10,
+  transition: { rotateY: { duration } },
+};
+
+const close: Variant = {
+  rotateY: 0,
+  z: 0,
+  transition: { rotateY: { duration } },
+};
+
 export const Book = ({ children, onComplete }: Props) => {
-  const duration = 2;
   const { isConnected } = useAccount();
+  const { data } = useGetSnapQuery();
 
-  const onStart = useCallback(() => {
-    // может, придется добавить глобальный класс для body, пока неизвестно
-    document.body.classList.add("no-scrollbar");
-  }, []);
-
-  const onEnd = useCallback(() => {
-    document.body.classList.remove("no-scrollbar");
-    onComplete?.();
-  }, [onComplete]);
-
-  const [zIndex, setZIndex] = useState(2);
-  const [scope, animate] = useAnimate();
-
-  const run = useCallback(() => {
-    animate(
-      scope.current,
-      { translateX: "50%" },
-      {
-        duration: 2,
-        onComplete: onEnd,
-        onPlay: onStart,
-        onUpdate: (x) => {
-          if (x > 10) setZIndex(0);
-        },
-      }
-    );
-  }, [onEnd, onStart, animate, scope]);
-
-  useAccountEffect({
-    onConnect() {
-      run();
-    },
-  });
+  const isAuthorized = isConnected && data;
 
   return (
     <div className="relative w-full">
       <motion.div
+        animate={
+          isAuthorized ? { x: "50%", transition: { duration } } : { x: 0 }
+        }
         className="relative m-auto h-[665px] w-[480px] rounded-xl shadow-2xl"
         initial={false}
-        onAnimationComplete={onEnd}
-        onAnimationStart={onStart}
-        ref={scope}
+        onAnimationComplete={onComplete}
         style={{
           perspective: "2000px",
           transformStyle: "preserve-3d",
@@ -62,20 +46,22 @@ export const Book = ({ children, onComplete }: Props) => {
           translateX: { duration: 2 },
         }}
       >
+        <img
+          className={twMerge(
+            "relative size-full object-cover",
+            isAuthorized && "z-10 -translate-x-1"
+          )}
+          src={"/passport/page.png"}
+        />
         <motion.div
-          animate={{
-            rotateY: isConnected ? -180 : 0,
-            transition: { rotateY: { duration } },
-          }}
+          animate={isAuthorized ? "open" : "close"}
           className="absolute left-0 top-0 size-full rounded-xl"
-          initial={false}
           style={{
             backfaceVisibility: "hidden",
-            position: "absolute",
             transformOrigin: "left",
             transformStyle: "preserve-3d",
-            zIndex,
           }}
+          variants={{ open, close }}
         >
           {children}
           <img
@@ -87,12 +73,6 @@ export const Book = ({ children, onComplete }: Props) => {
             }}
           />
         </motion.div>
-        <div className="absolute left-0 top-0 size-full">
-          <img
-            className="absolute left-0 top-0 size-full object-cover"
-            src={"/passport/page.png"}
-          />
-        </div>
       </motion.div>
     </div>
   );
