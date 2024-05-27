@@ -1,5 +1,0 @@
-mutation ConfirmFollow {
-  confirmFollow {
-    success
-  }
-}

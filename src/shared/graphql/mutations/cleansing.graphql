@@ -1,5 +1,0 @@
-mutation Cleansing {
-  cleansing {
-    success
-  }
-}

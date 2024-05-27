@@ -1,5 +1,0 @@
-mutation BindWalletToTwitterAccount($walletAddress: String!) {
-  bindWalletToTwitterAccount(walletAddress: $walletAddress) {
-    success
-  }
-}
