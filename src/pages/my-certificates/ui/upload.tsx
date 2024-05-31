@@ -1,8 +1,9 @@
 import { useCallback } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 
 import { twMerge } from "tailwind-merge";
-import { InternalRpcError } from "viem";
+import { RpcError } from "viem";
 
 import { EncryptedZkCert } from "shared/snap";
 import { useInvokeSnapMutation } from "shared/snap/rq";
@@ -21,7 +22,7 @@ export const Upload = ({ className }: UploadProps) => {
   const onDrop = useCallback(
     async ([file]: File[], [rejectedFile]: FileRejection[]) => {
       if (rejectedFile) {
-        // TODO: toast with error
+        toast.error("Selected file is wrong");
         return;
       }
 
@@ -33,9 +34,10 @@ export const Upload = ({ className }: UploadProps) => {
         });
         console.log(response);
       } catch (error) {
-        if (error instanceof InternalRpcError) {
-          // TODO: toast
-        }
+        if (error instanceof RpcError) return toast.error(error.message);
+
+        // TODO: sentry event
+        toast("Something went wrong");
       }
     },
     [mutateAsync]

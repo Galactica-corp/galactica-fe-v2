@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimationProps, motion } from "framer-motion";
 import { twJoin, twMerge } from "tailwind-merge";
 import { useDisconnect } from "wagmi";
@@ -37,7 +36,10 @@ const topGroupLinks: TLink[] = [
 ];
 
 export const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useLocalStorage(
+    "is-sidebar-expanded",
+    false
+  );
   const { disconnect } = useDisconnect();
 
   return (
@@ -93,27 +95,9 @@ export const Sidebar = () => {
         <Link iconName="stars" to="/my-passports">
           {isExpanded && "My passport"}
         </Link>
-        <Collapse>
-          <Collapse.Trigger className="inline-flex">
-            {({ isOpen }) => (
-              <Item iconName="certificate">
-                {isExpanded && (
-                  <>
-                    My Certificates
-                    <Icon
-                      className={twJoin(
-                        "ml-auto size-5 text-mistBlue",
-                        isOpen && "rotate-180"
-                      )}
-                      name="chevronDown"
-                    />
-                  </>
-                )}
-              </Item>
-            )}
-          </Collapse.Trigger>
-          <Collapse.Content>Certificates</Collapse.Content>
-        </Collapse>
+        <Link iconName="certificate" to="/my-certificates">
+          {isExpanded && "My Certificates"}
+        </Link>
         <Link iconName="passwordLock" to="/my-sbts">
           {isExpanded && "My SBTs"}
         </Link>
@@ -128,7 +112,13 @@ export const Sidebar = () => {
       <div className="mt-6 flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
         {isExpanded ? (
           <Profile
-            action={<Icon name="logout" onClick={() => disconnect()} />}
+            action={
+              <Icon
+                className="cursor-pointer transition-colors hover:brightness-150"
+                name="logout"
+                onClick={() => disconnect()}
+              />
+            }
             className="grow"
           />
         ) : (

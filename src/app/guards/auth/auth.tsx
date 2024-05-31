@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
+import { useSessionStorage } from "@uidotdev/usehooks";
 import { useAccount } from "wagmi";
 import { Auth as AuthWidget } from "widget/auth";
 
@@ -10,7 +10,10 @@ import { Spinner } from "shared/ui/spinner";
 export const Auth = () => {
   const { isConnected } = useAccount();
   const { data, isPending } = useGetSnapQuery();
-  const [holdAnimation, setHoldAnimation] = useState(!isConnected || !data);
+  const [holdAnimation, setHoldAnimation] = useSessionStorage(
+    "hold-passport-animation",
+    !isConnected
+  );
 
   const onComplete = () => {
     setHoldAnimation(false);
