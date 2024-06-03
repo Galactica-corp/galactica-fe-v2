@@ -32,7 +32,7 @@ const router = createBrowserRouter([
           { path: "/data-guardians", element: <DataGuardiansPage /> },
           { path: "/my-sbts", element: <MySBTsPage /> },
           { path: "/my-certificates", element: <MyCertificatesPage /> },
-          { path: "*", element: <div>Not found</div> },
+          // { path: "*", element: <div>Not found</div> },
         ],
       },
     ],

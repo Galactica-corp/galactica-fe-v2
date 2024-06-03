@@ -1,14 +1,14 @@
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimationProps, motion } from "framer-motion";
-import { twJoin, twMerge } from "tailwind-merge";
-import { useDisconnect } from "wagmi";
+import { twMerge } from "tailwind-merge";
+import { useAccount, useDisconnect } from "wagmi";
 
 import { Avatar, Profile } from "entities/profile";
-import { Collapse } from "shared/ui/collapse";
+import { ConnectWalletButton } from "features/connect-wallet";
+import { useGetSnapQuery } from "shared/snap/rq";
 import { Icon, IconName } from "shared/ui/icon";
 import { Logo } from "shared/ui/logo";
 
-import { Item } from "./item";
 import { Link } from "./link";
 
 type TLink = {
@@ -19,9 +19,19 @@ type TLink = {
 
 const topGroupLinks: TLink[] = [
   {
-    iconName: "shieldZap",
-    to: "/validators",
-    text: "Validators",
+    iconName: "stars",
+    to: "/",
+    text: "My passport",
+  },
+  {
+    iconName: "passwordLock",
+    to: "my-sbts",
+    text: "My SBTs",
+  },
+  {
+    iconName: "certificate",
+    to: "/my-certificates",
+    text: "My Certificates",
   },
   {
     iconName: "faceId",
@@ -41,6 +51,8 @@ export const Sidebar = () => {
     false
   );
   const { disconnect } = useDisconnect();
+  const { isConnected } = useAccount();
+  const query = useGetSnapQuery();
 
   return (
     <motion.aside
@@ -66,50 +78,32 @@ export const Sidebar = () => {
             </Link>
           );
         })}
-        <Collapse>
-          <Collapse.Trigger className="inline-flex">
-            {({ isOpen }) => (
-              <Item iconName="building">
-                {isExpanded && (
-                  <>
-                    Governance
-                    <Icon
-                      className={twJoin(
-                        "ml-auto size-5 text-mistBlue",
-                        isOpen && "rotate-180"
-                      )}
-                      name="chevronDown"
-                    />
-                  </>
-                )}
-              </Item>
-            )}
-          </Collapse.Trigger>
-          <Collapse.Content>
-            Content <br /> <br /> CONTENT
-          </Collapse.Content>
-        </Collapse>
       </nav>
+      {(!isConnected || !query.data) && (
+        <div className="flex flex-col px-4">
+          <p className="mb-2 text-sm font-medium text-riverBed">
+            To unlock the pages
+          </p>
+          <ConnectWalletButton
+            className="h-9 w-full gap-1.5 text-sm font-semibold"
+            connectContent={
+              <>
+                <Icon className="size-5" name="metamask" />
+                Connect Metamask
+              </>
+            }
+            installSnapContent={
+              <>
+                <Icon name="galactica" />
+                Install Metamask SNAP
+              </>
+            }
+            theme="basketBallOrange-transparent"
+          />
+        </div>
+      )}
 
-      <nav className="mt-auto flex flex-col gap-y-1 px-4">
-        <Link iconName="stars" to="/my-passports">
-          {isExpanded && "My passport"}
-        </Link>
-        <Link iconName="certificate" to="/my-certificates">
-          {isExpanded && "My Certificates"}
-        </Link>
-        <Link iconName="passwordLock" to="/my-sbts">
-          {isExpanded && "My SBTs"}
-        </Link>
-        <Link iconName="trophy" to="/my-achievements">
-          {isExpanded && "My Achievements"}
-        </Link>
-        <Link iconName="lifebuoy" to="/Support">
-          {isExpanded && "Support"}
-        </Link>
-      </nav>
-
-      <div className="mt-6 flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
+      <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
         {isExpanded ? (
           <Profile
             action={
