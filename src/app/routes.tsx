@@ -3,7 +3,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { DataGuardiansPage } from "pages/data-guardians";
 import { ErrorPage } from "pages/error";
-// import { HomePage } from "pages/home";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { MyCertificatesPage } from "pages/my-certificates";
 import { MySBTsPage } from "pages/my-sbts";
@@ -18,23 +17,25 @@ const router = createBrowserRouter([
     // Global error-boundary
     errorElement: <ErrorPage />,
     children: [
+      { path: "/data-guardians", element: <DataGuardiansPage /> },
+      { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
       {
-        element: <AuthGuard />,
+        element: <AuthGuard level="metamask" />,
         children: [
           {
             path: "/",
             element: <PassportPage />,
           },
-          {
-            path: "/kyc-guardians",
-            element: <KYCGuardiansPage />,
-          },
-          { path: "/data-guardians", element: <DataGuardiansPage /> },
           { path: "/my-sbts", element: <MySBTsPage /> },
-          { path: "/my-certificates", element: <MyCertificatesPage /> },
-          // { path: "*", element: <div>Not found</div> },
         ],
       },
+      {
+        element: <AuthGuard level="snap" />,
+        children: [
+          { path: "/my-certificates", element: <MyCertificatesPage /> },
+        ],
+      },
+      { path: "*", element: <div>Not found</div> },
     ],
   },
 ]);

@@ -12,38 +12,11 @@ import { Logo } from "shared/ui/logo";
 import { Link } from "./link";
 
 type TLink = {
+  disabled: boolean;
   iconName: IconName;
   text: string;
   to: string;
 };
-
-const topGroupLinks: TLink[] = [
-  {
-    iconName: "stars",
-    to: "/",
-    text: "My passport",
-  },
-  {
-    iconName: "passwordLock",
-    to: "my-sbts",
-    text: "My SBTs",
-  },
-  {
-    iconName: "certificate",
-    to: "/my-certificates",
-    text: "My Certificates",
-  },
-  {
-    iconName: "faceId",
-    to: "/kyc-guardians",
-    text: "KYC Guardians",
-  },
-  {
-    iconName: "scan",
-    to: "/data-guardians",
-    text: "Data Guardians",
-  },
-];
 
 export const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useLocalStorage(
@@ -53,6 +26,41 @@ export const Sidebar = () => {
   const { disconnect } = useDisconnect();
   const { isConnected } = useAccount();
   const query = useGetSnapQuery();
+
+  const links: TLink[] = [
+    {
+      iconName: "stars",
+      to: "/",
+      text: "My passport",
+      disabled: !isConnected,
+    },
+    {
+      iconName: "passwordLock",
+      to: "my-sbts",
+      text: "My SBTs",
+      disabled: !isConnected,
+    },
+    {
+      iconName: "certificate",
+      to: "/my-certificates",
+      text: "My Certificates",
+      disabled: !isConnected || !query.data,
+    },
+    {
+      iconName: "faceId",
+      to: "/kyc-guardians",
+      text: "KYC Guardians",
+      disabled: false,
+    },
+    {
+      iconName: "scan",
+      to: "/data-guardians",
+      text: "Data Guardians",
+      disabled: false,
+    },
+  ];
+
+  const sortedLinks = links.sort((a) => (a.disabled ? 1 : -1));
 
   return (
     <motion.aside
@@ -71,31 +79,51 @@ export const Sidebar = () => {
         }}
       />
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
-        {topGroupLinks.map(({ text, iconName, to }) => {
+        {sortedLinks.map(({ text, iconName, to, disabled }) => {
           return (
-            <Link iconName={iconName} key={iconName} to={to}>
+            <Link
+              disabled={disabled}
+              iconName={iconName}
+              key={iconName}
+              to={to}
+            >
               {isExpanded && text}
             </Link>
           );
         })}
       </nav>
-      {(!isConnected || !query.data) && (
+      {(!isConnected || (query.isSuccess && !query.data)) && (
         <div className="flex flex-col px-4">
-          <p className="mb-2 text-sm font-medium text-riverBed">
+          <p
+            className={twMerge(
+              "mb-2 whitespace-nowrap text-sm font-medium text-riverBed opacity-0",
+              isExpanded && "opacity-100"
+            )}
+          >
             To unlock the pages
           </p>
           <ConnectWalletButton
-            className="h-9 w-full gap-1.5 text-sm font-semibold"
+            className={
+              "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold"
+            }
             connectContent={
               <>
                 <Icon className="size-5" name="metamask" />
-                Connect Metamask
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Connect Metamask
+                  </motion.div>
+                )}
               </>
             }
             installSnapContent={
               <>
                 <Icon name="galactica" />
-                Install Metamask SNAP
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Install Metamask SNAP
+                  </motion.div>
+                )}
               </>
             }
             theme="basketBallOrange-transparent"
@@ -128,6 +156,7 @@ const sidebarVariants: AnimationProps["variants"] = {
     width: "312px",
   },
   collapsed: {
+    animationDelay: "1",
     width: "80px",
   },
 };
