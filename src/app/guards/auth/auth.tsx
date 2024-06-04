@@ -1,16 +1,23 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
+import { useSessionStorage } from "@uidotdev/usehooks";
 import { useAccount } from "wagmi";
-import { Auth as AuthWidget } from "widget/auth";
+import { AuthLevel, Auth as AuthWidget } from "widget/auth";
 
 import { useGetSnapQuery } from "shared/snap/rq";
 import { Spinner } from "shared/ui/spinner";
 
-export const Auth = () => {
+type Props = {
+  level: AuthLevel;
+};
+
+export const Auth = ({ level }: Props) => {
   const { isConnected } = useAccount();
   const { data, isPending } = useGetSnapQuery();
-  const [holdAnimation, setHoldAnimation] = useState(!isConnected || !data);
+  const [holdAnimation, setHoldAnimation] = useSessionStorage(
+    "hold-passport-animation",
+    !isConnected
+  );
 
   const onComplete = () => {
     setHoldAnimation(false);
@@ -24,11 +31,13 @@ export const Auth = () => {
     );
   }
 
-  if (isConnected && data && !holdAnimation) return <Outlet />;
+  if (level === "metamask" && isConnected && !holdAnimation) return <Outlet />;
+  if (level === "snap" && isConnected && data && !holdAnimation)
+    return <Outlet />;
 
   return (
     <div className="flex grow items-center py-9">
-      <AuthWidget className="m-auto" onComplete={onComplete} />
+      <AuthWidget className="m-auto" level={level} onComplete={onComplete} />
     </div>
   );
 };

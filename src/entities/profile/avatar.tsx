@@ -2,11 +2,13 @@ import { twMerge } from "tailwind-merge";
 
 import { ClassName } from "shared/types";
 
+import defaultAvatarPng from "./default-avatar.png";
+
 type Props = {
   avatarUrl?: string;
 } & ClassName;
 
-export const Avatar = ({ className, avatarUrl }: Props) => {
+export const Avatar = ({ className, avatarUrl = defaultAvatarPng }: Props) => {
   return (
     <div
       className={twMerge(

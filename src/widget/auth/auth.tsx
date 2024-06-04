@@ -5,15 +5,17 @@ import { ConnectWalletButton } from "features/connect-wallet";
 import { Book } from "./book";
 import galacticaNetworkSrc from "./galactica-network.svg";
 import swirlSrc from "./swirl.png";
+import { AuthLevel } from "./types";
 
 type Props = {
   className?: string;
+  level: AuthLevel;
   onComplete?(): void;
 };
 
-export const Auth = ({ className, ...props }: Props) => {
+export const Auth = ({ level, className, ...props }: Props) => {
   return (
-    <Book onComplete={props.onComplete}>
+    <Book level={level} onComplete={props.onComplete}>
       <div
         className="absolute left-0 top-0 size-full rounded-xl bg-whiteSmoke object-cover"
         style={{ backfaceVisibility: "hidden" }}

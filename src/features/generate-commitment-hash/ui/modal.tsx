@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 
+import { RpcError } from "viem";
+
 import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
@@ -16,6 +18,7 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
   const mutation = useInvokeSnapMutation("getHolderCommitment");
 
   const onGenerateCommitmentHash = (data: HolderCommitmentData) => {
+    console.log("onGenerateCommitmentHash", data);
     const url = new URL(redirectLink);
     url.searchParams.append("holderCommitment", data.holderCommitment);
     url.searchParams.append("encryptionPubKey", data.encryptionPubKey);
@@ -35,8 +38,10 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
         console.log(data);
         onGenerateCommitmentHash(data);
       },
-      onError: () => {
-        // TODO: Alert
+      onError: (error) => {
+        if (error instanceof RpcError) return toast.error(error.message);
+
+        toast.error("Something went wrong");
       },
     });
   };

@@ -21,11 +21,8 @@ export const Profile = ({ avatarUrl, action, className }: Props) => {
       <Avatar avatarUrl={avatarUrl} />
       <div className="flex flex-col">
         <h4 className="inline-flex text-sm font-semibold text-pickledBluewood">
-          Mike Tyson
-        </h4>
-        <span className="inline-flex text-sm text-riverBed">
           {shortAddress(address, 9, 8)}
-        </span>
+        </h4>
       </div>
 
       <div className="ml-auto inline-flex shrink-0">{action}</div>

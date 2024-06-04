@@ -1,44 +1,64 @@
-import { useState } from "react";
-
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimationProps, motion } from "framer-motion";
-import { twJoin, twMerge } from "tailwind-merge";
-import { useDisconnect } from "wagmi";
+import { twMerge } from "tailwind-merge";
+import { useAccount, useDisconnect } from "wagmi";
 
 import { Avatar, Profile } from "entities/profile";
-import { Collapse } from "shared/ui/collapse";
+import { ConnectWalletButton } from "features/connect-wallet";
+import { useGetSnapQuery } from "shared/snap/rq";
 import { Icon, IconName } from "shared/ui/icon";
 import { Logo } from "shared/ui/logo";
 
-import { Item } from "./item";
 import { Link } from "./link";
 
 type TLink = {
+  disabled: boolean;
   iconName: IconName;
   text: string;
   to: string;
 };
 
-const topGroupLinks: TLink[] = [
-  {
-    iconName: "shieldZap",
-    to: "/validators",
-    text: "Validators",
-  },
-  {
-    iconName: "faceId",
-    to: "/kyc-guardians",
-    text: "KYC Guardians",
-  },
-  {
-    iconName: "scan",
-    to: "/data-guardians",
-    text: "Data Guardians",
-  },
-];
-
 export const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useLocalStorage(
+    "is-sidebar-expanded",
+    false
+  );
   const { disconnect } = useDisconnect();
+  const { isConnected } = useAccount();
+  const query = useGetSnapQuery();
+
+  const links: TLink[] = [
+    {
+      iconName: "stars",
+      to: "/",
+      text: "My passport",
+      disabled: !isConnected,
+    },
+    {
+      iconName: "passwordLock",
+      to: "my-sbts",
+      text: "My SBTs",
+      disabled: !isConnected,
+    },
+    {
+      iconName: "certificate",
+      to: "/my-certificates",
+      text: "My Certificates",
+      disabled: !isConnected || !query.data,
+    },
+    {
+      iconName: "faceId",
+      to: "/kyc-guardians",
+      text: "KYC Guardians",
+      disabled: false,
+    },
+    {
+      iconName: "scan",
+      to: "/data-guardians",
+      text: "Data Guardians",
+      disabled: false,
+    },
+  ];
 
   return (
     <motion.aside
@@ -57,78 +77,68 @@ export const Sidebar = () => {
         }}
       />
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
-        {topGroupLinks.map(({ text, iconName, to }) => {
+        {links.map(({ text, iconName, to, disabled }) => {
           return (
-            <Link iconName={iconName} key={iconName} to={to}>
+            <Link
+              disabled={disabled}
+              iconName={iconName}
+              key={iconName}
+              to={to}
+            >
               {isExpanded && text}
             </Link>
           );
         })}
-        <Collapse>
-          <Collapse.Trigger className="inline-flex">
-            {({ isOpen }) => (
-              <Item iconName="building">
-                {isExpanded && (
-                  <>
-                    Governance
-                    <Icon
-                      className={twJoin(
-                        "ml-auto size-5 text-mistBlue",
-                        isOpen && "rotate-180"
-                      )}
-                      name="chevronDown"
-                    />
-                  </>
-                )}
-              </Item>
-            )}
-          </Collapse.Trigger>
-          <Collapse.Content>
-            Content <br /> <br /> CONTENT
-          </Collapse.Content>
-        </Collapse>
       </nav>
-
-      <nav className="mt-auto flex flex-col gap-y-1 px-4">
-        <Link iconName="stars" to="/my-passports">
-          {isExpanded && "My passport"}
-        </Link>
-        <Collapse>
-          <Collapse.Trigger className="inline-flex">
-            {({ isOpen }) => (
-              <Item iconName="certificate">
-                {isExpanded && (
-                  <>
-                    My Certificates
-                    <Icon
-                      className={twJoin(
-                        "ml-auto size-5 text-mistBlue",
-                        isOpen && "rotate-180"
-                      )}
-                      name="chevronDown"
-                    />
-                  </>
-                )}
-              </Item>
+      {(!isConnected || (query.isSuccess && !query.data)) && (
+        <div className="flex flex-col px-4">
+          <p
+            className={twMerge(
+              "mb-2 whitespace-nowrap text-sm font-medium text-riverBed opacity-0",
+              isExpanded && "opacity-100"
             )}
-          </Collapse.Trigger>
-          <Collapse.Content>Certificates</Collapse.Content>
-        </Collapse>
-        <Link iconName="passwordLock" to="/my-sbts">
-          {isExpanded && "My SBTs"}
-        </Link>
-        <Link iconName="trophy" to="/my-achievements">
-          {isExpanded && "My Achievements"}
-        </Link>
-        <Link iconName="lifebuoy" to="/Support">
-          {isExpanded && "Support"}
-        </Link>
-      </nav>
+          >
+            To unlock the pages
+          </p>
+          <ConnectWalletButton
+            className={
+              "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold"
+            }
+            connectContent={
+              <>
+                <Icon className="size-5" name="metamask" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Connect Metamask
+                  </motion.div>
+                )}
+              </>
+            }
+            installSnapContent={
+              <>
+                <Icon name="galactica" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Install Metamask SNAP
+                  </motion.div>
+                )}
+              </>
+            }
+            theme="basketBallOrange-transparent"
+          />
+        </div>
+      )}
 
-      <div className="mt-6 flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
+      <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
         {isExpanded ? (
           <Profile
-            action={<Icon name="logout" onClick={() => disconnect()} />}
+            action={
+              <Icon
+                className="cursor-pointer transition-colors hover:brightness-150"
+                name="logout"
+                onClick={() => disconnect()}
+              />
+            }
             className="grow"
           />
         ) : (
@@ -144,6 +154,7 @@ const sidebarVariants: AnimationProps["variants"] = {
     width: "312px",
   },
   collapsed: {
+    animationDelay: "1",
     width: "80px",
   },
 };

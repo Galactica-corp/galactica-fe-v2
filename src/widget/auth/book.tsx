@@ -4,8 +4,11 @@ import { useAccount } from "wagmi";
 
 import { useGetSnapQuery } from "shared/snap/rq";
 
+import { AuthLevel } from "./types";
+
 type Props = {
   children: React.ReactNode;
+  level: AuthLevel;
   onComplete?(): void;
 };
 
@@ -23,11 +26,13 @@ const close: Variant = {
   transition: { rotateY: { duration } },
 };
 
-export const Book = ({ children, onComplete }: Props) => {
+export const Book = ({ level, children, onComplete }: Props) => {
   const { isConnected } = useAccount();
   const { data } = useGetSnapQuery();
 
-  const isAuthorized = isConnected && data;
+  const isAuthorized =
+    (level === "metamask" && isConnected) ||
+    (level === "snap" && isConnected && data);
 
   return (
     <div className="relative w-full">

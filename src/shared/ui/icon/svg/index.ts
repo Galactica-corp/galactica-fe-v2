@@ -15,6 +15,7 @@ export { default as linkedin } from "./linkedin-social.svg?react";
 export { default as logo } from "./logo.svg?react";
 export { default as logout } from "./logout.svg?react";
 export { default as message } from "./message.svg?react";
+export { default as metamask } from "./metamask.svg?react";
 export { default as occamDataGuardian } from "./occam-data-guardian.svg?react";
 export { default as passwordLock } from "./password-lock.svg?react";
 export { default as plus } from "./plus.svg?react";
