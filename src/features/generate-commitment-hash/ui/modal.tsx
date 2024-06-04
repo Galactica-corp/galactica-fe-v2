@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
@@ -18,12 +20,19 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
     url.searchParams.append("holderCommitment", data.holderCommitment);
     url.searchParams.append("encryptionPubKey", data.encryptionPubKey);
 
-    window.open(url.toString(), "_self");
+    // window.open(url.toString(), "_blank");
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(JSON.stringify(mutation.data)).then(() => {
+      toast.success("Copied");
+    });
   };
 
   const handleClick = () => {
     mutation.mutate(undefined, {
       onSuccess: (data) => {
+        console.log(data);
         onGenerateCommitmentHash(data);
       },
       onError: () => {
@@ -50,14 +59,23 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
               To begin the zkKYC procedure you need to generate a Commitment
               Hash. Only you will know that the wallet address belongs to you.
             </p>
+            {mutation.data ? (
+              <Button
+                className="mt-8 h-11 self-stretch font-semibold"
+                onClick={handleCopy}
+              >
+                Copy
+              </Button>
+            ) : (
+              <Button
+                className="mt-8 h-11 self-stretch font-semibold"
+                isLoading={mutation.isPending}
+                onClick={handleClick}
+              >
+                Generate & Start KYC
+              </Button>
+            )}
 
-            <Button
-              className="mt-8 h-11 self-stretch font-semibold"
-              isLoading={mutation.isPending}
-              onClick={handleClick}
-            >
-              Generate & Start KYC
-            </Button>
             <a
               className="mt-2.5 inline-flex text-sm text-riverBed underline"
               href="#"
