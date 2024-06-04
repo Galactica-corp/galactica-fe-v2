@@ -60,8 +60,6 @@ export const Sidebar = () => {
     },
   ];
 
-  const sortedLinks = links.sort((a) => (a.disabled ? 1 : -1));
-
   return (
     <motion.aside
       animate={isExpanded ? "expanded" : "collapsed"}
@@ -79,7 +77,7 @@ export const Sidebar = () => {
         }}
       />
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
-        {sortedLinks.map(({ text, iconName, to, disabled }) => {
+        {links.map(({ text, iconName, to, disabled }) => {
           return (
             <Link
               disabled={disabled}
