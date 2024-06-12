@@ -1,12 +1,26 @@
+import { useEffect, useState } from "react";
+
 import { motion } from "framer-motion";
 
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
+import { sleep } from "shared/utils";
 
 import { AddCertField, Field, UploadKYC } from ".";
 
 export const Passport = () => {
-  const loading = false;
+  const [loaded, setLoaded] = useState(false);
+
+  const fn = async () => {
+    await sleep(1000);
+    setLoaded(true);
+  };
+
+  useEffect(() => {
+    fn();
+  });
+
+  const loading = loaded === false;
 
   return (
     <motion.div

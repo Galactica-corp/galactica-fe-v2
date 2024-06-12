@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { useSessionStorage } from "@uidotdev/usehooks";
-import { useAccount } from "wagmi";
+import { useAccount, useAccountEffect } from "wagmi";
 import { AuthLevel, Auth as AuthWidget } from "widget/auth";
 
 import { useGetSnapQuery } from "shared/snap/rq";
@@ -18,12 +18,19 @@ export const Auth = ({ level }: Props) => {
     "hold-passport-animation",
     !isConnected
   );
+  const location = useLocation();
+
+  useAccountEffect({
+    onDisconnect() {
+      setHoldAnimation(true);
+    },
+  });
 
   const onComplete = () => {
     setHoldAnimation(false);
   };
 
-  if (isPending && isConnected && !holdAnimation) {
+  if (isPending && isConnected && !holdAnimation && location.pathname !== "/") {
     return (
       <div className="flex grow items-center justify-center">
         <Spinner />
