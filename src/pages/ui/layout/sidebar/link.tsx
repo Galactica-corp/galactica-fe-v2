@@ -11,8 +11,8 @@ import { Item } from "./item";
 type Props = {
   disabled?: boolean;
   iconName: IconName;
-} & Omit<NavLinkProps, "className"> &
-  ClassName;
+} & ClassName &
+  Omit<NavLinkProps, "className">;
 
 export const Link = ({
   iconName,

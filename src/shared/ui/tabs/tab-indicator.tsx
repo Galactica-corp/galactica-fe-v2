@@ -4,9 +4,9 @@ import { twMerge } from "tailwind-merge";
 
 import { ClassName } from "shared/types";
 
-type Props = ClassName & {
+type Props = {
   isActive?: boolean;
-};
+} & ClassName;
 
 export const TabIndicator = ({
   children,

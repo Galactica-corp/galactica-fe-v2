@@ -20,7 +20,7 @@ const animate = { rotate: 360 };
 export const Spinner = ({
   className,
   theme = "basketBallOrange",
-}: Props & ClassName) => {
+}: ClassName & Props) => {
   return (
     <motion.svg
       animate={animate}
