@@ -48,9 +48,13 @@ export const Upload = ({ className }: UploadProps) => {
         return;
       }
 
-      const hashesResponse = await queryClient.fetchQuery(
-        getZkCertStorageHashesQueryOptions({ chainId, address, client })
-      );
+      const queryOptions = getZkCertStorageHashesQueryOptions({
+        chainId,
+        address,
+        client,
+      });
+      const hashesResponse = await queryClient.fetchQuery(queryOptions);
+      queryClient.setQueryData(queryOptions.queryKey, hashesResponse);
 
       updateCertsStore(response, hashesResponse);
     } catch (error) {

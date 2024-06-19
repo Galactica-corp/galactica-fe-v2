@@ -1,17 +1,44 @@
 import { toast } from "react-toastify";
 
 import { twMerge } from "tailwind-merge";
+import { RpcError, TransactionExecutionError } from "viem";
 
 import { SBTCard } from "entities/sbt";
+import { useGenerateSBTMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button } from "shared/ui/button";
 
 import { ToastTask } from "./toast";
 
 export const OriginalSBTBanner = ({ className }: ClassName) => {
+  const mutation = useGenerateSBTMutation();
+
   const handleLearnMoreClick = () => {
     toast(<ToastTask />);
-    console.log("hello world");
+  };
+
+  const handleGenerate = () => {
+    mutation.mutate(undefined, {
+      onSuccess: () => {},
+      onError: (error) => {
+        if (error instanceof RpcError) {
+          toast.error(error.message);
+          return;
+        }
+        if (error instanceof TransactionExecutionError) {
+          toast.error(error.message);
+          return;
+        }
+
+        if ("message" in error) {
+          toast.error(error.message);
+          return;
+        }
+
+        // TODO: sentry event
+        toast("Something went wrong");
+      },
+    });
   };
 
   return (
@@ -41,7 +68,9 @@ export const OriginalSBTBanner = ({ className }: ClassName) => {
         <Button onClick={handleLearnMoreClick} theme="pickledBluewood-white">
           Learn more
         </Button>
-        <Button>Generate SBT</Button>
+        <Button isLoading={mutation.isPending} onClick={handleGenerate}>
+          Generate SBT
+        </Button>
       </div>
     </div>
   );

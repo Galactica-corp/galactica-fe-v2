@@ -22,7 +22,14 @@ export const useCerts = () => {
 
   const query = useGetZkCertStorageHashesQuery({
     onFetch: (data) => {
-      if (!hashes) setHashes(data);
+      let updates = { ...hashes };
+      Object.entries(data).forEach(([key, hash]) => {
+        if (!hashes[key as ZkCertStandard]) {
+          updates = { ...updates, [key]: hash };
+        }
+      });
+
+      setHashes(updates);
     },
   });
 
