@@ -1,12 +1,18 @@
-import { useCallback } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { twMerge } from "tailwind-merge";
 import { RpcError } from "viem";
+import { useAccount } from "wagmi";
 
+import { useCerts } from "entities/cert";
 import { EncryptedZkCert } from "shared/snap";
-import { useInvokeSnapMutation } from "shared/snap/rq";
+import {
+  getZkCertStorageHashesQueryOptions,
+  useInvokeSnapMutation,
+} from "shared/snap/rq";
+import { useSnapClient } from "shared/snap/wagmi";
 import { Icon } from "shared/ui/icon";
 import { Spinner } from "shared/ui/spinner";
 import { readFileAsJSON } from "shared/utils";
@@ -18,30 +24,42 @@ type UploadProps = {
 export const Upload = ({ className }: UploadProps) => {
   const mutation = useInvokeSnapMutation("importZkCert");
   const mutateAsync = mutation.mutateAsync;
+  const queryClient = useQueryClient();
 
-  const onDrop = useCallback(
-    async ([file]: File[], [rejectedFile]: FileRejection[]) => {
-      if (rejectedFile) {
-        toast.error("Selected file is wrong");
+  const { chainId, address } = useAccount();
+  const { client } = useSnapClient();
+
+  const { updateCertsStore } = useCerts();
+
+  const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
+    if (rejectedFile) {
+      toast.error("Selected file is wrong");
+      return;
+    }
+
+    try {
+      const encryptedZkCert: EncryptedZkCert = await readFileAsJSON(file);
+      const response = await mutateAsync({
+        encryptedZkCert,
+        listZkCerts: true,
+      });
+
+      if ("message" in response) {
         return;
       }
 
-      try {
-        const encryptedZkCert: EncryptedZkCert = await readFileAsJSON(file);
-        const response = await mutateAsync({
-          encryptedZkCert,
-          listZkCerts: true,
-        });
-        console.log(response);
-      } catch (error) {
-        if (error instanceof RpcError) return toast.error(error.message);
+      const hashesResponse = await queryClient.fetchQuery(
+        getZkCertStorageHashesQueryOptions({ chainId, address, client })
+      );
 
-        // TODO: sentry event
-        toast("Something went wrong");
-      }
-    },
-    [mutateAsync]
-  );
+      updateCertsStore(response, hashesResponse);
+    } catch (error) {
+      if (error instanceof RpcError) return toast.error(error.message);
+
+      // TODO: sentry event
+      toast("Something went wrong");
+    }
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

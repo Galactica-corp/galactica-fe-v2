@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { KYCCard, KYCName } from "entities/kyc-card";
+import { useCerts } from "entities/cert";
+import { KYCCard } from "entities/kyc-card";
+import { Icon } from "shared/ui/icon";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
 import { Upload } from "./upload";
@@ -9,23 +11,18 @@ export const MyCertificates = () => {
   const [active, setActive] = useState(1);
   const [activeBottom, setActiveBottom] = useState(1);
 
-  // test
-  const activeCerts = [{ name: "swissborg" }, { name: "xCom" }] as {
-    name: KYCName;
-  }[];
+  const { certs, hasUpdates } = useCerts();
 
-  // test
-  const expiredCerts = [] as {
-    name: KYCName;
-  }[];
+  const activeCerts = certs.filter((c) => c.expirationDateMS > Date.now());
+  const expiredCerts = certs.filter((c) => c.expirationDateMS <= Date.now());
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
-  // const mutation = useInvokeSnapMutation<any>("listZkCerts");
-
   return (
     <div className="flex flex-col p-8">
-      <h1 className="text-3xl font-semibold">My Certificates</h1>
+      <h1 className="text-3xl font-semibold">
+        My Certificates {hasUpdates ? <Icon name="galactica" /> : ""}
+      </h1>
       <Tabs className="mb-8 mt-6">
         <Tab isActive={active === 1} onClick={() => setActive(1)}>
           My KYCs
@@ -65,8 +62,9 @@ export const MyCertificates = () => {
             {activeBottom === 1
               ? activeCerts.map((cert) => (
                   <KYCCard
-                    key={`a${cert.name}`}
-                    name={cert.name}
+                    expirationDate={cert.expirationDateMS}
+                    key={`a${cert.expirationDate}`}
+                    name={cert.standard === "gip1" ? "unknown" : "swissborg"}
                     view="small"
                   />
                 ))
@@ -74,8 +72,9 @@ export const MyCertificates = () => {
             {activeBottom === 2
               ? expiredCerts.map((cert) => (
                   <KYCCard
-                    key={`e${cert.name}`}
-                    name={cert.name}
+                    expirationDate={cert.expirationDateMS}
+                    key={`e${cert.expirationDate}`}
+                    name={cert.standard === "gip1" ? "unknown" : "swissborg"}
                     view="small"
                   />
                 ))

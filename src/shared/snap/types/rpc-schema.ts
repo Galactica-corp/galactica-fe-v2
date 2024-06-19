@@ -1,9 +1,12 @@
 import {
   EncryptedZkCert,
+  GenZkProofParams,
   HolderCommitmentData,
   ZkCertListItem,
+  ZkCertProof,
   ZkCertSelectionParams,
   ZkCertStandard,
+  ZkKYCProofInput,
 } from "./types";
 
 export type WalletInvokeSnapRpcSchema = [
@@ -71,6 +74,17 @@ export type WalletInvokeSnapRpcSchema = [
       snapId: string;
     };
     ReturnType: Partial<Record<ZkCertStandard, string>>;
+  },
+  {
+    Method: "wallet_invokeSnap";
+    Parameters: {
+      request: {
+        method: "genZkCertProof";
+        params: GenZkProofParams<ZkKYCProofInput>;
+      };
+      snapId: string;
+    };
+    ReturnType: ZkCertProof;
   },
 ];
 
