@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { DataGuardiansPage } from "pages/data-guardians";
+import { DevPage } from "pages/dev";
 import { ErrorPage } from "pages/error";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { MyCertificatesPage } from "pages/my-certificates";
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <PassportPage />,
+          },
+          {
+            path: "/dev",
+            element: <DevPage />,
           },
           { path: "/my-sbts", element: <MySBTsPage /> },
         ],

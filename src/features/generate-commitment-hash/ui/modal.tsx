@@ -23,7 +23,7 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
     url.searchParams.append("holderCommitment", data.holderCommitment);
     url.searchParams.append("encryptionPubKey", data.encryptionPubKey);
 
-    // window.open(url.toString(), "_blank");
+    window.open(url.toString(), "_blank");
   };
 
   const handleCopy = () => {
@@ -35,7 +35,6 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
   const handleClick = () => {
     mutation.mutate(undefined, {
       onSuccess: (data) => {
-        console.log(data);
         onGenerateCommitmentHash(data);
       },
       onError: (error) => {

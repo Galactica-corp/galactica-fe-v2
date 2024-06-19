@@ -2,10 +2,11 @@ import { twJoin, twMerge } from "tailwind-merge";
 
 import { Icon, IconName } from "shared/ui/icon";
 
-export type KYCName = "swissborg" | "xCom";
+export type KYCName = "swissborg" | "unknown" | "xCom";
 
 export type Props = {
   className?: string;
+  expirationDate: number;
   name: KYCName;
   view: "big" | "small";
 };
@@ -20,6 +21,13 @@ const CARDS_MAP: Record<
     title: string;
   }
 > = {
+  unknown: {
+    name: "unknown",
+    title: "Unknown KYC",
+    background: "from-transparent to-azure/8",
+    border: "border-azure/10",
+    icon: "certificate",
+  },
   swissborg: {
     name: "swissborg",
     title: "SwissBorg KYC",
@@ -36,7 +44,7 @@ const CARDS_MAP: Record<
   },
 };
 
-export const KYCCard = ({ name, view }: Props) => {
+export const KYCCard = ({ name, view, expirationDate }: Props) => {
   const gradient = CARDS_MAP[name].background;
   const border = CARDS_MAP[name].border;
   const iconName = CARDS_MAP[name].icon;
@@ -89,11 +97,15 @@ export const KYCCard = ({ name, view }: Props) => {
           </div>
           <div className="text-riverBed/70">
             <div className="text-xs">Expiry date</div>
-            <div className="text-sm">118 days</div>
+            <div className="text-sm">
+              {new Date(expirationDate).toDateString()}
+            </div>
           </div>
         </div>
         <div className="mt-9 text-balticSea">
-          <div className="text-sm font-medium leading-5">Your active KYC</div>
+          <div className="text-sm font-medium leading-5">
+            Your {expirationDate <= Date.now() ? "expired" : "active"} KYC
+          </div>
           <div className="text-2xl font-semibold leading-8">{title}</div>
         </div>
       </div>

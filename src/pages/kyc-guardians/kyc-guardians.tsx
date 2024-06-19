@@ -25,7 +25,7 @@ const guardians = [
       title: "Very fast",
       description: "~35 min",
     },
-    link: "https://kyc-reticulum.galactica.com",
+    link: "https://kyc-andromeda.galactica.com",
   },
 ];
 

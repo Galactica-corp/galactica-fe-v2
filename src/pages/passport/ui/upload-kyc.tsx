@@ -36,7 +36,7 @@ export const UploadKYC = ({ loading }: Props) => {
   const uploaded = (
     <div className="relative">
       <div className="w-[480px]">
-        <KYCCard name="swissborg" view="big" />
+        <KYCCard expirationDate={Date.now()} name="swissborg" view="big" />
       </div>
       <div className="absolute left-[60px] top-8 z-0 h-[171px] w-[480px] rounded-xl border border-black/3 bg-softPeach">
         <Icon
