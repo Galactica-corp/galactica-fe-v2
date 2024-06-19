@@ -59,6 +59,7 @@ const RAW_RUNTIME_STATE =
           ["pre-commit", "npm:1.2.2"],\
           ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
+          ["react-content-loader", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.0.2"],\
           ["react-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:18.3.1"],\
           ["react-dropzone", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.2.3"],\
           ["react-error-boundary", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.13"],\
@@ -769,7 +770,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@humanwhocodes-config-array-npm-0.11.14-94a02fcc87-3ffb24ecdf.zip/node_modules/@humanwhocodes/config-array/",\
         "packageDependencies": [\
           ["@humanwhocodes/config-array", "npm:0.11.14"],\
-          ["@humanwhocodes/object-schema", "npm:2.0.3"],\
+          ["@humanwhocodes/object-schema", "npm:2.0.2"],\
           ["debug", "virtual:1ff4b5f90832ba0a9c93ba1223af226e44ba70c1126a3740d93562b97bc36544e896a5e95908196f7458713e6a6089a34bfc67362fc6df7fa093bd06c878be47#npm:4.3.4"],\
           ["minimatch", "npm:3.1.2"]\
         ],\
@@ -786,10 +787,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@humanwhocodes/object-schema", [\
-      ["npm:2.0.3", {\
-        "packageLocation": "./.yarn/cache/@humanwhocodes-object-schema-npm-2.0.3-4f0e508cd9-05bb99ed06.zip/node_modules/@humanwhocodes/object-schema/",\
+      ["npm:2.0.2", {\
+        "packageLocation": "./.yarn/cache/@humanwhocodes-object-schema-npm-2.0.2-77b42018f9-ef915e3e2f.zip/node_modules/@humanwhocodes/object-schema/",\
         "packageDependencies": [\
-          ["@humanwhocodes/object-schema", "npm:2.0.3"]\
+          ["@humanwhocodes/object-schema", "npm:2.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8850,6 +8851,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-content-loader", [\
+      ["npm:7.0.2", {\
+        "packageLocation": "./.yarn/cache/react-content-loader-npm-7.0.2-123668da8d-8f7d7b84a5.zip/node_modules/react-content-loader/",\
+        "packageDependencies": [\
+          ["react-content-loader", "npm:7.0.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.0.2", {\
+        "packageLocation": "./.yarn/__virtual__/react-content-loader-virtual-6d01182aca/0/cache/react-content-loader-npm-7.0.2-123668da8d-8f7d7b84a5.zip/node_modules/react-content-loader/",\
+        "packageDependencies": [\
+          ["react-content-loader", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.0.2"],\
+          ["@types/react", "npm:18.3.3"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-dom", [\
       ["npm:18.3.1", {\
         "packageLocation": "./.yarn/cache/react-dom-npm-18.3.1-a805663f38-3f4b73a3aa.zip/node_modules/react-dom/",\
@@ -11131,6 +11154,7 @@ const RAW_RUNTIME_STATE =
           ["pre-commit", "npm:1.2.2"],\
           ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
+          ["react-content-loader", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.0.2"],\
           ["react-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:18.3.1"],\
           ["react-dropzone", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.2.3"],\
           ["react-error-boundary", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.13"],\

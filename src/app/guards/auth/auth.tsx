@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
 
 import { useSessionStorage } from "@uidotdev/usehooks";
-import { useAccount } from "wagmi";
+import { useAccount, useAccountEffect } from "wagmi";
 import { AuthLevel, Auth as AuthWidget } from "widget/auth";
 
 import { useGetSnapQuery } from "shared/snap/rq";
-import { Spinner } from "shared/ui/spinner";
 
 type Props = {
   level: AuthLevel;
@@ -19,16 +18,18 @@ export const Auth = ({ level }: Props) => {
     !isConnected
   );
 
+  useAccountEffect({
+    onDisconnect() {
+      setHoldAnimation(true);
+    },
+  });
+
   const onComplete = () => {
     setHoldAnimation(false);
   };
 
   if (isPending && isConnected && !holdAnimation) {
-    return (
-      <div className="flex grow items-center justify-center">
-        <Spinner />
-      </div>
-    );
+    return null;
   }
 
   if (level === "metamask" && isConnected && !holdAnimation) return <Outlet />;

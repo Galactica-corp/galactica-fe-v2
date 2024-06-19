@@ -159,6 +159,9 @@
   .no-scrollbar {
     overflow: hidden;
   }
+  .skelet-bg {
+    @apply bg-gradient-to-b from-white to-white/50 opacity-50;
+  }
 }
 
 .Toastify__toast {

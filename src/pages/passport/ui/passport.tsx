@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
-import { AddCertField, Field, UploadKYC } from ".";
+import { AddCertField } from "./add-cert-field";
+import { Field } from "./field";
+import { UploadKYC } from "./upload-kyc";
 
 export const Passport = () => {
   return (
@@ -19,23 +21,25 @@ export const Passport = () => {
       >
         <div className="border-r border-r-dawnPink pr-8">
           <div className="flex space-x-8">
-            <div className="no-data-gradient relative h-[323px] w-[269px] rounded-xl border border-softPeach">
-              <div className="place-center">
-                <div className="text-center text-sm leading-5 text-riverBed/30">
-                  User without a KYC proof
+            <div className="h-[323px] w-[269px]">
+              <div className="no-data-gradient relative size-full rounded-xl border border-softPeach">
+                <div className="place-center">
+                  <div className="text-center text-sm leading-5 text-riverBed/30">
+                    User without a KYC proof
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col space-y-6">
+            <div className="flex grow flex-col space-y-6">
               <div>
                 <div className="mb-1 text-sm leading-5 text-riverBed">
                   Your Cypher Book ID
                 </div>
                 <div
                   className="orange-gradient-text flex items-end
-                  whitespace-nowrap font-ptm text-[38px] leading-none
-                  tracking-[-2px]
-                  "
+                      whitespace-nowrap font-ptm text-[38px] leading-none
+                      tracking-[-2px]
+                      "
                 >
                   <span>#0x8b2</span>
                   <span className="mr-1 text-xl tracking-[-6px]">...</span>
@@ -69,7 +73,7 @@ export const Passport = () => {
 
         <div className="pl-8">
           <div className="flex h-full flex-col justify-between">
-            <div className="flex flex-col space-y-5">
+            <div className="grid grid-cols-1 grid-rows-[64px,83px,52px] gap-y-5">
               <div className="flex space-x-4">
                 <Icon className="size-16" name="logo" />
                 <div className="flex flex-col">
@@ -82,7 +86,7 @@ export const Passport = () => {
                     </div>
                     <div
                       className="whitespace-nowrap rounded-[6px] border border-magicMint bg-blackSqueeze
-                    px-2 py-[2px] text-sm leading-5 text-shamrockGreen shadow-sm"
+                          px-2 py-[2px] text-sm leading-5 text-shamrockGreen shadow-sm"
                     >
                       $0
                     </div>

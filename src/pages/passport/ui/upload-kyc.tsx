@@ -2,7 +2,15 @@ import { KYCCard } from "entities/kyc-card";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
-export const UploadKYC = () => {
+type Props = {
+  loading?: boolean;
+};
+
+export const UploadKYC = ({ loading }: Props) => {
+  const _loading = (
+    <div className="skelet-bg relative mt-6 h-[200px] w-full rounded-xl " />
+  );
+
   const _empty = (
     <div
       className="relative mt-6 h-[200px] w-full bg-cover bg-center bg-no-repeat"
@@ -39,5 +47,5 @@ export const UploadKYC = () => {
     </div>
   );
 
-  return uploaded;
+  return loading ? _loading : uploaded;
 };
