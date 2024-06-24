@@ -22,8 +22,10 @@ export const useCerts = () => {
 
   const query = useGetZkCertStorageHashesQuery({
     onFetch: (data) => {
+      const entries = Object.entries(data);
+
       let updates = { ...hashes };
-      Object.entries(data).forEach(([key, hash]) => {
+      entries.forEach(([key, hash]) => {
         if (!hashes[key as ZkCertStandard]) {
           updates = { ...updates, [key]: hash };
         }
@@ -61,12 +63,14 @@ export const useCerts = () => {
     [setCertsStore, setHashes]
   );
 
-  const hasUpdates = query.isSuccess
-    ? Object.entries(query.data).some(([key, value]) => {
-        const storedHash = hashes[key as ZkCertStandard];
-        return value !== storedHash;
-      })
-    : false;
+  const entries = query.isSuccess ? Object.entries(query.data) : undefined;
+  const hasUpdates = Boolean(
+    entries?.some(([key, value]) => {
+      const storedHash = hashes[key as ZkCertStandard];
+      return value !== storedHash;
+    }) ||
+      (entries?.length === 0 && hashes)
+  );
 
   return {
     certs: certsStore,

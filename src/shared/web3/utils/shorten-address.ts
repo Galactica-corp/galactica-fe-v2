@@ -7,9 +7,13 @@ export function shortAddress(
 ) {
   if (!address) return "";
   if (isAddress(address)) {
+    const endPrefix = startCount > 0 ? "..." : "";
+
     return (
       address.substring(0, startCount) +
-      (endCount > 0 ? `...${address.substring(address.length - endCount)}` : "")
+      (endCount > 0
+        ? `${endPrefix}${address.substring(address.length - endCount)}`
+        : "")
     );
   }
 
