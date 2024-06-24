@@ -8,7 +8,8 @@ import { KYCGuardiansPage } from "pages/kyc-guardians";
 import { MyCertificatesPage } from "pages/my-certificates";
 import { MySBTsPage } from "pages/my-sbts";
 import { PassportPage } from "pages/passport";
-import { Layout } from "pages/ui/layout";
+import { SkillTreePage } from "pages/skill-tree";
+import { Layout } from "pages/ui";
 
 import { AuthGuard } from "./guards/auth";
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       {
         element: <AuthGuard level="snap" />,
         children: [
+          { path: "/skill-tree", element: <SkillTreePage /> },
           { path: "/my-certificates", element: <MyCertificatesPage /> },
         ],
       },

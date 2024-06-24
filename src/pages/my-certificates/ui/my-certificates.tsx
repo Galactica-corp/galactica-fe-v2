@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { useCerts } from "entities/cert";
 import { KYCCard } from "entities/kyc-card";
+import { PageLayout } from "pages/ui";
 import { Icon } from "shared/ui/icon";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
@@ -19,10 +20,9 @@ export const MyCertificates = () => {
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
   return (
-    <div className="flex flex-col p-8">
-      <h1 className="text-3xl font-semibold">
-        My Certificates {hasUpdates ? <Icon name="galactica" /> : ""}
-      </h1>
+    <PageLayout
+      title={`My Certificates ${hasUpdates ? <Icon name="galactica" /> : ""}`}
+    >
       <Tabs className="mb-8 mt-6">
         <Tab isActive={active === 1} onClick={() => setActive(1)}>
           My KYCs
@@ -82,6 +82,6 @@ export const MyCertificates = () => {
           </div>
         </>
       ) : null}
-    </div>
+    </PageLayout>
   );
 };

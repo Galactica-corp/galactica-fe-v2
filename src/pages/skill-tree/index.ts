@@ -1,0 +1,1 @@
+export { SkillTreePage } from "./page";

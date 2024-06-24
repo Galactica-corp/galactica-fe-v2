@@ -1,6 +1,7 @@
 import { twJoin } from "tailwind-merge";
 
 import { GuardianInfo } from "entities/guardian/ui/info";
+import { PageLayout } from "pages/ui";
 import { Button } from "shared/ui/button";
 import { Icon, IconName } from "shared/ui/icon";
 
@@ -32,8 +33,7 @@ const cls = "grid-cols-[34px,repeat(5,minmax(160px,1fr))]";
 
 export const DataGuardians = () => {
   return (
-    <div className="flex flex-col p-8">
-      <h1 className="text-3xl font-semibold">Data Guardians</h1>
+    <PageLayout title="Data Guardians">
       <div
         className={twJoin(
           cls,
@@ -89,6 +89,6 @@ export const DataGuardians = () => {
           </div>
         );
       })}
-    </div>
+    </PageLayout>
   );
 };

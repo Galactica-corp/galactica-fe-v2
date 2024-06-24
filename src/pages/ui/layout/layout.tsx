@@ -10,7 +10,9 @@ import { Sidebar } from "./sidebar/sidebar";
 export const Layout = () => {
   return (
     <div
-      className={twMerge("grid grow grid-cols-[auto,1fr] grid-areas-layout")}
+      className={twMerge(
+        "grid grow grid-cols-[auto,1fr] grid-rows-1 grid-areas-layout"
+      )}
     >
       <Sidebar />
       <main className="flex flex-col bg-aquaHaze grid-in-main">
