@@ -10,7 +10,7 @@ import { TabsContext } from "./context";
 export const Tabs = <E extends ElementType = "ul">(
   props: PropsWithChildren<PolymorphicProps<E, ClassName>>
 ) => {
-  const { as: Comp = motion.li, children, className, ...restProps } = props;
+  const { as: Comp = motion.ul, children, className, ...restProps } = props;
   const lineLayoutId = useId();
 
   return (

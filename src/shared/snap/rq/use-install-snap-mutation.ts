@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 
 import { MutationOptions } from "shared/types";
+import { catchError } from "shared/ui/toast";
 
 import { WalletRequestSnaps } from "../types/rpc-schema";
 import { useSnapClient } from "../wagmi";
@@ -41,9 +42,7 @@ export const useInstallSnapMutation = <TContext = unknown>(
 
       queryClient.refetchQueries({ queryKey: ["snap"] });
     },
-    onError: (error) => {
-      console.error({ error });
-    },
+    onError: catchError,
     ...options,
   });
 };

@@ -1,10 +1,18 @@
 import { useCallback } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import invariant from "tiny-invariant";
 import { useAccount } from "wagmi";
 
 import { ZkCertListItem, ZkCertStandard } from "shared/snap";
-import { useGetZkCertStorageHashesQuery } from "shared/snap/rq";
+import {
+  getZkCertStorageHashesQueryOptions,
+  useGetZkCertStorageHashesQuery,
+  useInvokeSnapMutation,
+} from "shared/snap/rq";
+import { useSnapClient } from "shared/snap/wagmi";
+import { catchError } from "shared/ui/toast";
 
 type CertsStore = Record<ZkCertStandard, ZkCertListItem[]>;
 
@@ -14,11 +22,13 @@ type Cert = {
 } & ZkCertListItem;
 
 export const useCerts = () => {
-  const { chainId } = useAccount();
+  const { chainId, address } = useAccount();
+  const { client } = useSnapClient();
+  const queryClient = useQueryClient();
 
   const [hashes, setHashes] = useLocalStorage<
     Partial<Record<ZkCertStandard, string>>
-  >(`store-hashes-${chainId}`, { gip1: "", gip2: "" });
+  >(`store-hashes-${chainId}`, {});
 
   const query = useGetZkCertStorageHashesQuery({
     onFetch: (data) => {
@@ -40,7 +50,7 @@ export const useCerts = () => {
     []
   );
 
-  const updateCertsStore = useCallback(
+  const setCerts = useCallback(
     (newStore: CertsStore, hashes: Partial<Record<ZkCertStandard, string>>) => {
       const newCerts = Object.entries(newStore).reduce<Cert[]>(
         (acc, [standard, items]) => {
@@ -63,19 +73,37 @@ export const useCerts = () => {
     [setCertsStore, setHashes]
   );
 
-  const entries = query.isSuccess ? Object.entries(query.data) : undefined;
-  const hasUpdates = Boolean(
-    entries?.some(([key, value]) => {
-      const storedHash = hashes[key as ZkCertStandard];
-      return value !== storedHash;
-    }) ||
-      (entries?.length === 0 && hashes)
-  );
+  const mutation = useInvokeSnapMutation("listZkCerts", {
+    onSuccess: async (data) => {
+      invariant(address, "address is undefined");
+      invariant(client, "client is undefined");
+
+      const queryOptions = getZkCertStorageHashesQueryOptions({
+        chainId,
+        address,
+        client,
+      });
+      const hashesResponse = await queryClient.fetchQuery(queryOptions);
+      queryClient.setQueryData(queryOptions.queryKey, hashesResponse);
+
+      setCerts(data, hashesResponse);
+    },
+    onError: catchError,
+  });
+
+  const entries = query.isSuccess ? Object.values(query.data) : [];
+  const lsEntries = Object.values(hashes).filter(Boolean);
+
+  const set = new Set([...entries, ...lsEntries]);
+
+  const hasUpdates = query.isSuccess
+    ? set.size > entries.length || entries.length !== lsEntries.length
+    : false;
 
   return {
     certs: certsStore,
-    updateCertsStore,
-    setCertsStore,
+    setCerts,
+    updateCerts: mutation.mutateAsync,
     hasUpdates,
   } as const;
 };

@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
 
 import { twMerge } from "tailwind-merge";
-import { RpcError, TransactionExecutionError } from "viem";
 
 import { SBTCard } from "entities/sbt";
 import { useGenerateSBTMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button } from "shared/ui/button";
+import { catchError } from "shared/ui/toast";
 
 import { ToastTask } from "./toast";
 
@@ -20,24 +20,7 @@ export const OriginalSBTBanner = ({ className }: ClassName) => {
   const handleGenerate = () => {
     mutation.mutate(undefined, {
       onSuccess: () => {},
-      onError: (error) => {
-        if (error instanceof RpcError) {
-          toast.error(error.message);
-          return;
-        }
-        if (error instanceof TransactionExecutionError) {
-          toast.error(error.message);
-          return;
-        }
-
-        if ("message" in error) {
-          toast.error(error.message);
-          return;
-        }
-
-        // TODO: sentry event
-        toast("Something went wrong");
-      },
+      onError: catchError,
     });
   };
 
