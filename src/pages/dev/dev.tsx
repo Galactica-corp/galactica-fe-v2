@@ -5,14 +5,14 @@ import { Button } from "shared/ui/button";
 export const Dev = () => {
   const invokeMutation = useInvokeSnapMutation("clearStorage");
 
-  const { updateCertsStore } = useCerts();
+  const { setCerts } = useCerts();
   return (
     <div>
       <Button
         onClick={() => {
           invokeMutation.mutate(undefined, {
             onSuccess: () => {
-              updateCertsStore({ gip1: [], gip2: [] }, { gip1: "", gip2: "" });
+              setCerts({ gip1: [], gip2: [] }, { gip1: "", gip2: "" });
             },
           });
         }}

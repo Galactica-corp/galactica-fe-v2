@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
-import { PublicClient, TransactionExecutionError, getContract } from "viem";
+import { PublicClient, getContract } from "viem";
 import { useAccount, usePublicClient, useWalletClient } from "wagmi";
+
+import { catchError } from "shared/ui/toast";
 
 import { basicKYCExampleDapp } from "../abi/basic-kyc-example-dapp";
 import { contracts } from "../const";
@@ -107,14 +109,7 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
 
       return receipt;
     },
-    onError: (error) => {
-      console.dir(error);
-
-      if (error instanceof TransactionExecutionError) {
-        console.dir(error);
-      }
-      console.error(error);
-    },
+    onError: catchError,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["sbts", chain?.id, address],

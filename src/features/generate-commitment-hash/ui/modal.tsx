@@ -1,11 +1,10 @@
 import { toast } from "react-toastify";
 
-import { RpcError } from "viem";
-
 import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 import { Modal as M } from "shared/ui/modal";
+import { catchError } from "shared/ui/toast";
 
 type Props = { onClose: (isOpen: false) => void; redirectLink: string };
 
@@ -37,11 +36,7 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
       onSuccess: (data) => {
         onGenerateCommitmentHash(data);
       },
-      onError: (error) => {
-        if (error instanceof RpcError) return toast.error(error.message);
-
-        toast.error("Something went wrong");
-      },
+      onError: catchError,
     });
   };
 

@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
+import { useAccount, useBalance } from "wagmi";
 
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
+import { formatCurrency, shortAddress } from "shared/web3/utils";
 
 import { AddCertField } from "./add-cert-field";
 import { Field } from "./field";
 import { UploadKYC } from "./upload-kyc";
 
 export const Passport = () => {
+  const { address } = useAccount();
+  const balanceQuery = useBalance({ address });
+
   return (
     <motion.div
       animate={{ opacity: 1 }}
@@ -41,9 +46,9 @@ export const Passport = () => {
                       tracking-[-2px]
                       "
                 >
-                  <span>#0x8b2</span>
+                  <span>#{shortAddress(address, 5, 0)}</span>
                   <span className="mr-1 text-xl tracking-[-6px]">...</span>
-                  <span>86a01</span>
+                  <span>{shortAddress(address, 0, 5)}</span>
                 </div>
               </div>
 
@@ -82,7 +87,12 @@ export const Passport = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="text-4xl font-semibold leading-[44px] text-balticSea">
-                      0
+                      {balanceQuery.isSuccess
+                        ? formatCurrency(
+                            balanceQuery.data.value,
+                            balanceQuery.data.decimals
+                          )
+                        : 0}
                     </div>
                     <div
                       className="whitespace-nowrap rounded-[6px] border border-magicMint bg-blackSqueeze

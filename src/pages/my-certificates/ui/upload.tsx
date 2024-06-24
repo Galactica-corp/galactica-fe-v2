@@ -29,7 +29,7 @@ export const Upload = ({ className }: UploadProps) => {
   const { chainId, address } = useAccount();
   const { client } = useSnapClient();
 
-  const { updateCertsStore } = useCerts();
+  const { setCerts } = useCerts();
 
   const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
     if (rejectedFile) {
@@ -56,7 +56,7 @@ export const Upload = ({ className }: UploadProps) => {
       const hashesResponse = await queryClient.fetchQuery(queryOptions);
       queryClient.setQueryData(queryOptions.queryKey, hashesResponse);
 
-      updateCertsStore(response, hashesResponse);
+      setCerts(response, hashesResponse);
     } catch (error) {
       if (error instanceof RpcError) return toast.error(error.message);
 
