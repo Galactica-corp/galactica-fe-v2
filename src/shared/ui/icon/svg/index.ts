@@ -26,6 +26,7 @@ export { default as stars } from "./stars.svg?react";
 export { default as swissborg } from "./swissborg.svg?react";
 export { default as tg } from "./tg-social.svg?react";
 export { default as trophy } from "./trophy.svg?react";
+export { default as verifiedCheck } from "./verified-check.svg?react";
 export { default as verticalDots } from "./vertical-dots.svg?react";
 export { default as x } from "./x-social.svg?react";
 export { default as youtube } from "./youtube-social.svg?react";

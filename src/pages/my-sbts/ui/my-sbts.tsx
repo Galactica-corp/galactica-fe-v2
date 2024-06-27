@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { SBTCard } from "entities/sbt";
+import { PageLayout } from "pages/ui";
 import { useSBTsSuspenseQuery } from "shared/api";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
@@ -18,14 +19,12 @@ export const MySBTs = () => {
   const expiredSBTs = sbt && sbt.expirationTime <= Date.now() ? [sbt] : [];
 
   return (
-    <div className="flex flex-col p-8">
-      <h1 className="text-3xl font-semibold">My Soulbound tokens</h1>
+    <PageLayout title="My Soulbound tokens">
       <Tabs className="mt-6">
         <Tab
           className="gap-x-2"
           isActive={activeTab === "active"}
           onClick={() => setActiveTab("active")}
-          value="active"
         >
           Active SBTs
           {activeSBTs.length > 0 && (
@@ -35,7 +34,6 @@ export const MySBTs = () => {
         <Tab
           isActive={activeTab === "expired"}
           onClick={() => setActiveTab("expired")}
-          value="expired"
         >
           Expired SBTs
           {expiredSBTs.length > 0 && (
@@ -69,6 +67,6 @@ export const MySBTs = () => {
             );
           })}
       </div>
-    </div>
+    </PageLayout>
   );
 };

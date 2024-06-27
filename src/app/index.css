@@ -179,3 +179,7 @@
   --toastify-toast-bd-radius: 12px;
   --toastify-toast-width: 470px;
 }
+
+.react-flow__pane {
+  cursor: default !important;
+}
