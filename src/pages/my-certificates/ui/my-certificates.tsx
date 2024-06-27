@@ -28,8 +28,6 @@ export const MyCertificates = () => {
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
-  console.log(hasUpdates);
-
   return (
     <PageLayout
       title={`My Certificates ${hasUpdates ? <Icon name="galactica" /> : ""}`}

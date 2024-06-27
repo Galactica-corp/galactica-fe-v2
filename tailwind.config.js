@@ -72,6 +72,10 @@ module.exports = {
       alabaster: "#F9FAFB",
       blackCow: "#4E4845",
       aquaHaze: "#F3F3F2",
+      mercury: "#E5E5E5",
+      eggshell: "#F6E6DC",
+      geyser: "#DEDFE2",
+      aluminium: "#A9ADB6",
     },
   },
 };

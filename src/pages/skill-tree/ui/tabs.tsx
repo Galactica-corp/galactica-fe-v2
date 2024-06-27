@@ -3,11 +3,11 @@ import { twJoin } from "tailwind-merge";
 import { ClassName } from "shared/types";
 import { Tab, Tabs } from "shared/ui/tabs";
 
-import { QuestSection } from "../types";
+import { QuestName } from "../types";
 
 type Props = {
-  activeQuestSection: QuestSection;
-  onChange: (questSection: QuestSection) => void;
+  activeQuestSection: QuestName;
+  onChange: (questSection: QuestName) => void;
 } & ClassName;
 
 export const QuestsTabs = (props: Props) => {
