@@ -29,7 +29,8 @@ export const Layout = () => {
       />
       <main
         className={twJoin(
-          "relative z-0 flex flex-col bg-aquaHaze grid-in-main"
+          "relative z-0 flex flex-col bg-aquaHaze grid-in-main",
+          isDrawer && "pl-20"
         )}
       >
         {isDrawer && (

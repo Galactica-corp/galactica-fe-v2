@@ -14,7 +14,7 @@ export const PageLayout = ({
   children,
 }: PropsWithChildren<Props>) => {
   return (
-    <div className={twMerge("flex grow flex-col p-8 px-28", className)}>
+    <div className={twMerge("flex grow flex-col p-8", className)}>
       <h1 className="text-3xl font-semibold">{title}</h1>
       {children}
     </div>
