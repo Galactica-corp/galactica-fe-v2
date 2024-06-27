@@ -1,5 +1,6 @@
-import { useHover, useLocalStorage } from "@uidotdev/usehooks";
-import { AnimatePresence, AnimationProps, motion } from "framer-motion";
+import { PropsWithChildren } from "react";
+
+import { AnimationProps, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { useAccount, useDisconnect } from "wagmi";
 
@@ -19,15 +20,20 @@ type TLink = {
   to: string;
 };
 
-type Props = { drawer?: boolean } & ClassName;
+type Props = {
+  drawer?: boolean;
+  drawerRef?: React.LegacyRef<HTMLElement> | undefined;
+  isExpanded: boolean;
+  onToggleExpand: (isExpanded: boolean) => void;
+} & ClassName;
 
-export const Sidebar = ({ className, drawer }: Props) => {
-  const [expanded, setExpanded] = useLocalStorage("is-sidebar-expanded", false);
-
-  const [ref, hovering] = useHover();
-
-  const isExpanded = drawer ? hovering : expanded;
-
+export const Sidebar = ({
+  isExpanded,
+  drawer,
+  className,
+  onToggleExpand,
+  drawerRef,
+}: PropsWithChildren<Props>) => {
   const { disconnect } = useDisconnect();
   const { isConnected } = useAccount();
   const query = useGetSnapQuery();
@@ -66,112 +72,94 @@ export const Sidebar = ({ className, drawer }: Props) => {
   ];
 
   return (
-    <div
+    <motion.aside
+      animate={isExpanded ? "expanded" : "collapsed"}
       className={twMerge(
-        "flex",
-        drawer && "fixed inset-0 z-50 bg-transparent",
+        "flex max-w-80 select-none flex-col overflow-hidden border-r border-r-catskillWhite bg-white py-8 grid-in-sidebar",
+        drawer && "absolute inset-y-0 left-0 z-50",
         className
       )}
+      initial={false}
+      ref={drawerRef}
+      variants={sidebarVariants}
     >
-      <motion.aside
-        animate={isExpanded ? "expanded" : "collapsed"}
-        className={twMerge(
-          "flex max-w-80 select-none flex-col overflow-hidden border-r border-r-catskillWhite bg-white py-8 grid-in-sidebar"
-        )}
-        initial={false}
-        ref={ref}
-        variants={sidebarVariants}
-      >
-        <Logo
-          className="block h-8 pl-6"
-          isSmall={!isExpanded}
-          onClick={() => {
-            setExpanded(!isExpanded);
-          }}
-        />
-        <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
-          {links.map(({ text, iconName, to, disabled }) => {
-            return (
-              <Link
-                disabled={disabled}
-                iconName={iconName}
-                key={iconName}
-                to={to}
-              >
-                {isExpanded && text}
-              </Link>
-            );
-          })}
-        </nav>
-        {(!isConnected || (query.isSuccess && !query.data)) && (
-          <div className="flex flex-col px-4">
-            <p
-              className={twMerge(
-                "mb-2 whitespace-nowrap text-sm font-medium text-riverBed opacity-0",
-                isExpanded && "opacity-100"
-              )}
+      <Logo
+        className="block h-8 pl-6"
+        isSmall={!isExpanded}
+        onClick={() => {
+          onToggleExpand?.(!isExpanded);
+        }}
+      />
+      <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
+        {links.map(({ text, iconName, to, disabled }) => {
+          return (
+            <Link
+              disabled={disabled}
+              iconName={iconName}
+              key={iconName}
+              to={to}
             >
-              To unlock the pages
-            </p>
-            <ConnectWalletButton
-              className={
-                "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold"
-              }
-              connectContent={
-                <>
-                  <Icon className="size-5" name="metamask" />
-                  {isExpanded && (
-                    <motion.div animate={{ width: "auto" }} className="w-0">
-                      Connect Metamask
-                    </motion.div>
-                  )}
-                </>
-              }
-              installSnapContent={
-                <>
-                  <Icon name="galactica" />
-                  {isExpanded && (
-                    <motion.div animate={{ width: "auto" }} className="w-0">
-                      Install Metamask SNAP
-                    </motion.div>
-                  )}
-                </>
-              }
-              theme="basketBallOrange-transparent"
-            />
-          </div>
-        )}
-
-        <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
-          {isExpanded ? (
-            <Profile
-              action={
-                <Icon
-                  className="cursor-pointer transition-colors hover:brightness-150"
-                  name="logout"
-                  onClick={() => disconnect()}
-                />
-              }
-              className="grow"
-            />
-          ) : (
-            <Avatar />
-          )}
+              {isExpanded && text}
+            </Link>
+          );
+        })}
+      </nav>
+      {(!isConnected || (query.isSuccess && !query.data)) && (
+        <div className="flex flex-col px-4">
+          <p
+            className={twMerge(
+              "mb-2 whitespace-nowrap text-sm font-medium text-riverBed opacity-0",
+              isExpanded && "opacity-100"
+            )}
+          >
+            To unlock the pages
+          </p>
+          <ConnectWalletButton
+            className={
+              "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold"
+            }
+            connectContent={
+              <>
+                <Icon className="size-5" name="metamask" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Connect Metamask
+                  </motion.div>
+                )}
+              </>
+            }
+            installSnapContent={
+              <>
+                <Icon name="galactica" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Install Metamask SNAP
+                  </motion.div>
+                )}
+              </>
+            }
+            theme="basketBallOrange-transparent"
+          />
         </div>
-      </motion.aside>
-      {drawer && (
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="grow bg-black/20"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            />
-          )}
-        </AnimatePresence>
       )}
-    </div>
+
+      <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
+        {isExpanded ? (
+          <Profile
+            action={
+              <Icon
+                className="cursor-pointer transition-colors hover:brightness-150"
+                name="logout"
+                onClick={() => disconnect()}
+              />
+            }
+            className="grow"
+          />
+        ) : (
+          <Avatar />
+        )}
+      </div>
+    </motion.aside>
   );
 };
 
