@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import invariant from "tiny-invariant";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 
 import { ZkCertListItem, ZkCertStandard } from "shared/snap";
 import {
@@ -22,7 +22,8 @@ type Cert = {
 } & ZkCertListItem;
 
 export const useCerts = () => {
-  const { chainId, address } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
   const { client } = useSnapClient();
   const queryClient = useQueryClient();
 

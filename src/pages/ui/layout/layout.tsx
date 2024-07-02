@@ -1,5 +1,4 @@
-import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { PropsWithChildren, Suspense } from "react";
 
 import { useHover, useLocalStorage } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,9 +8,20 @@ import { Spinner } from "shared/ui/spinner";
 
 import { Sidebar } from "./sidebar/sidebar";
 
-export const Layout = () => {
-  const [isDrawer] = useLocalStorage("use-drawer", true);
-  const [expanded, setExpanded] = useLocalStorage("is-sidebar-expanded", false);
+type Props = {
+  initialIsExpanded?: boolean;
+  isDrawer?: boolean;
+};
+
+export const Layout = ({
+  children,
+  initialIsExpanded,
+  isDrawer,
+}: PropsWithChildren<Props>) => {
+  const [expanded, setExpanded] = useLocalStorage(
+    "is-sidebar-expanded",
+    initialIsExpanded
+  );
   const [ref, hovering] = useHover();
   const isExpanded = isDrawer ? hovering : expanded;
 
@@ -53,7 +63,7 @@ export const Layout = () => {
             </div>
           }
         >
-          <Outlet />
+          {children}
         </Suspense>
       </main>
     </div>

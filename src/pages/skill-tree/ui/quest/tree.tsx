@@ -37,7 +37,7 @@ export const Tree = (props: Props) => {
       nodes={nodes}
       nodesDraggable={false}
       onNodeClick={onNodeClick}
-      // panOnDrag={false}
+      panOnDrag={false}
       panOnScroll={false}
       // check it https://reactflow.dev/learn/troubleshooting/remove-attribution
       proOptions={proOptions}

@@ -23,12 +23,14 @@ type BackendQuest = {
   buttonText: string;
   cardImage: string;
   description: string;
+  link?: string;
+  linkText?: string;
   nodeImage: string;
   outlineNodeImage: string;
   points: number | string;
   status: QuestStatus;
   title: string;
-  trophies: Trophy[];
+  trophies?: Trophy[];
 };
 
 export type UIQuest = {

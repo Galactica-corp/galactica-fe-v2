@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { twMerge } from "tailwind-merge";
 import { RpcError } from "viem";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 
 import { useCerts } from "entities/cert";
 import { EncryptedZkCert } from "shared/snap";
@@ -26,7 +26,8 @@ export const Upload = ({ className }: UploadProps) => {
   const mutateAsync = mutation.mutateAsync;
   const queryClient = useQueryClient();
 
-  const { chainId, address } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
   const { client } = useSnapClient();
 
   const { setCerts } = useCerts();

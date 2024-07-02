@@ -12,8 +12,8 @@ import { Quest, QuestStatus } from "../../types";
 const style: CSSProperties = {
   background: "transparent",
   border: "none",
-  top: "50%",
-  transform: "translateY(-50%)",
+  // top: "50%",
+  // transform: "translateY(-50%)",
 };
 
 export const Node = ({ data }: NodeProps<Quest>) => {
@@ -23,15 +23,16 @@ export const Node = ({ data }: NodeProps<Quest>) => {
     <>
       <Handle
         id="target"
-        position={Position.Bottom}
-        style={{ ...style }}
+        position={Position.Top}
+        style={{ ...style, top: 15 }}
         type="target"
       />
       <Handle
         id="source"
-        position={Position.Top}
+        position={Position.Bottom}
         style={{
           ...style,
+          bottom: 20,
         }}
         type="source"
       />

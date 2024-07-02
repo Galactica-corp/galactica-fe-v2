@@ -3,7 +3,7 @@ import { twJoin, twMerge } from "tailwind-merge";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
-import cardImagePng from "../../assets/card-image.png";
+// import cardImagePng from "../../assets/card-image.png";
 import { QuestStatus } from "../../types";
 
 type Props = {
@@ -23,7 +23,7 @@ export const Card = (props: Props) => {
     title,
     description,
     points,
-    imageLink = cardImagePng,
+    imageLink,
     buttonLink,
     buttonText,
     link,
