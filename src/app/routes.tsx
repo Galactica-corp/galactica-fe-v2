@@ -15,12 +15,10 @@ import { AuthGuard } from "./guards/auth";
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: <Layout isDrawer />,
     // Global error-boundary
     errorElement: <ErrorPage />,
     children: [
-      { path: "/data-guardians", element: <DataGuardiansPage /> },
-      { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
       {
         element: <AuthGuard level="metamask" />,
         children: [
@@ -32,13 +30,29 @@ const router = createBrowserRouter([
             path: "/dev",
             element: <DevPage />,
           },
-          { path: "/my-sbts", element: <MySBTsPage /> },
         ],
       },
       {
         element: <AuthGuard level="snap" />,
+        children: [{ path: "/skill-tree", element: <SkillTreePage /> }],
+      },
+      { path: "*", element: <div>Not found</div> },
+    ],
+  },
+  {
+    element: <Layout />,
+    // Global error-boundary
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/data-guardians", element: <DataGuardiansPage /> },
+      { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
+      {
+        element: <AuthGuard level="metamask" />,
+        children: [{ path: "/my-sbts", element: <MySBTsPage /> }],
+      },
+      {
+        element: <AuthGuard level="snap" />,
         children: [
-          { path: "/skill-tree", element: <SkillTreePage /> },
           { path: "/my-certificates", element: <MyCertificatesPage /> },
         ],
       },

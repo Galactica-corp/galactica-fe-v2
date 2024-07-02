@@ -24,14 +24,14 @@ type Props = {
   drawer?: boolean;
   drawerRef?: React.LegacyRef<HTMLElement> | undefined;
   isExpanded: boolean;
-  onToggleExpand: (isExpanded: boolean) => void;
+  // onToggleExpand: (isExpanded: boolean) => void;
 } & ClassName;
 
 export const Sidebar = ({
   isExpanded,
   drawer,
   className,
-  onToggleExpand,
+  // onToggleExpand,
   drawerRef,
 }: PropsWithChildren<Props>) => {
   const { disconnect } = useDisconnect();
@@ -87,7 +87,7 @@ export const Sidebar = ({
         className="block h-8 pl-6"
         isSmall={!isExpanded}
         onClick={() => {
-          onToggleExpand?.(!isExpanded);
+          // onToggleExpand?.(!isExpanded);
         }}
       />
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">

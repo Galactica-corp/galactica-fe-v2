@@ -1,6 +1,7 @@
-import { PropsWithChildren, Suspense } from "react";
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 
-import { useHover, useLocalStorage } from "@uidotdev/usehooks";
+import { useHover } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { twJoin, twMerge } from "tailwind-merge";
 
@@ -9,21 +10,12 @@ import { Spinner } from "shared/ui/spinner";
 import { Sidebar } from "./sidebar/sidebar";
 
 type Props = {
-  initialIsExpanded?: boolean;
   isDrawer?: boolean;
 };
 
-export const Layout = ({
-  children,
-  initialIsExpanded,
-  isDrawer,
-}: PropsWithChildren<Props>) => {
-  const [expanded, setExpanded] = useLocalStorage(
-    "is-sidebar-expanded",
-    initialIsExpanded
-  );
+export const Layout = ({ isDrawer }: Props) => {
   const [ref, hovering] = useHover();
-  const isExpanded = isDrawer ? hovering : expanded;
+  const isExpanded = !isDrawer || hovering;
 
   return (
     <div
@@ -35,7 +27,7 @@ export const Layout = ({
         drawer={isDrawer}
         drawerRef={ref}
         isExpanded={isExpanded}
-        onToggleExpand={setExpanded}
+        // onToggleExpand={setExpanded}
       />
       <main
         className={twJoin(
@@ -63,7 +55,7 @@ export const Layout = ({
             </div>
           }
         >
-          {children}
+          <Outlet />
         </Suspense>
       </main>
     </div>
