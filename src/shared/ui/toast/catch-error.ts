@@ -1,19 +1,19 @@
-import { toast } from "react-toastify";
-
 import { HttpRequestError, RpcRequestError, WebSocketRequestError } from "viem";
+
+import { notifyError } from "./notify-error";
 
 export const catchError = (error: unknown) => {
   console.error(error);
   if (error instanceof RpcRequestError) {
-    return toast.error(error.shortMessage);
+    return notifyError(error.shortMessage);
   }
 
   if (error instanceof HttpRequestError) {
-    return toast.error(error.shortMessage);
+    return notifyError(error.shortMessage);
   }
 
   if (error instanceof WebSocketRequestError) {
-    return toast.error(error.shortMessage);
+    return notifyError(error.shortMessage);
   }
 
   if (
@@ -21,8 +21,8 @@ export const catchError = (error: unknown) => {
     "message" in error &&
     typeof error.message === "string"
   ) {
-    return toast.error(error.message);
+    return notifyError(error.message);
   }
 
-  return toast.error("Something went wrong");
+  return notifyError("Something went wrong");
 };

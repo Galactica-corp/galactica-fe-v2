@@ -16,6 +16,10 @@ const style: CSSProperties = {
   // transform: "translateY(-50%)",
 };
 
+const imgStyles: CSSProperties = {
+  maskImage: "/quests/entry/outline.svg",
+};
+
 export const Node = ({ data }: NodeProps<Quest>) => {
   const [ref, hovering] = useHover();
   const { outlineNodeImage, nodeImage, isSelected, status, points } = data;
@@ -79,6 +83,7 @@ export const Node = ({ data }: NodeProps<Quest>) => {
             status === "locked" && "opacity-50 contrast-0"
           )}
           src={nodeImage}
+          style={imgStyles}
         />
       </div>
     </>

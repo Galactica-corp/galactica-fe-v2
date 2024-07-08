@@ -76,6 +76,7 @@ module.exports = {
       eggshell: "#F6E6DC",
       geyser: "#DEDFE2",
       aluminium: "#A9ADB6",
+      grapefruit: "#D92D20",
     },
   },
 };

@@ -1,7 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { PublicClient, getContract } from "viem";
-import { useAccount, usePublicClient, useWalletClient } from "wagmi";
+import {
+  useAccount,
+  useChainId,
+  usePublicClient,
+  useWalletClient,
+} from "wagmi";
 
 import { catchError } from "shared/ui/toast";
 
@@ -35,15 +40,16 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
   const mutation = useInvokeSnapMutation("genZkCertProof");
   const { onPublish } = options;
 
-  const { chain, address } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
   return useMutation({
     mutationFn: async () => {
       invariant(pc, "public client is undefined");
       invariant(wc.data, "wc is undefined");
-      invariant(chain, "chain is udnefined");
+      invariant(chainId, "chainId is udnefined");
       invariant(address, "address is undefined. Connect your wallet");
 
-      const contractAddresses = contracts[chain.id];
+      const contractAddresses = contracts[chainId];
 
       invariant(contractAddresses, "contracts is undefined, wrong network");
 
@@ -112,7 +118,7 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
     onError: catchError,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["sbts", chain?.id, address],
+        queryKey: ["sbts", chainId, address],
       });
     },
   });

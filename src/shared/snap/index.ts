@@ -1,4 +1,5 @@
 export { basicKYCExampleDapp as basicKYCExampleDappABI } from "./abi/basic-kyc-example-dapp";
+export { guardianRegistry as guardianRegistryABI } from "./abi/guardian-registry";
 export { verificationSBT as verificationSBTABI } from "./abi/verification-sbt";
 export { contracts } from "./const";
 

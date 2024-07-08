@@ -15,7 +15,11 @@ export const App = () => {
     <WagmiProvider>
       <RqProvider>
         <AppRoutes />
-        <ToastContainer closeButton={CloseButton} position="bottom-right" />
+        <ToastContainer
+          closeButton={CloseButton}
+          icon={false}
+          position="bottom-right"
+        />
       </RqProvider>
     </WagmiProvider>
   );

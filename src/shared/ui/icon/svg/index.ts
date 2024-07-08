@@ -1,3 +1,4 @@
+export { default as alertCircle } from "./alert-circle.svg?react";
 export { default as building } from "./building.svg?react";
 export { default as certificate } from "./certificate.svg?react";
 export { default as chevronDown } from "./chevron-down.svg?react";
