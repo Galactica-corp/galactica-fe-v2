@@ -1,0 +1,39 @@
+query Section($id: SectionID) {
+  sections(id: $id) {
+    id
+    title
+    questTree {
+      quests {
+        id
+        icon
+        image
+        title
+        description
+        action {
+          text
+          url
+        }
+        learnMore {
+          text
+          url
+        }
+        points
+        status
+      }
+      edges {
+        requirement
+        unlocks
+      }
+    }
+    rewards {
+      id
+      title
+      description
+      icon
+      points
+      tokenID
+    }
+    status
+    points
+  }
+}

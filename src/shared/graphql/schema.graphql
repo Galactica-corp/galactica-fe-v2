@@ -1,0 +1,113 @@
+scalar QuestID
+scalar SectionID
+"Points are rewards for completing each Quest."
+scalar Points
+scalar Void
+
+"Status of quest or section completion."
+enum Status {
+  "Conditions for unlocking are not met yet."
+  LOCKED
+  "Unlocked, but not yet completed."
+  AVAILABLE
+  COMPLETED
+}
+
+"Section is a way to organise Quests. It contains a Quest Tree."
+type Section {
+  id: SectionID!
+  title: String!
+  questTree: QuestTree!
+  rewards: [Reward!]!
+  status: Status!
+  "How many points is now earned in this section."
+  points: Points!
+}
+
+"QuestTree defines hierarchical structure of Quests and their dependencies."
+type QuestTree {
+  quests: [Quest!]!
+  edges: [QuestTreeEdge!]!
+}
+
+"""
+QuestTree represents one edge in the Quest Tree. This means that in order to unlock a Quest it is required to complete
+another one.
+"""
+type QuestTreeEdge {
+  "Which Quest is required to complete."
+  requirement: QuestID!
+  "Which Quest would be unlocked after completion of the required Quest."
+  unlocks: QuestID!
+}
+
+"Quest is a task for a User to complete."
+type Quest {
+  id: QuestID!
+  icon: String!
+  "A large, contextual image associated with each Quest."
+  image: String!
+  "User-facing name of the Quest."
+  title: String!
+  "Detailed information about the Quest, including how to complete it."
+  description: String!
+  "A Link to internal or external page or service."
+  action: Link
+  "External Link to information about the Quest."
+  learnMore: Link
+  "Points for successful completion of the Quest."
+  points: Points!
+  status: Status!
+}
+
+"Link represents a hyperlink with text."
+type Link {
+  "User-facing text of the link."
+  text: String!
+  "A URL that the link refers to."
+  url: String!
+}
+
+"Reward is an SBT that a user can obtain by reaching a specific amount of points within a Section."
+type Reward {
+  id: ID!
+  title: String!
+  description: String!
+  icon: String!
+  "Amount of Points in Section required to obtain this reward."
+  points: Points!
+  "Token ID of the issued reward if it was issued."
+  tokenID: ID
+}
+
+type Query {
+  "List of every quest section."
+  sections: [Section!]!
+  "Return section by ID."
+  section(id: SectionID!): Section!
+}
+
+input CompleteNonVerifiableQuestParams {
+  section: SectionID!
+  quest: QuestID!
+}
+
+type Mutation {
+  "The only way to complete Quest that cannot be verified by other means is to call this mutation."
+  completeNonVerifiableQuest(params: CompleteNonVerifiableQuestParams!): Void
+}
+
+"An event that is fired when a quest is completed."
+type EventQuestCompleted {
+  section: Section!
+  quest: Quest!
+  "Rewards obtained by completing this quest."
+  rewards: [Reward!]!
+  unlockedQuests: [Quest!]!
+  unlockedSections: [Section!]!
+}
+
+type Subscription {
+  "Subscribe to notifications about completed quests."
+  questCompletion: EventQuestCompleted!
+}

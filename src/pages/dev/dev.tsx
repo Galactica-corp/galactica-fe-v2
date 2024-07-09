@@ -1,20 +1,25 @@
-import { useCerts } from "entities/cert";
+import { useAuthMutation } from "shared/api";
 import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Button } from "shared/ui/button";
 
 export const Dev = () => {
   const invokeMutation = useInvokeSnapMutation("clearStorage");
 
-  const { setCerts } = useCerts();
+  const mutation = useAuthMutation();
+
   return (
-    <div>
+    <div className="flex gap-x-3">
       <Button
         onClick={() => {
-          invokeMutation.mutate(undefined, {
-            onSuccess: () => {
-              setCerts({ gip1: [], gip2: [] }, { gip1: "", gip2: "" });
-            },
-          });
+          mutation.mutate();
+        }}
+      >
+        Auth
+      </Button>
+
+      <Button
+        onClick={() => {
+          invokeMutation.mutate();
         }}
       >
         ClearStorage

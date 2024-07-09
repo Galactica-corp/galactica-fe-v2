@@ -33,10 +33,10 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       proxy: {
-        [`${env.VITE_GRAPHQL_SERVER}`]: {
-          target: env.VITE_PROXY_URL,
+        [`${env.VITE_QUEST_SERVICE}`]: {
+          target: "https://quest-service.galactica.com",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace(/^\/quest-api/, ""),
         },
       },
     },
