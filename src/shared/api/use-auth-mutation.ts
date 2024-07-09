@@ -47,7 +47,7 @@ export const useAuthMutation = () => {
 
       const signature = await wc?.signMessage({
         account: address,
-        message: { raw: challenge as `0x${string}` },
+        message: challenge,
       });
 
       invariant(signature, `signature is undefined`);
