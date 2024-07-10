@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <AuthGuard level="metamask" />,
+        element: <AuthGuard isMetamaskNeeded />,
         children: [
           {
             path: "/",
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <AuthGuard level="snap" />,
+        element: <AuthGuard isBackendNeeded isMetamaskNeeded isSnapNeeded />,
         children: [{ path: "/skill-tree", element: <SkillTreePage /> }],
       },
       { path: "*", element: <div>Not found</div> },
@@ -47,11 +47,11 @@ const router = createBrowserRouter([
       { path: "/data-guardians", element: <DataGuardiansPage /> },
       { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
       {
-        element: <AuthGuard level="metamask" />,
+        element: <AuthGuard isMetamaskNeeded />,
         children: [{ path: "/my-sbts", element: <MySBTsPage /> }],
       },
       {
-        element: <AuthGuard level="snap" />,
+        element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
         children: [
           { path: "/my-certificates", element: <MyCertificatesPage /> },
         ],

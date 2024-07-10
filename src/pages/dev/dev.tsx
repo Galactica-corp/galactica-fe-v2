@@ -11,7 +11,7 @@ export const Dev = () => {
     <div className="flex gap-x-3">
       <Button
         onClick={() => {
-          mutation.mutate();
+          mutation.mutate({});
         }}
       >
         Auth

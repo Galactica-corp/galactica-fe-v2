@@ -1,12 +1,13 @@
 import { Variant, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
-import { AuthLevel } from "../types";
 import { useAuthStatus } from "../use-auth-status";
 
 type Props = {
   children: React.ReactNode;
-  level: AuthLevel;
+  isBackendNeeded?: boolean;
+  isMetamaskNeeded?: boolean;
+  isSnapNeeded?: boolean;
   onComplete?(): void;
 };
 
@@ -24,19 +25,23 @@ const close: Variant = {
   transition: { rotateY: { duration } },
 };
 
-export const Book = ({ level, children, onComplete }: Props) => {
-  const { isMetamaskAuth, isSnapAuth } = useAuthStatus();
-
-  const isAuthorized =
-    (level === "metamask" && isMetamaskAuth) ||
-    (level === "snap" && isSnapAuth);
+export const Book = ({
+  isBackendNeeded,
+  isMetamaskNeeded,
+  isSnapNeeded,
+  children,
+  onComplete,
+}: Props) => {
+  const { isAuth } = useAuthStatus({
+    isBackendNeeded,
+    isMetamaskNeeded,
+    isSnapNeeded,
+  });
 
   return (
     <div className="relative w-full">
       <motion.div
-        animate={
-          isAuthorized ? { x: "50%", transition: { duration } } : { x: 0 }
-        }
+        animate={isAuth ? { x: "50%", transition: { duration } } : { x: 0 }}
         className="relative m-auto h-[665px] w-[480px] rounded-xl shadow-2xl"
         initial={false}
         onAnimationComplete={onComplete}
@@ -51,12 +56,12 @@ export const Book = ({ level, children, onComplete }: Props) => {
         <img
           className={twMerge(
             "relative size-full object-cover",
-            isAuthorized && "z-10 -translate-x-1"
+            isAuth && "z-10 -translate-x-1"
           )}
           src={"/passport/page.png"}
         />
         <motion.div
-          animate={isAuthorized ? "open" : "close"}
+          animate={isAuth ? "open" : "close"}
           className="absolute left-0 top-0 size-full rounded-xl"
           style={{
             backfaceVisibility: "hidden",

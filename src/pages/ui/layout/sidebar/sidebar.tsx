@@ -6,6 +6,7 @@ import { useAccount, useDisconnect } from "wagmi";
 
 import { Avatar, Profile } from "entities/profile";
 import { ConnectWalletButton } from "features/connect-wallet";
+import { useSignOutMutation } from "shared/api";
 import { useGetSnapQuery } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Icon, IconName } from "shared/ui/icon";
@@ -30,12 +31,12 @@ export const Sidebar = ({
   isExpanded,
   drawer,
   className,
-  // onToggleExpand,
   drawerRef,
 }: PropsWithChildren<Props>) => {
   const { disconnect } = useDisconnect();
   const { isConnected } = useAccount();
   const query = useGetSnapQuery();
+  const signOutMutation = useSignOutMutation();
 
   const links: TLink[] = [
     {
@@ -127,6 +128,16 @@ export const Sidebar = ({
                 )}
               </>
             }
+            installMetamaskContent={
+              <>
+                <Icon className="size-5" name="metamask" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Install Metamask
+                  </motion.div>
+                )}
+              </>
+            }
             installSnapContent={
               <>
                 <Icon name="galactica" />
@@ -149,7 +160,10 @@ export const Sidebar = ({
               <Icon
                 className="cursor-pointer transition-colors hover:brightness-150"
                 name="logout"
-                onClick={() => disconnect()}
+                onClick={() => {
+                  signOutMutation.mutate();
+                  disconnect();
+                }}
               />
             }
             className="grow"

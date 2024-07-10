@@ -2,20 +2,31 @@ import { Outlet } from "react-router-dom";
 
 import { useSessionStorage } from "@uidotdev/usehooks";
 import { useAccount, useAccountEffect } from "wagmi";
-import { AuthLevel, Auth as AuthWidget } from "widget/auth";
+import { Auth as AuthWidget, useAuthStatus } from "widget/auth";
 
 import { useGetSnapQuery } from "shared/snap/rq";
 
 type Props = {
-  level: AuthLevel;
+  isBackendNeeded?: boolean;
+  isMetamaskNeeded?: boolean;
+  isSnapNeeded?: boolean;
 };
 
-export const Auth = ({ level }: Props) => {
+export const Auth = ({
+  isBackendNeeded,
+  isMetamaskNeeded,
+  isSnapNeeded,
+}: Props) => {
   const { isConnected } = useAccount();
-  const { isPending, data } = useGetSnapQuery();
+  const { isPending } = useGetSnapQuery();
+  const { isAuth } = useAuthStatus({
+    isBackendNeeded,
+    isMetamaskNeeded,
+    isSnapNeeded,
+  });
   const [holdAnimation, setHoldAnimation] = useSessionStorage(
     "hold-passport-animation",
-    !isConnected
+    !isAuth
   );
 
   useAccountEffect({
@@ -32,13 +43,17 @@ export const Auth = ({ level }: Props) => {
     return null;
   }
 
-  if (level === "metamask" && isConnected && !holdAnimation) return <Outlet />;
-  if (level === "snap" && isConnected && data && !holdAnimation)
-    return <Outlet />;
+  if (isAuth && !holdAnimation) return <Outlet />;
 
   return (
     <div className="flex grow items-center py-9">
-      <AuthWidget className="m-auto" level={level} onComplete={onComplete} />
+      <AuthWidget
+        className="m-auto"
+        isBackendNeeded={isBackendNeeded}
+        isMetamaskNeeded={isMetamaskNeeded}
+        isSnapNeeded={isSnapNeeded}
+        onComplete={onComplete}
+      />
     </div>
   );
 };

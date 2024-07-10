@@ -4,18 +4,30 @@ import { ConnectWalletButton } from "features/connect-wallet";
 
 import galacticaNetworkSrc from "../assets/galactica-network.svg";
 import swirlSrc from "../assets/swirl.png";
-import { AuthLevel } from "../types";
 import { Book } from "./book";
 
 type Props = {
   className?: string;
-  level: AuthLevel;
+  isBackendNeeded?: boolean;
+  isMetamaskNeeded?: boolean;
+  isSnapNeeded?: boolean;
   onComplete?(): void;
 };
 
-export const Auth = ({ level, className, ...props }: Props) => {
+export const Auth = ({
+  isBackendNeeded,
+  isMetamaskNeeded,
+  isSnapNeeded,
+  className,
+  ...props
+}: Props) => {
   return (
-    <Book level={level} onComplete={props.onComplete}>
+    <Book
+      isBackendNeeded={isBackendNeeded}
+      isMetamaskNeeded={isMetamaskNeeded}
+      isSnapNeeded={isSnapNeeded}
+      onComplete={props.onComplete}
+    >
       <div
         className="absolute left-0 top-0 size-full rounded-xl bg-whiteSmoke object-cover"
         style={{ backfaceVisibility: "hidden" }}
@@ -36,7 +48,7 @@ export const Auth = ({ level, className, ...props }: Props) => {
           <ConnectWalletButton
             className="mt-10 h-[54px] w-[227px] font-ptm uppercase inner-border-basketBallOrange/75"
             connectContent={
-              <span className="tracking-tighter">Login with MetaMask</span>
+              <span className="tracking-tighter">Connect MetaMask</span>
             }
             theme="basketBallOrange-transparent"
           />

@@ -1,7 +1,11 @@
 import { GraphQLClient, Variables, gql } from "graphql-request";
 
+const url = import.meta.env.VITE_QUEST_SERVICE;
+
 const client = new GraphQLClient(
-  `${import.meta.env.VITE_QUEST_SERVICE}/query`,
+  url.startsWith("/")
+    ? `${window.origin}${url}/api/graphql/query`
+    : `${url}/api/graphql/query`,
   {
     requestMiddleware: (request) => {
       request.credentials = "include";

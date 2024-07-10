@@ -1,5 +1,6 @@
 import { ComponentProps, ReactNode } from "react";
 
+import { ClientError } from "graphql-request";
 import { twMerge } from "tailwind-merge";
 import {
   useAccount,
@@ -9,6 +10,8 @@ import {
   useSwitchChain,
 } from "wagmi";
 
+import { useAuthMutation } from "shared/api";
+import { useSectionsQuery } from "shared/graphql";
 import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
@@ -16,6 +19,7 @@ import { shortAddress } from "shared/web3/utils";
 
 type Props = {
   connectContent?: ReactNode;
+  installMetamaskContent?: ReactNode;
   installSnapContent?: ReactNode;
   switchChainContent?: ReactNode;
 } & ButtonProps &
@@ -23,6 +27,7 @@ type Props = {
 
 export function ConnectButton({
   className,
+  installMetamaskContent = "Install Metamask",
   connectContent = "Connect MetaMask",
   switchChainContent = "Switch chain",
   installSnapContent = "Install MetaMask snap",
@@ -32,12 +37,14 @@ export function ConnectButton({
     useAccount();
   const chainId = useChainId();
 
-  const query = useGetSnapQuery();
+  const snapQuery = useGetSnapQuery();
+  const sectionsQuery = useSectionsQuery({}, { staleTime: Infinity });
   const mutation = useInstallSnapMutation();
 
   const { switchChain, isPending: isSwitchChainPending } = useSwitchChain();
   const { disconnect, isPending: isDisconnectPending } = useDisconnect();
   const { connect, connectors } = useConnect();
+  const authMutation = useAuthMutation();
 
   const handleConnect = () => {
     const metamaskConnector = connectors.find(
@@ -71,7 +78,7 @@ export function ConnectButton({
         target="_blank"
         {...btnProps}
       >
-        Install Metamask
+        {installMetamaskContent}
       </Button>
     );
   }
@@ -96,7 +103,23 @@ export function ConnectButton({
     );
   }
 
-  if (query.isSuccess && !query.data) {
+  if (
+    sectionsQuery.isPending ||
+    (sectionsQuery.error instanceof ClientError &&
+      sectionsQuery.error.response.status === 401)
+  ) {
+    return (
+      <Button
+        {...btnProps}
+        isLoading={authMutation.isPending || sectionsQuery.isPending}
+        onClick={authMutation.mutate}
+      >
+        Log In
+      </Button>
+    );
+  }
+
+  if (snapQuery.isSuccess && !snapQuery.data) {
     return (
       <Button
         {...btnProps}
