@@ -103,6 +103,18 @@ export function ConnectButton({
     );
   }
 
+  if (snapQuery.isSuccess && !snapQuery.data) {
+    return (
+      <Button
+        {...btnProps}
+        isLoading={mutation.isPending}
+        onClick={mutation.mutate}
+      >
+        {installSnapContent}
+      </Button>
+    );
+  }
+
   if (
     sectionsQuery.isPending ||
     (sectionsQuery.error instanceof ClientError &&
@@ -115,18 +127,6 @@ export function ConnectButton({
         onClick={authMutation.mutate}
       >
         Log In
-      </Button>
-    );
-  }
-
-  if (snapQuery.isSuccess && !snapQuery.data) {
-    return (
-      <Button
-        {...btnProps}
-        isLoading={mutation.isPending}
-        onClick={mutation.mutate}
-      >
-        {installSnapContent}
       </Button>
     );
   }
