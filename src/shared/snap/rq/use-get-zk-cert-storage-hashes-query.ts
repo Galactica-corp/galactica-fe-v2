@@ -1,7 +1,9 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { Account, Address, Chain, Client, HttpTransport } from "viem";
-import { useAccount, useChainId } from "wagmi";
+import { useAccount } from "wagmi";
+
+import { useChain } from "shared/providers/wagmi";
 
 import { SnapRpcSchema } from "../types/rpc-schema";
 import { GetInvokeSnapResponse } from "../types/utils";
@@ -52,8 +54,10 @@ export const getOptions = (
 export const useGetZkCertStorageHashesQuery = (options: Options = {}) => {
   const { client } = useSnapClient();
   const { address } = useAccount();
-  const chainId = useChainId();
+  const chain = useChain();
   const { onFetch } = options;
 
-  return useQuery(getOptions({ chainId, address, client }, { onFetch }));
+  return useQuery(
+    getOptions({ chainId: chain.id, address, client }, { onFetch })
+  );
 };

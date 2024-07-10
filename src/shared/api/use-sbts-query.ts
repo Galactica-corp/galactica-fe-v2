@@ -1,8 +1,9 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { Address, getContract } from "viem";
-import { useAccount, useChainId, usePublicClient } from "wagmi";
+import { useAccount, useClient } from "wagmi";
 
+import { useChain } from "shared/providers/wagmi";
 import { contracts, verificationSBTABI } from "shared/snap";
 import { QueryOptions } from "shared/types";
 
@@ -11,7 +12,7 @@ type SBTInfo = { description: string; expirationTime: number; tokenId: bigint };
 type Response = SBTInfo | null;
 
 const getQueryOptions = <TData = Response>(
-  pc: ReturnType<typeof usePublicClient>,
+  client: ReturnType<typeof useClient>,
   chainId: number | string | undefined,
   accountAddress: Address | undefined,
   options?: QueryOptions<Response, unknown, TData>
@@ -20,7 +21,7 @@ const getQueryOptions = <TData = Response>(
     queryKey: ["sbts", chainId, accountAddress] as const,
     staleTime: Infinity,
     queryFn: async () => {
-      invariant(pc, "pc is undefined");
+      invariant(client, "pc is undefined");
       invariant(chainId, "chainId is undefined");
       invariant(accountAddress, "accountAddress is undefined");
 
@@ -29,7 +30,7 @@ const getQueryOptions = <TData = Response>(
       const contract = getContract({
         abi: verificationSBTABI,
         address: contractAddresses.VerificationSBT as Address,
-        client: pc,
+        client,
       });
 
       const sbtInfo = await contract.read.getVerificationSBTInfo(
@@ -52,15 +53,16 @@ const getQueryOptions = <TData = Response>(
         tokenId: sbtInfo.tokenId,
       } as SBTInfo;
     },
-    enabled: Boolean(pc && accountAddress && chainId),
+    enabled: Boolean(client && accountAddress && chainId),
     ...options,
   });
 
 export const useSBTsSuspenseQuery = <TData = Response>(
   options?: QueryOptions<Response, unknown, TData>
 ) => {
-  const pc = usePublicClient();
+  const chain = useChain();
+  const client = useClient({ chainId: chain.id });
   const { address } = useAccount();
-  const chainId = useChainId();
-  return useSuspenseQuery(getQueryOptions(pc, chainId, address, options));
+
+  return useSuspenseQuery(getQueryOptions(client, chain.id, address, options));
 };

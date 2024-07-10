@@ -4,9 +4,10 @@ import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { twMerge } from "tailwind-merge";
 import { RpcError } from "viem";
-import { useAccount, useChainId } from "wagmi";
+import { useAccount } from "wagmi";
 
 import { useCerts } from "entities/cert";
+import { useChain } from "shared/providers/wagmi";
 import { EncryptedZkCert } from "shared/snap";
 import {
   getZkCertStorageHashesQueryOptions,
@@ -27,7 +28,7 @@ export const Upload = ({ className }: UploadProps) => {
   const queryClient = useQueryClient();
 
   const { address } = useAccount();
-  const chainId = useChainId();
+  const chain = useChain();
   const { client } = useSnapClient();
 
   const { setCerts } = useCerts();
@@ -50,7 +51,7 @@ export const Upload = ({ className }: UploadProps) => {
       }
 
       const queryOptions = getZkCertStorageHashesQueryOptions({
-        chainId,
+        chainId: chain.id,
         address,
         client,
       });

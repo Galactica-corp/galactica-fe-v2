@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
-import { Address } from "viem";
+import { Address, hexToBytes } from "viem";
 import { useAccount, useWalletClient } from "wagmi";
+
+import { bufferToBase64 } from "shared/utils";
 
 type ChallengeResponse = {
   challenge: string;
@@ -15,14 +17,6 @@ type SignInRequest = {
   challenge: string;
   signature: string;
 };
-
-function toBase64(str: string) {
-  const bytes = new TextEncoder().encode(str);
-  const binString = Array.from(bytes, (byte) =>
-    String.fromCodePoint(byte)
-  ).join("");
-  return btoa(binString);
-}
 
 export const useAuthMutation = () => {
   const { address } = useAccount();
@@ -52,8 +46,10 @@ export const useAuthMutation = () => {
 
       invariant(signature, `signature is undefined`);
 
+      const b64Signature = await bufferToBase64(hexToBytes(signature));
+
       const signInParams: SignInRequest = {
-        signature: toBase64(signature),
+        signature: b64Signature,
         challenge,
       };
 
@@ -65,9 +61,7 @@ export const useAuthMutation = () => {
         }
       );
 
-      const signInData = await signInResponse.json();
-
-      return signInData;
+      return signInResponse.ok;
     },
   });
 };

@@ -1,16 +1,17 @@
 import { Account, Chain, Client, HttpTransport } from "viem";
-import { useAccount, useChainId, useConnectorClient } from "wagmi";
+import { useAccount, useConnectorClient } from "wagmi";
 
+import { useChain } from "shared/providers/wagmi";
 import { SnapRpcSchema } from "shared/snap";
 
 import { config } from "../../providers/wagmi/config";
 
 export const useSnapClient = () => {
-  const chainId = useChainId();
+  const chain = useChain();
   const { connector } = useAccount();
 
   const { data: client } = useConnectorClient({
-    chainId,
+    chainId: chain.id,
     config,
     connector: connector,
   });

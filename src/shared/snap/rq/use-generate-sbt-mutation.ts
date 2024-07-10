@@ -1,13 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { PublicClient, getContract } from "viem";
-import {
-  useAccount,
-  useChainId,
-  usePublicClient,
-  useWalletClient,
-} from "wagmi";
+import { useAccount, usePublicClient, useWalletClient } from "wagmi";
 
+import { useChain } from "shared/providers/wagmi";
 import { catchError } from "shared/ui/toast";
 
 import { basicKYCExampleDapp } from "../abi/basic-kyc-example-dapp";
@@ -41,15 +37,15 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
   const { onPublish } = options;
 
   const { address } = useAccount();
-  const chainId = useChainId();
+  const chain = useChain();
   return useMutation({
     mutationFn: async () => {
       invariant(pc, "public client is undefined");
       invariant(wc.data, "wc is undefined");
-      invariant(chainId, "chainId is udnefined");
+      invariant(chain.id, "chainId is udnefined");
       invariant(address, "address is undefined. Connect your wallet");
 
-      const contractAddresses = contracts[chainId];
+      const contractAddresses = contracts[chain.id];
 
       invariant(contractAddresses, "contracts is undefined, wrong network");
 
@@ -118,7 +114,7 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
     onError: catchError,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["sbts", chainId, address],
+        queryKey: ["sbts", chain.id, address],
       });
     },
   });

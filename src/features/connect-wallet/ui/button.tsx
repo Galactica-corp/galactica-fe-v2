@@ -9,6 +9,7 @@ import {
   useSwitchChain,
 } from "wagmi";
 
+import { useChain } from "shared/providers/wagmi";
 import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
@@ -28,14 +29,9 @@ export function ConnectButton({
   installSnapContent = "Install MetaMask snap",
   ...props
 }: Props) {
-  const {
-    address,
-    isDisconnected,
-    isConnecting,
-    chainId: currentChainId,
-    connector,
-  } = useAccount();
-  const chainId = useChainId();
+  const { address, isDisconnected, isConnecting, connector } = useAccount();
+  const currentChainId = useChainId();
+  const chain = useChain();
 
   const query = useGetSnapQuery();
   const mutation = useInstallSnapMutation();
@@ -89,12 +85,12 @@ export function ConnectButton({
     );
   }
 
-  if (currentChainId !== chainId) {
+  if (currentChainId !== chain.id) {
     return (
       <Button
         {...btnProps}
         isLoading={isSwitchChainPending}
-        onClick={() => switchChain({ connector: connector, chainId })}
+        onClick={() => switchChain({ connector: connector, chainId: chain.id })}
       >
         {switchChainContent}
       </Button>

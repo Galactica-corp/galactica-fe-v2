@@ -76,20 +76,14 @@ export const Sidebar = ({
       animate={isExpanded ? "expanded" : "collapsed"}
       className={twMerge(
         "flex max-w-80 select-none flex-col overflow-hidden border-r border-r-catskillWhite bg-white py-8 grid-in-sidebar",
-        drawer && "absolute inset-y-0 left-0 z-50",
+        drawer && "fixed inset-y-0 left-0 z-50",
         className
       )}
       initial={false}
       ref={drawerRef}
       variants={sidebarVariants}
     >
-      <Logo
-        className="block h-8 pl-6"
-        isSmall={!isExpanded}
-        onClick={() => {
-          // onToggleExpand?.(!isExpanded);
-        }}
-      />
+      <Logo className="block h-8 pl-6" isSmall={!isExpanded} />
       <nav className="mb-8 mt-6 flex flex-col gap-y-1 px-4">
         {links.map(({ text, iconName, to, disabled }) => {
           return (
