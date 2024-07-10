@@ -1,1 +1,1 @@
-export type AuthLevel = "metamask" | "snap";
+export type AuthLevel = "metamask" | "session" | "snap";

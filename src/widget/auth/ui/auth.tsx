@@ -2,10 +2,10 @@ import { twMerge } from "tailwind-merge";
 
 import { ConnectWalletButton } from "features/connect-wallet";
 
+import galacticaNetworkSrc from "../assets/galactica-network.svg";
+import swirlSrc from "../assets/swirl.png";
+import { AuthLevel } from "../types";
 import { Book } from "./book";
-import galacticaNetworkSrc from "./galactica-network.svg";
-import swirlSrc from "./swirl.png";
-import { AuthLevel } from "./types";
 
 type Props = {
   className?: string;

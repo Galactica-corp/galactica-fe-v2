@@ -1,9 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { Address, hexToBytes } from "viem";
-import { useAccount, useWalletClient } from "wagmi";
+import { useAccount, useChainId, useWalletClient } from "wagmi";
 
-import { useChain } from "shared/providers/wagmi";
 import { bufferToBase64 } from "shared/utils";
 
 type ChallengeResponse = {
@@ -21,8 +20,8 @@ type SignInRequest = {
 
 export const useAuthMutation = () => {
   const { address } = useAccount();
-  const chain = useChain();
-  const { data: wc } = useWalletClient({ chainId: chain.id });
+  const chainId = useChainId();
+  const { data: wc } = useWalletClient({ chainId });
 
   return useMutation({
     mutationFn: async () => {

@@ -3,9 +3,8 @@ import { useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import invariant from "tiny-invariant";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 
-import { useChain } from "shared/providers/wagmi";
 import { ZkCertListItem, ZkCertStandard } from "shared/snap";
 import {
   getZkCertStorageHashesQueryOptions,
@@ -24,13 +23,13 @@ type Cert = {
 
 export const useCerts = () => {
   const { address } = useAccount();
-  const chain = useChain();
+  const chainId = useChainId();
   const { client } = useSnapClient();
   const queryClient = useQueryClient();
 
   const [hashes, setHashes] = useLocalStorage<
     Partial<Record<ZkCertStandard, string>>
-  >(`store-hashes-${chain.id}`, {});
+  >(`store-hashes-${chainId}`, {});
 
   const query = useGetZkCertStorageHashesQuery({
     onFetch: (data) => {
@@ -48,7 +47,7 @@ export const useCerts = () => {
   });
 
   const [certsStore, setCertsStore] = useLocalStorage<Cert[]>(
-    `zk-certs-${chain.id}`,
+    `zk-certs-${chainId}`,
     []
   );
 
@@ -81,7 +80,7 @@ export const useCerts = () => {
       invariant(client, "client is undefined");
 
       const queryOptions = getZkCertStorageHashesQueryOptions({
-        chainId: chain.id,
+        chainId,
         address,
         client,
       });

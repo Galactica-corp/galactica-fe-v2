@@ -12,7 +12,7 @@ type Props = {
 
 export const Auth = ({ level }: Props) => {
   const { isConnected } = useAccount();
-  const { data, isPending } = useGetSnapQuery();
+  const { isPending, data } = useGetSnapQuery();
   const [holdAnimation, setHoldAnimation] = useSessionStorage(
     "hold-passport-animation",
     !isConnected

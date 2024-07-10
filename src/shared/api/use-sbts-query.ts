@@ -1,9 +1,8 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { Address, getContract } from "viem";
-import { useAccount, useClient } from "wagmi";
+import { useAccount, useChainId, useClient } from "wagmi";
 
-import { useChain } from "shared/providers/wagmi";
 import { contracts, verificationSBTABI } from "shared/snap";
 import { QueryOptions } from "shared/types";
 
@@ -60,9 +59,9 @@ const getQueryOptions = <TData = Response>(
 export const useSBTsSuspenseQuery = <TData = Response>(
   options?: QueryOptions<Response, unknown, TData>
 ) => {
-  const chain = useChain();
-  const client = useClient({ chainId: chain.id });
+  const chainId = useChainId();
+  const client = useClient({ chainId: chainId });
   const { address } = useAccount();
 
-  return useSuspenseQuery(getQueryOptions(client, chain.id, address, options));
+  return useSuspenseQuery(getQueryOptions(client, chainId, address, options));
 };

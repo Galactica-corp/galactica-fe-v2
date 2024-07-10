@@ -1,10 +1,8 @@
 import { Variant, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
-import { useAccount } from "wagmi";
 
-import { useGetSnapQuery } from "shared/snap/rq";
-
-import { AuthLevel } from "./types";
+import { AuthLevel } from "../types";
+import { useAuthStatus } from "../use-auth-status";
 
 type Props = {
   children: React.ReactNode;
@@ -27,12 +25,11 @@ const close: Variant = {
 };
 
 export const Book = ({ level, children, onComplete }: Props) => {
-  const { isConnected } = useAccount();
-  const { data } = useGetSnapQuery();
+  const { isMetamaskAuth, isSnapAuth } = useAuthStatus();
 
   const isAuthorized =
-    (level === "metamask" && isConnected) ||
-    (level === "snap" && isConnected && data);
+    (level === "metamask" && isMetamaskAuth) ||
+    (level === "snap" && isSnapAuth);
 
   return (
     <div className="relative w-full">

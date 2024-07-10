@@ -24,7 +24,6 @@ type Props = {
   drawer?: boolean;
   drawerRef?: React.LegacyRef<HTMLElement> | undefined;
   isExpanded: boolean;
-  // onToggleExpand: (isExpanded: boolean) => void;
 } & ClassName;
 
 export const Sidebar = ({
@@ -67,6 +66,12 @@ export const Sidebar = ({
       iconName: "scan",
       to: "/data-guardians",
       text: "Data Guardians",
+      disabled: false,
+    },
+    {
+      iconName: "shieldZap",
+      to: "/skill-tree",
+      text: "Skill Tree",
       disabled: false,
     },
   ];
