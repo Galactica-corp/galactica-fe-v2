@@ -3,6 +3,7 @@ import invariant from "tiny-invariant";
 import { Address, hexToBytes } from "viem";
 import { useAccount, useWalletClient } from "wagmi";
 
+import { useChain } from "shared/providers/wagmi";
 import { bufferToBase64 } from "shared/utils";
 
 type ChallengeResponse = {
@@ -20,7 +21,8 @@ type SignInRequest = {
 
 export const useAuthMutation = () => {
   const { address } = useAccount();
-  const { data: wc } = useWalletClient();
+  const chain = useChain();
+  const { data: wc } = useWalletClient({ chainId: chain.id });
 
   return useMutation({
     mutationFn: async () => {

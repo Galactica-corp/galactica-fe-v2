@@ -31,17 +31,17 @@ type Options = {
 
 export const useGenerateSBTMutation = (options: Options = {}) => {
   const queryClient = useQueryClient();
-  const pc = usePublicClient();
-  const wc = useWalletClient();
+  const chain = useChain();
+  const pc = usePublicClient({ chainId: chain.id });
+  const { data: wc } = useWalletClient({ chainId: chain.id });
   const mutation = useInvokeSnapMutation("genZkCertProof");
   const { onPublish } = options;
 
   const { address } = useAccount();
-  const chain = useChain();
   return useMutation({
     mutationFn: async () => {
       invariant(pc, "public client is undefined");
-      invariant(wc.data, "wc is undefined");
+      invariant(wc, "wc is undefined");
       invariant(chain.id, "chainId is udnefined");
       invariant(address, "address is undefined. Connect your wallet");
 
@@ -89,7 +89,7 @@ export const useGenerateSBTMutation = (options: Options = {}) => {
       const contract = getContract({
         abi: basicKYCExampleDapp,
         address: contractAddresses.BasicKYCExampleDApp,
-        client: wc.data,
+        client: wc,
       });
       const gas = await contract.estimateGas.registerKYC(
         [a, b, c, publicInputs],
