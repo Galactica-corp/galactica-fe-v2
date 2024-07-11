@@ -1,1 +1,1 @@
-export { sessionStore, useSessionStore } from "./session-store";
+export { sessionStore, useSessionStore, useSyncSession } from "./session-store";

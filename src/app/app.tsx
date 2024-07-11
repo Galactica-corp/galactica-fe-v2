@@ -2,7 +2,7 @@ import { ToastContainer } from "react-toastify";
 
 import { RqProvider } from "shared/providers/rq";
 import { WagmiProvider } from "shared/providers/wagmi";
-import { useSyncSession } from "shared/stores/session-store";
+import { useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
 
 import { AppRoutes } from "./routes";
