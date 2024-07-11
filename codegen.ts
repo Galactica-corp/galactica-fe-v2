@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: `https://quest-service.galactica.com/query`,
+  schema: `https://quest-service.galactica.com/api/graphql/query`,
   documents: "src/shared/graphql/**/*.graphql",
   generates: {
     "src/shared/graphql/index.ts": {

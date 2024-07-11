@@ -1,4 +1,5 @@
 import { GraphQLClient, Variables, gql } from "graphql-request";
+import { sessionStore } from "shared/stores";
 
 const url = import.meta.env.VITE_QUEST_SERVICE;
 
@@ -7,10 +8,7 @@ const client = new GraphQLClient(
     ? `${window.origin}${url}/api/graphql/query`
     : `${url}/api/graphql/query`,
   {
-    requestMiddleware: (request) => {
-      request.credentials = "include";
-      return request;
-    },
+    credentials: "include",
   }
 );
 
@@ -25,8 +23,13 @@ export const graphqlRequestFetcher =
       ${query}
     `;
 
+    const authHeader = sessionStore.get()
+      ? { Authorization: `Bearer ${sessionStore.get()}` }
+      : undefined;
+
     const result: TData = await client.request(document, variables, {
       "Content-Type": "application/json",
+      ...authHeader,
       ...options,
     });
     return result;

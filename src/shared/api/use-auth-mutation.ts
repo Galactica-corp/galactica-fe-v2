@@ -11,6 +11,7 @@ import {
 import { getWalletClientQueryOptions } from "wagmi/query";
 
 import { useSectionsQuery } from "shared/graphql";
+import { sessionStore } from "shared/stores";
 import { bufferToBase64 } from "shared/utils";
 
 type ChallengeResponse = {
@@ -24,6 +25,10 @@ type ChallengeRequest = {
 type SignInRequest = {
   challenge: string;
   signature: string;
+};
+
+type SignInResponse = {
+  session_id: string;
 };
 
 type AuthMutationParams = {
@@ -86,9 +91,11 @@ export const useAuthMutation = () => {
         }
       );
 
-      return signInResponse.ok;
+      const data: SignInResponse = await signInResponse.json();
+      return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      sessionStore.set(data.session_id);
       const key = useSectionsQuery.getKey();
       queryClient.invalidateQueries({ queryKey: key });
     },
