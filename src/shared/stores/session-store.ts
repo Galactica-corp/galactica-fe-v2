@@ -5,7 +5,7 @@ export const sessionStore = {
   get() {
     return session;
   },
-  set(newSession: string) {
+  set(newSession: string | undefined) {
     session = newSession;
     subscribers.forEach((callback) => callback());
   },
