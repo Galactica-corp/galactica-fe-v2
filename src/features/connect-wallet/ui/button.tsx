@@ -1,6 +1,5 @@
 import { ComponentProps, ReactNode } from "react";
 
-import { ClientError } from "graphql-request";
 import { twMerge } from "tailwind-merge";
 import {
   useAccount,
@@ -11,8 +10,8 @@ import {
 } from "wagmi";
 
 import { useAuthMutation } from "shared/api";
-import { useSectionsQuery } from "shared/graphql";
 import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
+import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
 import { shortAddress } from "shared/web3/utils";
@@ -38,8 +37,8 @@ export function ConnectButton({
   const chainId = useChainId();
 
   const snapQuery = useGetSnapQuery();
-  const sectionsQuery = useSectionsQuery({}, { staleTime: Infinity });
   const mutation = useInstallSnapMutation();
+  const [sessionId] = useSessionStore();
 
   const { switchChain, isPending: isSwitchChainPending } = useSwitchChain();
   const { disconnect, isPending: isDisconnectPending } = useDisconnect();
@@ -115,15 +114,11 @@ export function ConnectButton({
     );
   }
 
-  if (
-    sectionsQuery.isPending ||
-    (sectionsQuery.error instanceof ClientError &&
-      sectionsQuery.error.response.status === 401)
-  ) {
+  if (!sessionId) {
     return (
       <Button
         {...btnProps}
-        isLoading={authMutation.isPending || sectionsQuery.isPending}
+        isLoading={authMutation.isPending}
         onClick={authMutation.mutate}
       >
         Log In

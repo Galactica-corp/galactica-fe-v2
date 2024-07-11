@@ -11,6 +11,7 @@ const config: CodegenConfig = {
         "typescript-operations",
         "typescript-react-query",
       ],
+      // options for typescript-react-query plugin: https://github.com/dotansimha/graphql-code-generator-community/blob/main/packages/plugins/typescript/react-query/src/config.ts
       config: {
         exposeQueryKeys: true,
         addSuspenseQuery: true,

@@ -4,11 +4,6 @@ import { Edge, Node, NodeMouseHandler } from "reactflow";
 
 import { PageLayout } from "pages/ui/page-layout";
 
-// import nodeImagePng from "../assets/active-image.png";
-// import cardImagePng from "../assets/card-image.png";
-// import { useSectionsQuery } from "shared/graphql";
-
-// import outlineImagePng from "../assets/outline.svg";
 import trophyImagePng from "../assets/trophy-image.png";
 import { Quest, QuestName } from "../types";
 import { Card } from "./quest/card";
@@ -196,8 +191,6 @@ const initialEdges: Edge[] = [
 
 export const SkillTreePage = () => {
   const [node, setNode] = useState<Node<Quest>>(initialNodes[0]);
-
-  // const query = useSectionsQuery();
 
   const [activeQuestSection, setActiveQuestSection] =
     useState<QuestName>("onboarding");

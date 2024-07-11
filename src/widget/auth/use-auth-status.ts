@@ -1,8 +1,7 @@
-import { ClientError } from "graphql-request";
 import { useAccount } from "wagmi";
 
-import { useSectionsQuery } from "shared/graphql";
 import { useGetSnapQuery } from "shared/snap/rq";
+import { useSessionStore } from "shared/stores";
 
 type Params = {
   isBackendNeeded?: boolean;
@@ -16,19 +15,8 @@ export const useAuthStatus = ({
 }: Params) => {
   const { chain, isConnected } = useAccount();
   const snapQuery = useGetSnapQuery();
-  const sectionsQuery = useSectionsQuery(
-    {},
-    {
-      staleTime: Infinity,
-      retry: false,
-      enabled: isBackendNeeded,
-    }
-  );
 
-  const isUnauth =
-    sectionsQuery.isPending ||
-    (sectionsQuery.error instanceof ClientError &&
-      sectionsQuery.error.response.status === 401);
+  const [sessionId] = useSessionStore();
 
   const isMetamaskAuth = isMetamaskNeeded
     ? Boolean(chain && isConnected)
@@ -36,7 +24,7 @@ export const useAuthStatus = ({
   const isSnapAuth = isSnapNeeded
     ? snapQuery.data && snapQuery.isSuccess
     : true;
-  const isBackendAuth = isBackendNeeded ? !isUnauth : true;
+  const isBackendAuth = isBackendNeeded ? Boolean(sessionId) : true;
 
   const isAuth = isMetamaskAuth && isSnapAuth && isBackendAuth;
 

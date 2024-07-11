@@ -1,4 +1,4 @@
-import { GraphQLClient, Variables, gql } from "graphql-request";
+import { ClientError, GraphQLClient, Variables, gql } from "graphql-request";
 import { sessionStore } from "shared/stores";
 
 const url = import.meta.env.VITE_QUEST_SERVICE;
@@ -9,6 +9,11 @@ const client = new GraphQLClient(
     : `${url}/api/graphql/query`,
   {
     credentials: "include",
+    responseMiddleware: (response) => {
+      if (response instanceof ClientError && response.response.status === 401) {
+        sessionStore.set(undefined);
+      }
+    },
   }
 );
 

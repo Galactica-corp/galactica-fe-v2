@@ -10,9 +10,10 @@ import {
 } from "wagmi";
 import { getWalletClientQueryOptions } from "wagmi/query";
 
-import { useSectionsQuery } from "shared/graphql";
-import { sessionStore } from "shared/stores";
+import { useSessionStore } from "shared/stores";
 import { bufferToBase64 } from "shared/utils";
+
+import { useSectionsQuery } from "./use-sections-query";
 
 type ChallengeResponse = {
   challenge: string;
@@ -41,6 +42,8 @@ export const useAuthMutation = () => {
   const chainId = useChainId();
   let { data: wc } = useWalletClient({ chainId });
   const queryClient = useQueryClient();
+
+  const [_, setSession] = useSessionStore();
 
   return useMutation({
     mutationFn: async ({ connector }: AuthMutationParams) => {
@@ -95,7 +98,7 @@ export const useAuthMutation = () => {
       return data;
     },
     onSuccess: (data) => {
-      sessionStore.set(data.session_id);
+      setSession(data.session_id);
       const key = useSectionsQuery.getKey();
       queryClient.invalidateQueries({ queryKey: key });
     },
