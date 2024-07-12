@@ -38,6 +38,7 @@ export const useSyncSession = () => {
   useEffect(() => {
     const cb = (event: StorageEvent) => {
       if (event.key === "session") {
+        console.log(event.key, event.newValue);
         setSession(event.newValue ?? undefined);
       }
     };

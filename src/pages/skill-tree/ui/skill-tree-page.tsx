@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 
+import dagre from "@dagrejs/dagre";
 import { useSessionStorage } from "@uidotdev/usehooks";
-import { Edge, Node, NodeMouseHandler } from "reactflow";
+import { Edge, Node, NodeMouseHandler, Position } from "reactflow";
 
 import { PageLayout } from "pages/ui/page-layout";
 import { QuestTree, useSuspenseSectionsQuery } from "shared/graphql";
@@ -12,6 +13,11 @@ import { Progress } from "./quest/progress";
 import { Tree } from "./quest/tree";
 import { QuestsTabs } from "./tabs";
 import { TrophyCard } from "./trophy-card";
+
+const dagreGraph = new dagre.graphlib.Graph();
+dagreGraph.setDefaultEdgeLabel(() => ({}));
+const nodeWidth = 90;
+const nodeHeight = 90;
 
 /** TODO
  * sections order
@@ -79,6 +85,44 @@ export const SkillTreePage = () => {
   );
 };
 
+function getLayoutedElements(
+  nodes: Node<Quest>[],
+  edges: Edge[],
+  direction = "TB"
+) {
+  const isHorizontal = direction === "LR";
+  dagreGraph.setGraph({ rankdir: direction });
+
+  nodes.forEach((node) => {
+    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
+
+  edges.forEach((edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+
+  dagre.layout(dagreGraph);
+
+  const newNodes = nodes.map((node) => {
+    const nodeWithPosition = dagreGraph.node(node.id);
+    const newNode: Node<Quest> = {
+      ...node,
+      targetPosition: isHorizontal ? Position.Left : Position.Top,
+      sourcePosition: isHorizontal ? Position.Right : Position.Bottom,
+      // We are shifting the dagre node position (anchor=center center) to the top left
+      // so it matches the React Flow node anchor point (top left).
+      position: {
+        x: nodeWithPosition.x - nodeWidth / 2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      },
+    };
+
+    return newNode;
+  });
+
+  return { nodes: newNodes, edges };
+}
+
 function mapTree(tree: QuestTree, activeQuestId: string) {
   const edges = tree.edges.map((e) => {
     const edge: Edge = {
@@ -102,5 +146,5 @@ function mapTree(tree: QuestTree, activeQuestId: string) {
     return node;
   });
 
-  return { edges, nodes };
+  return getLayoutedElements(nodes, edges);
 }

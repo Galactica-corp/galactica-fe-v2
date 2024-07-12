@@ -5,15 +5,15 @@ import { notifyError } from "./notify-error";
 export const catchError = (error: unknown) => {
   console.error(error);
   if (error instanceof RpcRequestError) {
-    return notifyError(error.shortMessage);
+    return notifyError(error.shortMessage, error.details);
   }
 
   if (error instanceof HttpRequestError) {
-    return notifyError(error.shortMessage);
+    return notifyError(error.shortMessage, error.details);
   }
 
   if (error instanceof WebSocketRequestError) {
-    return notifyError(error.shortMessage);
+    return notifyError(error.shortMessage, error.details);
   }
 
   if (

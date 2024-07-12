@@ -28,4 +28,19 @@ export type UIQuest = {
   isSelected: boolean;
 };
 
+export type Action =
+  | {
+      text: "Clear storage";
+      type: "clearStorage";
+    }
+  | {
+      text: "clearStorage";
+      type: "wallet_requestSnaps";
+    }
+  | {
+      text: "hello world";
+      type: "link";
+      value: "http://...";
+    };
+
 export type Quest = BackendQuest & UIQuest;

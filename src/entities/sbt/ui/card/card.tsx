@@ -33,11 +33,6 @@ export const Card = ({ expiryDate, name, className }: Props) => {
         <p className="text-sm text-riverBed/70">Expiry date: {expiryDate}</p>
         <h4 className="text-xl font-semibold">{name}</h4>
       </div>
-
-      <Icon
-        className="absolute right-6 top-6 size-5 cursor-pointer text-santaGrey"
-        name="verticalDots"
-      />
     </div>
   );
 };

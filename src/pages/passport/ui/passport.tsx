@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 
@@ -30,7 +32,7 @@ export const Passport = () => {
               <div className="no-data-gradient relative size-full rounded-xl border border-softPeach">
                 <div className="place-center">
                   <div className="text-center text-sm leading-5 text-riverBed/30">
-                    User without a KYC proof
+                    User avatars coming soon
                   </div>
                 </div>
               </div>
@@ -142,10 +144,13 @@ export const Passport = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <AddCertField reward={"120"} title="Add Discord" />
-              <AddCertField disabled title="Add Discord" />
-              <AddCertField disabled title="Add Discord" />
-              <AddCertField disabled title="Add Facebook" />
+              <Link to={"/data-guardians"}>
+                <AddCertField reward={"120"} title="Add X (Twitter)" />
+              </Link>
+
+              <AddCertField disabled title="Comming Soon" />
+              <AddCertField disabled title="Comming Soon" />
+              <AddCertField disabled title="Comming Soon" />
               <AddCertField
                 className="col-span-2"
                 disabled

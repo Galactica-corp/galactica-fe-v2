@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { KYCCard } from "entities/kyc-card";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
@@ -38,12 +40,14 @@ export const UploadKYC = ({ loading }: Props) => {
       <div className="w-[480px]">
         <KYCCard expirationDate={Date.now()} name="swissborg" view="big" />
       </div>
-      <div className="absolute left-[60px] top-8 z-0 h-[171px] w-[480px] rounded-xl border border-black/3 bg-softPeach">
-        <Icon
-          className="absolute right-5 top-1/2 size-4 -translate-y-1/2 rotate-90 text-mistBlue"
-          name="plus"
-        />
-      </div>
+      <Link to="/kyc-guardians">
+        <div className="absolute left-[60px] top-8 z-0 h-[171px] w-[480px] rounded-xl border border-black/3 bg-softPeach transition-opacity hover:opacity-80">
+          <Icon
+            className="absolute right-5 top-1/2 size-4 -translate-y-1/2 rotate-90 text-mistBlue"
+            name="plus"
+          />
+        </div>
+      </Link>
     </div>
   );
 

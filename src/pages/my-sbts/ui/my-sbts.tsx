@@ -41,8 +41,7 @@ export const MySBTs = () => {
           )}
         </Tab>
       </Tabs>
-
-      <OriginalSBTBanner className="mt-8" />
+      {!activeSBTs.length && <OriginalSBTBanner className="mt-8" />}
 
       <div className="mt-8 flex flex-wrap gap-6">
         {activeTab === "active" &&

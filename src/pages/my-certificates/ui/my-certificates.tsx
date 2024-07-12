@@ -29,7 +29,7 @@ export const MyCertificates = () => {
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
   const handleErrorClick = () => {
-    notifyError("hello world", {
+    notifyError("hello world", "HELLO WROLD", {
       autoClose: 100000,
     });
   };

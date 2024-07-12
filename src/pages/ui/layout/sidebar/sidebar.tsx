@@ -8,6 +8,7 @@ import { Avatar, Profile } from "entities/profile";
 import { ConnectWalletButton } from "features/connect-wallet";
 import { useSignOutMutation } from "shared/api";
 import { useGetSnapQuery } from "shared/snap/rq";
+import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
 import { Icon, IconName } from "shared/ui/icon";
 import { Logo } from "shared/ui/logo";
@@ -37,6 +38,7 @@ export const Sidebar = ({
   const { isConnected } = useAccount();
   const query = useGetSnapQuery();
   const signOutMutation = useSignOutMutation();
+  const [sessionId] = useSessionStore();
 
   const links: TLink[] = [
     {
@@ -73,7 +75,7 @@ export const Sidebar = ({
       iconName: "shieldZap",
       to: "/skill-tree",
       text: "Skill Tree",
-      disabled: false,
+      disabled: !isConnected || !sessionId,
     },
   ];
 
