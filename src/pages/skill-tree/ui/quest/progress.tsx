@@ -1,15 +1,20 @@
 import { twMerge } from "tailwind-merge";
 
+import { Section } from "shared/graphql";
 import { ClassName } from "shared/types";
 import { Icon } from "shared/ui/icon";
 import { pluralize } from "shared/utils";
 
-type Props = ClassName;
+type Props = {
+  section: Section;
+} & ClassName;
 
 export const Progress = (props: Props) => {
-  const { className } = props;
-  const questsLength = 20;
-  const completedQuests = 10;
+  const { className, section } = props;
+  const questsLength = section.questTree.quests.length;
+  const completedQuests = section.questTree.quests.filter(
+    (q) => q.status === "COMPLETED"
+  ).length;
 
   const percent = (completedQuests / questsLength) * 100;
 
@@ -17,13 +22,13 @@ export const Progress = (props: Props) => {
     <div className={twMerge("flex w-full flex-col", className)}>
       <div className="flex justify-between text-sm text-riverBed">
         <div className="flex">
-          Onboarding is
+          {section.title} is
           <span className="ml-1 text-basketBallOrange">
             {percent}% complete
           </span>
         </div>
         <div className="flex">
-          Left before the Onboarding is completed
+          Left before the {section.title} is completed
           <span className="ml-1.5 flex items-center font-semibold text-basketBallOrange">
             <Icon className="mr-1 size-3.5" name="verifiedCheck" />
             {pluralize(questsLength - completedQuests, "task")}

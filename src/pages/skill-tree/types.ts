@@ -1,13 +1,4 @@
-export type QuestName =
-  | "cypher-state"
-  | "data-dimension"
-  | "lp-dimension"
-  | "onboarding"
-  | "partner"
-  | "referrer"
-  | "sentinels";
-
-export type QuestStatus = "available" | "completed" | "locked";
+import { Quest as BackendQuest } from "shared/graphql";
 
 export type TrophyCategory = "common" | "rare";
 
@@ -18,20 +9,20 @@ export type Trophy = {
   text: string;
 };
 
-type BackendQuest = {
-  buttonLink: string;
-  buttonText: string;
-  cardImage: string;
-  description: string;
-  link?: string;
-  linkText?: string;
-  nodeImage: string;
-  outlineNodeImage: string;
-  points: number | string;
-  status: QuestStatus;
-  title: string;
-  trophies?: Trophy[];
-};
+// type BackendQuest = {
+//   buttonLink: string;
+//   buttonText: string;
+//   cardImage: string;
+//   description: string;
+//   link?: string;
+//   linkText?: string;
+//   nodeImage: string;
+//   outlineNodeImage: string;
+//   points: number | string;
+//   status: QuestStatus;
+//   title: string;
+//   trophies?: Trophy[];
+// };
 
 export type UIQuest = {
   isSelected: boolean;

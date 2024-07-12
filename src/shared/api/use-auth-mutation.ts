@@ -10,10 +10,9 @@ import {
 } from "wagmi";
 import { getWalletClientQueryOptions } from "wagmi/query";
 
+import { useSectionsQuery } from "shared/graphql";
 import { useSessionStore } from "shared/stores";
 import { bufferToBase64 } from "shared/utils";
-
-import { useSectionsQuery } from "./use-sections-query";
 
 type ChallengeResponse = {
   challenge: string;

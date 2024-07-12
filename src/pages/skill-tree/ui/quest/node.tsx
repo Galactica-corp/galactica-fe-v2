@@ -5,9 +5,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Handle, NodeProps, Position } from "reactflow";
 import { twMerge } from "tailwind-merge";
 
+import { Status } from "shared/graphql";
 import { Icon } from "shared/ui/icon";
 
-import { Quest, QuestStatus } from "../../types";
+import { Quest } from "../../types";
 
 const style: CSSProperties = {
   background: "transparent",
@@ -22,7 +23,8 @@ const imgStyles: CSSProperties = {
 
 export const Node = ({ data }: NodeProps<Quest>) => {
   const [ref, hovering] = useHover();
-  const { outlineNodeImage, nodeImage, isSelected, status, points } = data;
+  const { image, isSelected, status, points } = data;
+
   return (
     <>
       <Handle
@@ -43,11 +45,11 @@ export const Node = ({ data }: NodeProps<Quest>) => {
       <div
         className={twMerge(
           "relative flex size-[90px] cursor-pointer items-center justify-center",
-          status === "locked" && "cursor-default"
+          status === "LOCKED" && "cursor-default"
         )}
         ref={ref}
       >
-        {status === "completed" && (
+        {status === "COMPLETED" && (
           <Icon
             className="absolute right-1 top-3 z-10 size-5 rounded-full bg-white p-0.5"
             name="verifiedCheck"
@@ -57,7 +59,7 @@ export const Node = ({ data }: NodeProps<Quest>) => {
         <div
           className={twMerge(
             "absolute -left-1 bottom-0 z-10 flex h-[20px] items-center justify-center gap-x-0.5 rounded-2xl border border-geyser bg-white px-2 py-0.5 text-xs font-semibold text-aluminium",
-            status === "available" &&
+            status === "AVAILABLE" &&
               "border-basketBallOrange/30 text-basketBallOrange"
           )}
         >
@@ -65,13 +67,13 @@ export const Node = ({ data }: NodeProps<Quest>) => {
           <Icon className="size-3" name="lightning" />
         </div>
         <AnimatePresence>
-          {status !== "locked" && (hovering || isSelected) && (
+          {status !== "LOCKED" && (hovering || isSelected) && (
             <motion.img
               animate={{ opacity: 1 }}
               className="absolute -z-10 size-[90]"
               exit={{ opacity: 0 }}
               initial={{ opacity: 0 }}
-              src={outlineNodeImage}
+              src={"/quests/entry/outline.svg"}
             />
           )}
         </AnimatePresence>
@@ -79,10 +81,10 @@ export const Node = ({ data }: NodeProps<Quest>) => {
         <img
           className={twMerge(
             "size-[80px]",
-            status === "completed" && "grayscale",
-            status === "locked" && "opacity-50 contrast-0"
+            status === "COMPLETED" && "grayscale",
+            status === "LOCKED" && "opacity-50 contrast-0"
           )}
-          src={nodeImage}
+          src={image}
           style={imgStyles}
         />
       </div>
@@ -90,8 +92,8 @@ export const Node = ({ data }: NodeProps<Quest>) => {
   );
 };
 
-function getPoints(points: number | string, status: QuestStatus) {
-  if (status === "locked") return `+???`;
-  if (status === "available") return `+${points}`;
-  if (status === "completed") return points;
+function getPoints(points: number | string, status: Status) {
+  if (status === "LOCKED") return `+???`;
+  if (status === "AVAILABLE") return `+${points}`;
+  if (status === "COMPLETED") return points;
 }

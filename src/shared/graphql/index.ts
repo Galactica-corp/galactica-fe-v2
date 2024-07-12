@@ -1,6 +1,8 @@
 import {
+  useMutation,
   useQuery,
   useSuspenseQuery,
+  UseMutationOptions,
   UseQueryOptions,
   UseSuspenseQueryOptions,
 } from "@tanstack/react-query";
@@ -33,10 +35,10 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   /** Points are rewards for completing each Quest. */
-  Points: { input: any; output: any };
-  QuestID: { input: any; output: any };
-  SectionID: { input: any; output: any };
-  Void: { input: any; output: any };
+  Points: { input: number; output: number };
+  QuestID: { input: string; output: string };
+  SectionID: { input: string; output: string };
+  Void: { input: void; output: void };
 };
 
 export type CompleteNonVerifiableQuestParams = {
@@ -164,34 +166,43 @@ export type Subscription = {
   questCompletion: EventQuestCompleted;
 };
 
+export type CompleteNonVerifiableQuestMutationVariables = Exact<{
+  params: CompleteNonVerifiableQuestParams;
+}>;
+
+export type CompleteNonVerifiableQuestMutation = {
+  __typename?: "Mutation";
+  completeNonVerifiableQuest: void | null;
+};
+
 export type SectionsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SectionsQuery = {
   __typename?: "Query";
   sections: Array<{
     __typename?: "Section";
-    id: any;
+    id: string;
     title: string;
     status: Status;
-    points: any;
+    points: number;
     questTree: {
       __typename?: "QuestTree";
       quests: Array<{
         __typename?: "Quest";
-        id: any;
+        id: string;
         icon: string;
         image: string;
         title: string;
         description: string;
-        points: any;
+        points: number;
         status: Status;
         action: { __typename?: "Link"; text: string; url: string } | null;
         learnMore: { __typename?: "Link"; text: string; url: string } | null;
       }>;
       edges: Array<{
         __typename?: "QuestTreeEdge";
-        requirement: any;
-        unlocks: any;
+        requirement: string;
+        unlocks: string;
       }>;
     };
     rewards: Array<{
@@ -200,10 +211,43 @@ export type SectionsQuery = {
       title: string;
       description: string;
       icon: string;
-      points: any;
+      points: number;
       tokenID: string | null;
     }>;
   }>;
+};
+
+export const CompleteNonVerifiableQuestDocument = `
+    mutation CompleteNonVerifiableQuest($params: CompleteNonVerifiableQuestParams!) {
+  completeNonVerifiableQuest(params: $params)
+}
+    `;
+
+export const useCompleteNonVerifiableQuestMutation = <
+  TError = unknown,
+  TContext = unknown,
+>(
+  options?: UseMutationOptions<
+    CompleteNonVerifiableQuestMutation,
+    TError,
+    CompleteNonVerifiableQuestMutationVariables,
+    TContext
+  >
+) => {
+  return useMutation<
+    CompleteNonVerifiableQuestMutation,
+    TError,
+    CompleteNonVerifiableQuestMutationVariables,
+    TContext
+  >({
+    mutationKey: ["CompleteNonVerifiableQuest"],
+    mutationFn: (variables?: CompleteNonVerifiableQuestMutationVariables) =>
+      graphqlRequestFetcher<
+        CompleteNonVerifiableQuestMutation,
+        CompleteNonVerifiableQuestMutationVariables
+      >(CompleteNonVerifiableQuestDocument, variables)(),
+    ...options,
+  });
 };
 
 export const SectionsDocument = `

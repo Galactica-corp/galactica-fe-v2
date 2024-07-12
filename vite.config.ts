@@ -36,6 +36,10 @@ export default defineConfig(({ mode }) => {
         [`${env.VITE_QUEST_SERVICE}`]: {
           target: "https://quest-service.galactica.com",
           changeOrigin: true,
+          headers: {
+            Authorization:
+              "Bearer dIMlgfThe6relrc2jH2IQSoueQ1TETqfxNk26ORtPZo=",
+          },
           rewrite: (path) => path.replace(/^\/quest-api/, ""),
         },
       },

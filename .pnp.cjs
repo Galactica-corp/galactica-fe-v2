@@ -27,6 +27,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@dagrejs/dagre", "npm:1.1.3"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.9"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.3"],\
@@ -1462,6 +1463,25 @@ const RAW_RUNTIME_STATE =
           ["keccak", "npm:3.0.4"],\
           ["preact", "npm:10.19.6"],\
           ["sha.js", "npm:2.4.11"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dagrejs/dagre", [\
+      ["npm:1.1.3", {\
+        "packageLocation": "./.yarn/cache/@dagrejs-dagre-npm-1.1.3-4a683942f4-aff3e86326.zip/node_modules/@dagrejs/dagre/",\
+        "packageDependencies": [\
+          ["@dagrejs/dagre", "npm:1.1.3"],\
+          ["@dagrejs/graphlib", "npm:2.2.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dagrejs/graphlib", [\
+      ["npm:2.2.2", {\
+        "packageLocation": "./.yarn/cache/@dagrejs-graphlib-npm-2.2.2-75c6014c2b-26329827d3.zip/node_modules/@dagrejs/graphlib/",\
+        "packageDependencies": [\
+          ["@dagrejs/graphlib", "npm:2.2.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15744,6 +15764,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["web", "workspace:."],\
+          ["@dagrejs/dagre", "npm:1.1.3"],\
           ["@graphql-codegen/cli", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["@graphql-codegen/typescript", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.0.9"],\
           ["@graphql-codegen/typescript-operations", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:4.2.3"],\

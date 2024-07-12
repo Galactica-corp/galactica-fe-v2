@@ -8,6 +8,7 @@ import { ClassName, PolymorphicProps } from "shared/types";
 import { TabsContext } from "./context";
 
 type Props = {
+  disabled?: boolean;
   isActive?: boolean;
   onClick?: () => void;
 } & ClassName;
@@ -21,6 +22,7 @@ export const Tab = <E extends ElementType = "li">(
     className,
     isActive: isActiveProp = false,
     onClick,
+    disabled,
     ...restProps
   } = props;
 
@@ -33,6 +35,7 @@ export const Tab = <E extends ElementType = "li">(
       className={twMerge(
         "relative flex cursor-pointer items-center gap-x-2 pb-3 text-sm text-mistBlue transition",
         isActive && "text-basketBallOrange",
+        disabled && "text-aluminium",
         className
       )}
       onClick={onClick}

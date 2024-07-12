@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useSectionsQuery } from "shared/graphql";
 import { useSessionStore } from "shared/stores";
-
-import { useSectionsQuery } from "./use-sections-query";
 
 export const useSignOutMutation = () => {
   const queryClient = useQueryClient();

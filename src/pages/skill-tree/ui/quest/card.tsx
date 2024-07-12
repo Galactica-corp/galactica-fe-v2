@@ -3,36 +3,18 @@ import { twJoin, twMerge } from "tailwind-merge";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
-// import cardImagePng from "../../assets/card-image.png";
-import { QuestStatus } from "../../types";
+import { Quest } from "../../types";
 
 type Props = {
-  buttonLink: string;
-  buttonText: string;
-  description: string;
-  imageLink: string;
-  link?: string;
-  linkText?: string;
-  points?: number | string;
-  status: QuestStatus;
-  title: string;
+  quest: Quest;
 };
 
 export const Card = (props: Props) => {
-  const {
-    title,
-    description,
-    points,
-    imageLink,
-    buttonLink,
-    buttonText,
-    link,
-    linkText,
-    status,
-  } = props;
+  const { quest } = props;
+  const { title, image, points, description, action, learnMore } = quest;
   return (
     <div className="flex flex-col">
-      <img alt={title} className="flex w-full rounded-xl" src={imageLink} />
+      <img alt={title} className="flex w-full rounded-xl" src={image} />
       <header className="mt-6 flex items-end justify-between">
         <h3
           className={twJoin(
@@ -61,23 +43,26 @@ export const Card = (props: Props) => {
       </p>
 
       <footer className="mt-4 flex flex-col">
-        <Button
-          as="a"
-          href={buttonLink}
-          referrerPolicy="no-referrer"
-          target="_blank"
-        >
-          {buttonText}
-        </Button>
-        {link && linkText && (
+        {action?.url && action.text && (
+          <Button
+            as="a"
+            href={action.url}
+            referrerPolicy="no-referrer"
+            target="_blank"
+          >
+            {action.text}
+          </Button>
+        )}
+
+        {learnMore?.url && learnMore.text && (
           <a
             className="mt-4 self-center text-basketBallOrange"
-            href={link}
+            href={learnMore.url}
             referrerPolicy="no-referrer"
             rel="noreferrer"
             target="_blank"
           >
-            {linkText}
+            {learnMore.text}
           </a>
         )}
       </footer>
