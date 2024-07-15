@@ -11,6 +11,25 @@ import { Icon } from "shared/ui/icon";
 const guardians = [
   {
     provider: {
+      title: "KYC Sample",
+      description: "galactica.com",
+      img: (
+        <div className="rounded-full bg-white p-1 inner-border-santaGrey">
+          <Icon className="size-8" name="galactica" />
+        </div>
+      ),
+    },
+    score: "TBD",
+    totalDocsCount: "TBD",
+    docsPerMonth: "TBD",
+    avgIssueTime: {
+      title: "TBD",
+      description: "",
+    },
+    link: "https://kyc-andromeda.galactica.com",
+  },
+  {
+    provider: {
       title: "SwissBorg",
       description: "swissborg.com",
       img: (
@@ -19,14 +38,14 @@ const guardians = [
         </div>
       ),
     },
-    score: "9.9",
-    totalDocsCount: "32,956",
-    docsPerMonth: "4,059",
+    score: "TBD",
+    totalDocsCount: "TBD",
+    docsPerMonth: "TBD",
     avgIssueTime: {
-      title: "Very fast",
-      description: "~35 min",
+      title: "TBD",
+      description: "",
     },
-    link: "https://kyc-andromeda.galactica.com",
+    link: "https://stage-swissborg.galactica.com",
   },
 ];
 
@@ -54,7 +73,7 @@ export const KYCGuardians = () => {
         <div className="px-6" />
       </div>
 
-      {guardians.map((guardian) => {
+      {guardians.map((guardian, index) => {
         return (
           <div
             className={twJoin(
@@ -63,7 +82,7 @@ export const KYCGuardians = () => {
             )}
             key={guardian.provider.title}
           >
-            <div className="pl-6">1</div>
+            <div className="pl-6">{index + 1}</div>
             <div className="px-6">
               <GuardianInfo {...guardian.provider} />
             </div>
