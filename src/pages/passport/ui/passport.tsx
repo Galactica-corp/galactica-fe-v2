@@ -118,7 +118,7 @@ export const Passport = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-[1fr,1fr,1.5fr] gap-2">
+              <div className="grid grid-cols-[1fr,1fr,1.5fr] gap-2 blur-sm">
                 <div>
                   <div className="text-sm leading-5 text-riverBed">
                     GNET Balance

@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { AnimationProps, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { useAccount, useDisconnect } from "wagmi";
+import { useAuthStatus } from "widget/auth";
 
 import { Avatar, Profile } from "entities/profile";
 import { ConnectWalletButton } from "features/connect-wallet";
@@ -10,7 +11,7 @@ import { useSignOutMutation } from "shared/api";
 import { useGetSnapQuery } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
-import { Icon, IconName } from "shared/ui/icon";
+import { ErrorIcon, Icon, IconName } from "shared/ui/icon";
 import { Logo } from "shared/ui/logo";
 
 import { Link } from "./link";
@@ -35,10 +36,15 @@ export const Sidebar = ({
   drawerRef,
 }: PropsWithChildren<Props>) => {
   const { disconnect } = useDisconnect();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const query = useGetSnapQuery();
   const signOutMutation = useSignOutMutation();
   const [sessionId] = useSessionStore();
+  const { isAuth, isWrongChain } = useAuthStatus({
+    isBackendNeeded: true,
+    isMetamaskNeeded: true,
+    isSnapNeeded: true,
+  });
 
   const links: TLink[] = [
     {
@@ -106,7 +112,7 @@ export const Sidebar = ({
           );
         })}
       </nav>
-      {(!isConnected || (query.isSuccess && !query.data)) && (
+      {!isAuth && (
         <div className="flex flex-col px-4">
           <p
             className={twMerge(
@@ -117,9 +123,10 @@ export const Sidebar = ({
             To unlock the pages
           </p>
           <ConnectWalletButton
-            className={
-              "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold"
-            }
+            className={twMerge(
+              "relative h-9 w-full gap-1.5 overflow-hidden whitespace-nowrap p-0 text-sm font-semibold",
+              isWrongChain && "inner-border-grapefruit"
+            )}
             connectContent={
               <>
                 <Icon className="size-5" name="metamask" />
@@ -150,30 +157,42 @@ export const Sidebar = ({
                 )}
               </>
             }
+            switchChainContent={
+              <>
+                <ErrorIcon className="size-4 before:size-8 after:size-6" />
+                {isExpanded && (
+                  <motion.div animate={{ width: "auto" }} className="w-0">
+                    Switch to galactica
+                  </motion.div>
+                )}
+              </>
+            }
             theme="basketBallOrange-transparent"
           />
         </div>
       )}
 
-      <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
-        {isExpanded ? (
-          <Profile
-            action={
-              <Icon
-                className="cursor-pointer transition-colors hover:brightness-150"
-                name="logout"
-                onClick={() => {
-                  signOutMutation.mutate();
-                  disconnect();
-                }}
-              />
-            }
-            className="grow"
-          />
-        ) : (
-          <Avatar />
-        )}
-      </div>
+      {isConnected && address && (
+        <div className="mt-auto flex border-t border-t-catskillWhite pl-6 pr-4 pt-6">
+          {isExpanded ? (
+            <Profile
+              action={
+                <Icon
+                  className="cursor-pointer transition-colors hover:brightness-150"
+                  name="logout"
+                  onClick={() => {
+                    signOutMutation.mutate();
+                    disconnect();
+                  }}
+                />
+              }
+              className="grow"
+            />
+          ) : (
+            <Avatar className="flex size-10 shrink-0" />
+          )}
+        </div>
+      )}
     </motion.aside>
   );
 };

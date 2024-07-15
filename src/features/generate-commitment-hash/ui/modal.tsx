@@ -77,7 +77,7 @@ export const Modal = ({ onClose, redirectLink }: Props) => {
 
             <a
               className="mt-2.5 inline-flex text-sm text-riverBed underline"
-              href="#"
+              href="https://docs.galactica.com/galactica-developer-documentation/galactica-concepts/zero-knowledge-kyc"
             >
               Learn More about zkKYC
             </a>

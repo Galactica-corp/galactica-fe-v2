@@ -26,7 +26,9 @@ export const useAuthStatus = ({
     : true;
   const isBackendAuth = isBackendNeeded ? Boolean(sessionId) : true;
 
-  const isAuth = isMetamaskAuth && isSnapAuth && isBackendAuth;
+  const isWrongChain = isConnected && !chain;
 
-  return { isMetamaskAuth, isSnapAuth, isBackendAuth, isAuth };
+  const isAuth = isMetamaskAuth && isSnapAuth && isBackendAuth && !isWrongChain;
+
+  return { isMetamaskAuth, isSnapAuth, isBackendAuth, isAuth, isWrongChain };
 };

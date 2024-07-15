@@ -3,10 +3,12 @@ import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ConnectWalletButton } from "features/connect-wallet";
+import { ErrorIcon } from "shared/ui/icon";
 
 import bgSrc from "../assets/bg.png";
 import galacticaNetworkSrc from "../assets/galactica-network.svg";
 import starSrc from "../assets/star.svg";
+import { useAuthStatus } from "../use-auth-status";
 import { Book } from "./book";
 
 type Props = {
@@ -25,6 +27,12 @@ export const Auth = ({
   ...props
 }: Props) => {
   const id = useId();
+  const { isWrongChain } = useAuthStatus({
+    isBackendNeeded,
+    isMetamaskNeeded,
+    isSnapNeeded,
+  });
+
   return (
     <Book
       isBackendNeeded={isBackendNeeded}
@@ -45,7 +53,7 @@ export const Auth = ({
             backgroundImage: `url("/passport/texture-wave.png")`,
           }}
         >
-          <h2 className="mb-12 font-ptm text-[40px] uppercase leading-[130%]">
+          <h2 className="mb-8 font-ptm text-[40px] uppercase leading-[130%]">
             Passport
           </h2>
           <div className="relative">
@@ -54,7 +62,10 @@ export const Auth = ({
               src={starSrc}
             />
             <img
-              className={twMerge("relative flex h-[284px] w-[291px]")}
+              className={twMerge(
+                "relative flex h-[284px] w-[291px]",
+                isWrongChain && "grayscale"
+              )}
               src={bgSrc}
               style={{
                 clipPath: `url(#clipped-image-${id})`,
@@ -115,14 +126,31 @@ export const Auth = ({
             </svg>
           </div>
 
+          <p
+            className={twMerge(
+              "mt-4 font-medium text-grapefruit",
+              !isWrongChain && "appearance-none opacity-0"
+            )}
+          >
+            Wrong network selected
+          </p>
+
           <ConnectWalletButton
-            className="mt-10 h-[54px] w-[227px] font-ptm uppercase inner-border-basketBallOrange/75"
+            className={twMerge(
+              "mb-8 mt-4 h-[54px] w-[227px] font-ptm uppercase inner-border-basketBallOrange/75",
+              isWrongChain && "mt-4 w-auto inner-border-grapefruit"
+            )}
             connectContent={
               <span className="tracking-tighter">Connect MetaMask</span>
             }
+            switchChainContent={
+              <span className="flex items-center gap-x-6">
+                <ErrorIcon /> Switch to Galactica
+              </span>
+            }
             theme="basketBallOrange-transparent"
           />
-          <img className="mt-8" src={galacticaNetworkSrc} />
+          <img className="mt-auto" src={galacticaNetworkSrc} />
         </div>
       </div>
     </Book>
