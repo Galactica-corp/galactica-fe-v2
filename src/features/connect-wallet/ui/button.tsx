@@ -1,7 +1,9 @@
 import { ComponentProps, ReactNode } from "react";
 
 import { twMerge } from "tailwind-merge";
+import { Address } from "viem";
 import {
+  Connector,
   useAccount,
   useChainId,
   useConnect,
@@ -14,12 +16,15 @@ import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
+import { catchError } from "shared/ui/toast";
 import { shortAddress } from "shared/web3/utils";
 
 type Props = {
   connectContent?: ReactNode;
   installMetamaskContent?: ReactNode;
   installSnapContent?: ReactNode;
+  onConnect?: (connector: Connector, address: Address) => Promise<void> | void;
+
   switchChainContent?: ReactNode;
 } & ButtonProps &
   ClassName;
@@ -30,6 +35,7 @@ export function ConnectButton({
   connectContent = "Connect MetaMask",
   switchChainContent = "Switch to Galactica",
   installSnapContent = "Install MetaMask snap",
+  onConnect,
   ...props
 }: Props) {
   const { address, isDisconnected, isConnecting, connector, chain } =
@@ -42,10 +48,10 @@ export function ConnectButton({
 
   const { switchChain, isPending: isSwitchChainPending } = useSwitchChain();
   const { disconnect, isPending: isDisconnectPending } = useDisconnect();
-  const { connect, connectors } = useConnect();
+  const { connectAsync, connectors } = useConnect();
   const authMutation = useAuthMutation();
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     const metamaskConnector = connectors.find(
       (connector) => connector.name === "MetaMask"
     );
@@ -55,7 +61,16 @@ export function ConnectButton({
 
     const connector = metamaskConnector ?? flaskConnector;
 
-    connector && connect({ connector });
+    try {
+      const connectData = connector
+        ? await connectAsync({ connector })
+        : undefined;
+
+      if (connector && connectData)
+        onConnect?.(connector, connectData?.accounts[0]);
+    } catch (error) {
+      catchError(error);
+    }
   };
 
   const btnProps: ComponentProps<typeof Button> = {

@@ -89,7 +89,7 @@ export const Passport = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="text-4xl font-semibold leading-[44px] text-balticSea">
-                      {balanceQuery.isSuccess
+                      {balanceQuery.isSuccess && balanceQuery.data
                         ? formatCurrency(
                             balanceQuery.data.value,
                             balanceQuery.data.decimals

@@ -9,5 +9,5 @@ export const formatCurrency = (
   const fullFormattedValue = formatUnits(value, exponent);
   const [integers, decimals] = fullFormattedValue.split(".");
 
-  return `${integers}${separator}${decimals.slice(0, precision)}`;
+  return `${integers}${separator}${decimals ? decimals.slice(0, precision) : "0"}`;
 };

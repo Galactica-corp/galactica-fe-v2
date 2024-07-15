@@ -7,7 +7,7 @@ import { useAuthStatus } from "widget/auth";
 
 import { Avatar, Profile } from "entities/profile";
 import { ConnectWalletButton } from "features/connect-wallet";
-import { useSignOutMutation } from "shared/api";
+import { useAuthMutation, useSignOutMutation } from "shared/api";
 import { useGetSnapQuery } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
@@ -45,6 +45,7 @@ export const Sidebar = ({
     isMetamaskNeeded: true,
     isSnapNeeded: true,
   });
+  const authMutation = useAuthMutation();
 
   const links: TLink[] = [
     {
@@ -157,12 +158,15 @@ export const Sidebar = ({
                 )}
               </>
             }
+            onConnect={(connector) => {
+              authMutation.mutate({ connector });
+            }}
             switchChainContent={
               <>
                 <ErrorIcon className="size-4 before:size-8 after:size-6" />
                 {isExpanded && (
-                  <motion.div animate={{ width: "auto" }} className="w-0">
-                    Switch to galactica
+                  <motion.div animate={{ width: "auto" }} className="ml-3 w-0">
+                    Switch to Galactica
                   </motion.div>
                 )}
               </>

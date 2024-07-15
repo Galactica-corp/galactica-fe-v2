@@ -3,6 +3,7 @@ import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ConnectWalletButton } from "features/connect-wallet";
+import { useAuthMutation } from "shared/api";
 import { ErrorIcon } from "shared/ui/icon";
 
 import bgSrc from "../assets/bg.png";
@@ -32,6 +33,8 @@ export const Auth = ({
     isMetamaskNeeded,
     isSnapNeeded,
   });
+
+  const authMutation = useAuthMutation();
 
   return (
     <Book
@@ -143,6 +146,9 @@ export const Auth = ({
             connectContent={
               <span className="tracking-tighter">Connect MetaMask</span>
             }
+            onConnect={(connector) => {
+              if (isBackendNeeded) authMutation.mutate({ connector });
+            }}
             switchChainContent={
               <span className="flex items-center gap-x-6">
                 <ErrorIcon /> Switch to Galactica

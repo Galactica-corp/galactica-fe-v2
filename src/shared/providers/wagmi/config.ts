@@ -18,6 +18,8 @@ export const config = createConfig({
   },
 });
 
+export type Config = typeof config;
+
 declare module "wagmi" {
   interface Register {
     config: typeof config;
