@@ -148,9 +148,9 @@ export const Passport = () => {
                 <AddCertField reward={"120"} title="Add X (Twitter)" />
               </Link>
 
-              <AddCertField disabled title="Comming Soon" />
-              <AddCertField disabled title="Comming Soon" />
-              <AddCertField disabled title="Comming Soon" />
+              <AddCertField disabled title="Coming Soon" />
+              <AddCertField disabled title="Coming Soon" />
+              <AddCertField disabled title="Coming Soon" />
               <AddCertField
                 className="col-span-2"
                 disabled

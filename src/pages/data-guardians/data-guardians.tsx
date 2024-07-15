@@ -16,8 +16,8 @@ const guardians = [
         </div>
       ),
     },
-    score: "9.0",
-    total: "32,956",
+    score: "TBD",
+    total: "TBD",
     socialCerts: [
       "x",
       "linkedin",
