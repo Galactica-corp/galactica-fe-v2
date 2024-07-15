@@ -14,6 +14,9 @@ module.exports = {
       ptm: "Publico Text Mono",
     },
     extend: {
+      animation: {
+        "spin-slow": "spin 20s linear infinite",
+      },
       backgroundImage: {},
       backgroundPosition: {
         certCardBg: "left -203px top -128px",

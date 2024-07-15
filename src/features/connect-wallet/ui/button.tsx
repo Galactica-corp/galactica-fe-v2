@@ -28,7 +28,7 @@ export function ConnectButton({
   className,
   installMetamaskContent = "Install Metamask",
   connectContent = "Connect MetaMask",
-  switchChainContent = "Switch chain",
+  switchChainContent = "Switch to Galactica",
   installSnapContent = "Install MetaMask snap",
   ...props
 }: Props) {

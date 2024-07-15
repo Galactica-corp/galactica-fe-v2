@@ -5,7 +5,6 @@ import { KYCCard } from "entities/kyc-card";
 import { PageLayout } from "pages/ui";
 import { Button } from "shared/ui/button";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
-import { notifyError } from "shared/ui/toast";
 
 import { Upload } from "./upload";
 
@@ -28,15 +27,8 @@ export const MyCertificates = () => {
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
-  const handleErrorClick = () => {
-    notifyError("hello world", "HELLO WROLD", {
-      autoClose: 100000,
-    });
-  };
-
   return (
     <PageLayout title="My Certificates">
-      <button onClick={handleErrorClick}>Emit error</button>
       {hasUpdates && <Button onClick={handleUpdate}>Reload store</Button>}
       <Tabs className="mb-8 mt-6">
         <Tab isActive={active === 1} onClick={() => setActive(1)}>
