@@ -96,10 +96,10 @@ export const useAuthMutation = () => {
       const data: SignInResponse = await signInResponse.json();
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setSession(data.session_id);
       const key = useSectionsQuery.getKey();
-      queryClient.invalidateQueries({ queryKey: key });
+      await queryClient.invalidateQueries({ queryKey: key });
     },
   });
 };
