@@ -19,11 +19,6 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 const nodeWidth = 90;
 const nodeHeight = 90;
 
-/** TODO
- * sections order
- * coords
- * */
-
 export const SkillTreePage = () => {
   const { data } = useSuspenseSectionsQuery(undefined);
 
@@ -124,27 +119,31 @@ function getLayoutedElements(
 }
 
 function mapTree(tree: QuestTree, activeQuestId: string) {
-  const edges = tree.edges.map((e) => {
-    const edge: Edge = {
-      id: `${e.requirement}:${e.unlocks}`,
-      source: e.requirement,
-      target: e.unlocks,
-      animated: true,
-    };
+  const edges = tree.edges
+    .map((e) => {
+      const edge: Edge = {
+        id: `${e.requirement}:${e.unlocks}`,
+        source: e.requirement,
+        target: e.unlocks,
+        animated: true,
+      };
 
-    return edge;
-  });
+      return edge;
+    })
+    .sort((a, b) => (a.id < b.id ? 1 : -1));
 
-  const nodes = tree.quests.map((q) => {
-    const node: Node<Quest> = {
-      id: q.id,
-      position: { x: 351, y: 350 },
-      data: { ...q, isSelected: activeQuestId === q.id },
-      type: "quest",
-    };
+  const nodes = tree.quests
+    .map((q) => {
+      const node: Node<Quest> = {
+        id: q.id,
+        position: { x: 351, y: 350 },
+        data: { ...q, isSelected: activeQuestId === q.id },
+        type: "quest",
+      };
 
-    return node;
-  });
+      return node;
+    })
+    .sort((a, b) => (a.id < b.id ? 1 : -1));
 
   return getLayoutedElements(nodes, edges);
 }

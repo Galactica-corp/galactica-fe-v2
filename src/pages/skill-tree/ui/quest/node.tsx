@@ -30,7 +30,7 @@ export const Node = ({ data }: NodeProps<Quest>) => {
       <Handle
         id="target"
         position={Position.Top}
-        style={{ ...style, top: 15 }}
+        style={{ ...style, top: 5 }}
         type="target"
       />
       <Handle
