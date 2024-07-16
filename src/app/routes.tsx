@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <AuthGuard isMetamaskNeeded />,
+        element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
         children: [
           {
             path: "/",
