@@ -1,4 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 import { Address, hexToBytes } from "viem";
 import {
@@ -43,8 +47,10 @@ export const useAuthMutation = () => {
   const queryClient = useQueryClient();
 
   const [_, setSession] = useSessionStore();
+  const { reset } = useQueryErrorResetBoundary();
 
   return useMutation({
+    mutationKey: ["auth"],
     mutationFn: async ({ connector }: AuthMutationParams) => {
       invariant(address, "address is undefined");
 
@@ -98,6 +104,7 @@ export const useAuthMutation = () => {
     },
     onSuccess: async (data) => {
       setSession(data.session_id);
+      reset();
       const key = useSectionsQuery.getKey();
       await queryClient.invalidateQueries({ queryKey: key });
     },
