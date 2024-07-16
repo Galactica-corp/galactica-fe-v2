@@ -30,7 +30,8 @@ export const SkillTreePage = () => {
     data.sections.find((s) => s.id === activeSectionId) ?? data.sections[0];
 
   const [quest, setQuest] = useState<Quest>({
-    ...section.questTree.quests[0],
+    ...(section.questTree.quests.find((q) => q.status === "AVAILABLE") ??
+      section.questTree.quests[0]),
     isSelected: true,
   });
 
