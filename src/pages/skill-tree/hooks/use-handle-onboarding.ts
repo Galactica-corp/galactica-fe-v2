@@ -1,10 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useCerts } from "entities/cert";
-import {
-  useCompleteNonVerifiableQuestMutation,
-  useSectionsQuery,
-} from "shared/graphql";
+import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { useInstallSnapMutation } from "shared/snap/rq";
 import { catchError } from "shared/ui/toast";
 
@@ -17,7 +14,10 @@ export const useHandleOnboarding = () => {
   const mutation = useCompleteNonVerifiableQuestMutation({
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: useSectionsQuery.getKey(),
+        predicate: (query) => {
+          const key = query.queryKey[0] as string;
+          return key.includes("Sections");
+        },
       });
     },
   });

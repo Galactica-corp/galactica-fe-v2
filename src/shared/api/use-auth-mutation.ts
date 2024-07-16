@@ -105,8 +105,11 @@ export const useAuthMutation = () => {
     onSuccess: async (data) => {
       setSession(data.session_id);
       reset();
-      const key = useSectionsQuery.getKey();
-      await queryClient.invalidateQueries({ queryKey: key });
+      await queryClient.invalidateQueries({
+        predicate: (query) => {
+          return query.queryKey.includes(useSectionsQuery.getKey());
+        },
+      });
     },
   });
 };
