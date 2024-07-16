@@ -7,7 +7,7 @@ const config: CodegenConfig = {
   //   {
   //     "http://localhost:5173/quest-api/api/graphql/query": {
   //       headers: {
-  //         Authorization: "Bearer dIMlgfThe6relrc2jH2IQSoueQ1TETqfxNk26ORtPZo=",
+  //         Authorization: "Bearer L3EiuosI7mOLoITehnXXURRRqNX8w35iI1EcS4WxRaM=",
   //       },
   //     },
   //   },
@@ -30,6 +30,7 @@ const config: CodegenConfig = {
           Void: "void",
         },
         exposeQueryKeys: true,
+        exposeMutationKeys: true,
         addSuspenseQuery: true,
         reactQueryVersion: 5,
         avoidOptionals: true,

@@ -75,7 +75,9 @@ export const SkillTreePage = () => {
           </div>
         </div>
 
-        <div className="basis-2/6 px-16">{quest && <Card quest={quest} />}</div>
+        <div className="basis-2/6 px-16">
+          {quest && <Card quest={quest} section={section} />}
+        </div>
       </div>
     </PageLayout>
   );

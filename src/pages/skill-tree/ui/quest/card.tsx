@@ -1,17 +1,36 @@
+import { MouseEventHandler } from "react";
+
+import { useIsMutating } from "@tanstack/react-query";
 import { twJoin, twMerge } from "tailwind-merge";
 
+import { Section, useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 
+import { useHandleOnboarding } from "../../hooks/use-handle-onboarding";
 import { Quest } from "../../types";
 
 type Props = {
   quest: Quest;
+  section: Section;
 };
 
 export const Card = (props: Props) => {
-  const { quest } = props;
+  const { quest, section } = props;
   const { title, points, description, action, learnMore, id } = quest;
+  const handleOnboarding = useHandleOnboarding();
+  const isMutating = useIsMutating({
+    mutationKey: useCompleteNonVerifiableQuestMutation.getKey(),
+  });
+
+  const handleClick: MouseEventHandler<
+    HTMLAnchorElement | HTMLButtonElement
+  > = async (event) => {
+    const target = event.currentTarget;
+    if (target.tagName === "BUTTON" && section.id === "onboarding")
+      handleOnboarding(quest);
+  };
+
   return (
     <div className="flex flex-col">
       <img
@@ -47,10 +66,12 @@ export const Card = (props: Props) => {
       </p>
 
       <footer className="mt-4 flex flex-col">
-        {action?.url && action.text && (
+        {action?.text && (
           <Button
-            as="a"
+            as={action.url ? "a" : "button"}
             href={action.url}
+            isLoading={isMutating > 0}
+            onClick={handleClick}
             referrerPolicy="no-referrer"
             target="_blank"
           >

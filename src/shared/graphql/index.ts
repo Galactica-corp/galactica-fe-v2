@@ -250,6 +250,10 @@ export const useCompleteNonVerifiableQuestMutation = <
   });
 };
 
+useCompleteNonVerifiableQuestMutation.getKey = () => [
+  "CompleteNonVerifiableQuest",
+];
+
 export const SectionsDocument = `
     query Sections {
   sections {
