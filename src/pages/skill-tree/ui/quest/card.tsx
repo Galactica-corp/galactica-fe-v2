@@ -11,10 +11,14 @@ type Props = {
 
 export const Card = (props: Props) => {
   const { quest } = props;
-  const { title, image, points, description, action, learnMore } = quest;
+  const { title, points, description, action, learnMore, id } = quest;
   return (
     <div className="flex flex-col">
-      <img alt={title} className="flex w-full rounded-xl" src={image} />
+      <img
+        alt={title}
+        className="flex w-full rounded-xl"
+        src={`/quests/${id}/card.png`}
+      />
       <header className="mt-6 flex items-end justify-between">
         <h3
           className={twJoin(

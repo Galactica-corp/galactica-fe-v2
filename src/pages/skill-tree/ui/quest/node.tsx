@@ -23,7 +23,7 @@ const imgStyles: CSSProperties = {
 
 export const Node = ({ data }: NodeProps<Quest>) => {
   const [ref, hovering] = useHover();
-  const { image, isSelected, status, points } = data;
+  const { id, isSelected, status, points } = data;
 
   return (
     <>
@@ -73,7 +73,7 @@ export const Node = ({ data }: NodeProps<Quest>) => {
               className="absolute -z-10 size-[90]"
               exit={{ opacity: 0 }}
               initial={{ opacity: 0 }}
-              src={"/quests/entry/outline.svg"}
+              src={`/quests/${id}/outline.svg`}
             />
           )}
         </AnimatePresence>
@@ -84,7 +84,7 @@ export const Node = ({ data }: NodeProps<Quest>) => {
             status === "COMPLETED" && "grayscale",
             status === "LOCKED" && "opacity-50 contrast-0"
           )}
-          src={image}
+          src={`/quests/${id}/node.png`}
           style={imgStyles}
         />
       </div>
