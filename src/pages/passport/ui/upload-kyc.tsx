@@ -21,10 +21,19 @@ export const UploadKYC = () => {
             Galactica Network
           </div>
           <div className="mt-3 flex space-x-3">
-            <Button className="w-full whitespace-nowrap text-xs">
+            <Button
+              as={Link}
+              className="w-full whitespace-nowrap text-xs"
+              to="/kyc-guardians"
+            >
               Check KYC Guardians
             </Button>
-            <Button className="w-full whitespace-nowrap text-xs" theme="white">
+            <Button
+              as={Link}
+              className="w-full whitespace-nowrap text-xs"
+              theme="white"
+              to="/my-certificates"
+            >
               Upload KYC-file
             </Button>
           </div>
