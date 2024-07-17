@@ -5,7 +5,6 @@ import { useAuthStatus } from "../use-auth-status";
 
 type Props = {
   children: React.ReactNode;
-  isBackendNeeded?: boolean;
   isMetamaskNeeded?: boolean;
   isSnapNeeded?: boolean;
   onComplete?(): void;
@@ -26,14 +25,12 @@ const close: Variant = {
 };
 
 export const Book = ({
-  isBackendNeeded,
   isMetamaskNeeded,
   isSnapNeeded,
   children,
   onComplete,
 }: Props) => {
   const { isAuth } = useAuthStatus({
-    isBackendNeeded,
     isMetamaskNeeded,
     isSnapNeeded,
   });

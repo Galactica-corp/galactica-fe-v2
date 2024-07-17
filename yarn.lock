@@ -7694,7 +7694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-ws@npm:^5.14.0":
+"graphql-ws@npm:^5.14.0, graphql-ws@npm:^5.16.0":
   version: 5.16.0
   resolution: "graphql-ws@npm:5.16.0"
   peerDependencies:
@@ -12745,6 +12745,7 @@ __metadata:
     framer-motion: "npm:^11.2.10"
     graphql: "npm:^16.9.0"
     graphql-request: "npm:^7.1.0"
+    graphql-ws: "npm:^5.16.0"
     invariant: "npm:^2.2.4"
     postcss: "npm:^8.4.38"
     pre-commit: "npm:^1.2.2"

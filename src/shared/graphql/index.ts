@@ -217,6 +217,34 @@ export type SectionsQuery = {
   }>;
 };
 
+export type QuestCompletionSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type QuestCompletionSubscription = {
+  __typename?: "Subscription";
+  questCompletion: {
+    __typename?: "EventQuestCompleted";
+    section: {
+      __typename?: "Section";
+      id: string;
+      title: string;
+      status: Status;
+      points: number;
+    };
+    quest: {
+      __typename?: "Quest";
+      id: string;
+      icon: string;
+      image: string;
+      title: string;
+      description: string;
+      points: number;
+      status: Status;
+    };
+  };
+};
+
 export const CompleteNonVerifiableQuestDocument = `
     mutation CompleteNonVerifiableQuest($params: CompleteNonVerifiableQuestParams!) {
   completeNonVerifiableQuest(params: $params)
@@ -348,3 +376,25 @@ useSuspenseSectionsQuery.getKey = (variables?: SectionsQueryVariables) =>
   variables === undefined
     ? ["SectionsSuspense"]
     : ["SectionsSuspense", variables];
+
+export const QuestCompletionDocument = `
+    subscription QuestCompletion {
+  questCompletion {
+    section {
+      id
+      title
+      status
+      points
+    }
+    quest {
+      id
+      icon
+      image
+      title
+      description
+      points
+      status
+    }
+  }
+}
+    `;

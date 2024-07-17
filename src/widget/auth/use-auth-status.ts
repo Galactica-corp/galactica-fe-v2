@@ -4,31 +4,25 @@ import { useGetSnapQuery } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 
 type Params = {
-  isBackendNeeded?: boolean;
   isMetamaskNeeded?: boolean;
   isSnapNeeded?: boolean;
 };
-export const useAuthStatus = ({
-  isBackendNeeded,
-  isMetamaskNeeded,
-  isSnapNeeded,
-}: Params) => {
+export const useAuthStatus = ({ isMetamaskNeeded, isSnapNeeded }: Params) => {
   const { chain, isConnected } = useAccount();
   const snapQuery = useGetSnapQuery();
 
   const [sessionId] = useSessionStore();
 
   const isMetamaskAuth = isMetamaskNeeded
-    ? Boolean(chain && isConnected)
+    ? Boolean(chain && isConnected && sessionId)
     : true;
   const isSnapAuth = isSnapNeeded
     ? snapQuery.data && snapQuery.isSuccess
     : true;
-  const isBackendAuth = isBackendNeeded ? Boolean(sessionId) : true;
 
   const isWrongChain = isConnected && !chain;
 
-  const isAuth = isMetamaskAuth && isSnapAuth && isBackendAuth && !isWrongChain;
+  const isAuth = isMetamaskAuth && isSnapAuth && !isWrongChain;
 
-  return { isMetamaskAuth, isSnapAuth, isBackendAuth, isAuth, isWrongChain };
+  return { isMetamaskAuth, isSnapAuth, isAuth, isWrongChain };
 };

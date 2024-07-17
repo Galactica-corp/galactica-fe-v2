@@ -11,7 +11,7 @@ type Props = {
 
 export const QuestsTabs = (props: Props) => {
   const { activeSectionId, onChange, className } = props;
-  const { data } = useSuspenseSectionsQuery();
+  const { data } = useSuspenseSectionsQuery(undefined);
 
   return (
     <Tabs className={twJoin("gap-x-4", className)}>

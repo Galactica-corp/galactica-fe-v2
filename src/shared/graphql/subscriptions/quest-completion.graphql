@@ -1,0 +1,19 @@
+subscription QuestCompletion {
+  questCompletion {
+    section {
+      id
+      title
+      status
+      points
+    }
+    quest {
+      id
+      icon
+      image
+      title
+      description
+      points
+      status
+    }
+  }
+}

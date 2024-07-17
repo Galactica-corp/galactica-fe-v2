@@ -1,11 +1,11 @@
 import { MouseEventHandler } from "react";
 
 import { useIsMutating } from "@tanstack/react-query";
-import { twJoin, twMerge } from "tailwind-merge";
+import { twJoin } from "tailwind-merge";
 
+import { Points } from "entities/points";
 import { Section, useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { Button } from "shared/ui/button";
-import { Icon } from "shared/ui/icon";
 
 import { useHandleOnboarding } from "../../hooks/use-handle-onboarding";
 import { Quest } from "../../types";
@@ -17,7 +17,7 @@ type Props = {
 
 export const Card = (props: Props) => {
   const { quest, section } = props;
-  const { title, points, description, action, learnMore, id } = quest;
+  const { title, points, description, action, learnMore, id, status } = quest;
   const handleOnboarding = useHandleOnboarding();
   const isMutating = useIsMutating({
     mutationKey: useCompleteNonVerifiableQuestMutation.getKey(),
@@ -42,22 +42,17 @@ export const Card = (props: Props) => {
         <h3
           className={twJoin(
             "text-xl font-semibold",
-            status === "completed" && "line-through"
+            status === "COMPLETED" && "line-through"
           )}
         >
           {title}
         </h3>
         {points && (
-          <div
-            className={twMerge(
-              "flex h-[30px] items-center whitespace-nowrap rounded bg-mercury px-2.5 py-1.5 text-sm text-basketBallOrange shadow-xs",
-              status === "available" && "bg-basketBallOrange/10"
-            )}
-          >
-            {status === "available" ? "Reward:" : "Received:"}
-            <span className="ml-1 font-semibold">{points}</span>
-            <Icon className="size-3" name="lightning" />
-          </div>
+          <Points
+            className={twJoin(status !== "AVAILABLE" && "bg-mercury")}
+            label={status === "AVAILABLE" ? "Reward:" : "Received:"}
+            value={points}
+          />
         )}
       </header>
 
@@ -69,13 +64,14 @@ export const Card = (props: Props) => {
         {action?.text && (
           <Button
             as={action.url ? "a" : "button"}
+            disabled={status === "COMPLETED" || status === "LOCKED"}
             href={action.url}
             isLoading={isMutating > 0}
             onClick={handleClick}
             referrerPolicy="no-referrer"
             target="_blank"
           >
-            {action.text}
+            {status === "COMPLETED" ? "Completed" : action.text}
           </Button>
         )}
 

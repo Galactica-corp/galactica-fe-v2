@@ -40,7 +40,7 @@ export const OriginalSBTBanner = ({ className }: ClassName) => {
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold">Generate original SBT</h2>
+        <h2 className="text-xl font-semibold">Generate your first SBT</h2>
         <p className="mt-2.5 text-sm text-riverBed">
           In order to use your KYC, you need to generate at least a minimal
           zkProof disclosing its existence

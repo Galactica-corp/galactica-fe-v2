@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 
+import { useSuspenseSectionsQuery } from "shared/graphql";
 import { Button } from "shared/ui/button";
 import { Icon } from "shared/ui/icon";
 import { formatCurrency, shortAddress } from "shared/web3/utils";
@@ -14,6 +15,15 @@ import { UploadKYC } from "./upload-kyc";
 export const Passport = () => {
   const { address } = useAccount();
   const balanceQuery = useBalance({ address });
+  const { data } = useSuspenseSectionsQuery(undefined, {
+    select: (data) =>
+      data.sections
+        .flatMap((s) => s.points)
+        .reduce((acc, point) => {
+          acc = acc + point;
+          return acc;
+        }, 0),
+  });
 
   return (
     <motion.div
@@ -57,10 +67,15 @@ export const Passport = () => {
               <div className="grid grid-cols-2 gap-x-5 gap-y-6">
                 <Field label="My Level" value="1" />
                 <Field
-                  icon={<Icon className="size-5" name="lightning" />}
+                  icon={
+                    <Icon
+                      className="size-5 text-basketBallOrange"
+                      name="lightning"
+                    />
+                  }
                   label="Score"
                   theme="orange"
-                  value="95"
+                  value={data.toString()}
                 />
                 <Field disabled label="Your GNC" value="—" />
                 <Field disabled label="GNC Wave" value="—" />

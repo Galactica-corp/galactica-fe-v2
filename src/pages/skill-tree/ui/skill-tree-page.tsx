@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+import { toast } from "react-toastify";
 
 import dagre from "@dagrejs/dagre";
 import { useSessionStorage } from "@uidotdev/usehooks";
 import { Edge, Node, NodeMouseHandler, Position } from "reactflow";
 
+import { QuestToast } from "entities/quest";
 import { PageLayout } from "pages/ui/page-layout";
 import { QuestTree, useSuspenseSectionsQuery } from "shared/graphql";
 
@@ -61,7 +63,21 @@ export const SkillTreePage = () => {
           <div className="flex h-3/4 min-h-[600px] grow">
             <Tree edges={edges} nodes={nodes} onNodeClick={handleNodeClick} />
           </div>
-          <div className="flex gap-x-9 self-center">
+          <div
+            className="flex gap-x-9 self-center"
+            onClick={() => {
+              toast(
+                <QuestToast
+                  points={50}
+                  questId="join"
+                  questTitle="Join the Galactica Network"
+                  sectionId="onboarding"
+                  sectionTitle="Onboarding"
+                />,
+                { autoClose: 100000 }
+              );
+            }}
+          >
             {section.rewards.map((r) => {
               return (
                 <TrophyCard
@@ -122,31 +138,27 @@ function getLayoutedElements(
 }
 
 function mapTree(tree: QuestTree, activeQuestId: string) {
-  const edges = tree.edges
-    .map((e) => {
-      const edge: Edge = {
-        id: `${e.requirement}:${e.unlocks}`,
-        source: e.requirement,
-        target: e.unlocks,
-        animated: true,
-      };
+  const edges = tree.edges.map((e) => {
+    const edge: Edge = {
+      id: `${e.requirement}:${e.unlocks}`,
+      source: e.requirement,
+      target: e.unlocks,
+      animated: true,
+    };
 
-      return edge;
-    })
-    .sort((a, b) => (a.id < b.id ? 1 : -1));
+    return edge;
+  });
 
-  const nodes = tree.quests
-    .map((q) => {
-      const node: Node<Quest> = {
-        id: q.id,
-        position: { x: 351, y: 350 },
-        data: { ...q, isSelected: activeQuestId === q.id },
-        type: "quest",
-      };
+  const nodes = tree.quests.map((q) => {
+    const node: Node<Quest> = {
+      id: q.id,
+      position: { x: 351, y: 350 },
+      data: { ...q, isSelected: activeQuestId === q.id },
+      type: "quest",
+    };
 
-      return node;
-    })
-    .sort((a, b) => (a.id < b.id ? 1 : -1));
+    return node;
+  });
 
   return getLayoutedElements(nodes, edges);
 }

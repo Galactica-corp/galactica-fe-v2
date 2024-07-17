@@ -1,28 +1,82 @@
-import { ToastContainer } from "react-toastify";
+import { Suspense } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import { DataGuardiansPage } from "pages/data-guardians";
+import { DevPage } from "pages/dev";
+import { ErrorPage } from "pages/error";
+import { KYCGuardiansPage } from "pages/kyc-guardians";
+import { MyCertificatesPage } from "pages/my-certificates";
+import { MySBTsPage } from "pages/my-sbts";
+import { PassportPage } from "pages/passport";
+import { SkillTreePage } from "pages/skill-tree";
+import { Layout } from "pages/ui";
 import { RqProvider } from "shared/providers/rq";
 import { WagmiProvider } from "shared/providers/wagmi";
-import { useSyncSession } from "shared/stores";
-import { CloseButton } from "shared/ui/toast";
 
-import { AppRoutes } from "./routes";
+import { AuthGuard } from "./guards/auth";
+import { Root } from "./root";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
 import "./index.css";
 
-export const App = () => {
-  useSyncSession();
+const router = createBrowserRouter([
+  {
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        element: <Layout isDrawer />,
+        children: [
+          {
+            element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
+            children: [
+              {
+                path: "/",
+                element: <PassportPage />,
+              },
+              {
+                path: "/dev",
+                element: <DevPage />,
+              },
+            ],
+          },
+          {
+            element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
+            children: [{ path: "/skill-tree", element: <SkillTreePage /> }],
+          },
+          { path: "*", element: <div>Not found</div> },
+        ],
+      },
+      {
+        element: <Layout />,
+        children: [
+          { path: "/data-guardians", element: <DataGuardiansPage /> },
+          { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
+          {
+            element: <AuthGuard isMetamaskNeeded />,
+            children: [{ path: "/my-sbts", element: <MySBTsPage /> }],
+          },
+          {
+            element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
+            children: [
+              { path: "/my-certificates", element: <MyCertificatesPage /> },
+            ],
+          },
+          { path: "*", element: <div>Not found</div> },
+        ],
+      },
+    ],
+  },
+]);
 
+export const App = () => {
   return (
     <WagmiProvider>
       <RqProvider>
-        <AppRoutes />
-        <ToastContainer
-          closeButton={CloseButton}
-          icon={false}
-          position="bottom-right"
-        />
+        <Suspense>
+          <RouterProvider router={router} />
+        </Suspense>
       </RqProvider>
     </WagmiProvider>
   );

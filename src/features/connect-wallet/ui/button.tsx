@@ -1,9 +1,9 @@
 import { ComponentProps, ReactNode } from "react";
 
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { twMerge } from "tailwind-merge";
-import { Address } from "viem";
 import {
-  Connector,
+  ConnectorAlreadyConnectedError,
   useAccount,
   useChainId,
   useConnect,
@@ -12,6 +12,7 @@ import {
 } from "wagmi";
 
 import { useAuthMutation } from "shared/api";
+import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
@@ -23,8 +24,6 @@ type Props = {
   connectContent?: ReactNode;
   installMetamaskContent?: ReactNode;
   installSnapContent?: ReactNode;
-  onConnect?: (connector: Connector, address: Address) => Promise<void> | void;
-
   switchChainContent?: ReactNode;
 } & ButtonProps &
   ClassName;
@@ -35,7 +34,6 @@ export function ConnectButton({
   connectContent = "Connect MetaMask",
   switchChainContent = "Switch to Galactica",
   installSnapContent = "Install MetaMask snap",
-  onConnect,
   ...props
 }: Props) {
   const { address, isDisconnected, isConnecting, connector, chain } =
@@ -50,6 +48,11 @@ export function ConnectButton({
   const { disconnect, isPending: isDisconnectPending } = useDisconnect();
   const { connectAsync, connectors } = useConnect();
   const authMutation = useAuthMutation();
+  const completeMutation = useCompleteNonVerifiableQuestMutation();
+  const [isJoinCompleted, setIsJoinCompleted] = useLocalStorage(
+    "is-join-completed",
+    false
+  );
 
   const handleConnect = async () => {
     const metamaskConnector = connectors.find(
@@ -62,14 +65,33 @@ export function ConnectButton({
     const connector = metamaskConnector ?? flaskConnector;
 
     try {
-      const connectData = connector
-        ? await connectAsync({ connector })
-        : undefined;
+      connector ? await connectAsync({ connector }) : undefined;
+    } catch (error) {
+      if (!(error instanceof ConnectorAlreadyConnectedError)) {
+        catchError(error);
+      }
+    }
 
-      if (connector && connectData)
-        onConnect?.(connector, connectData?.accounts[0]);
+    try {
+      if (!sessionId) await authMutation.mutateAsync({ connector });
     } catch (error) {
       catchError(error);
+    }
+
+    if (!isJoinCompleted) {
+      completeMutation.mutate(
+        {
+          params: {
+            quest: "join",
+            section: "onboarding",
+          },
+        },
+        {
+          onSuccess: () => {
+            setIsJoinCompleted(true);
+          },
+        }
+      );
     }
   };
 
@@ -97,9 +119,15 @@ export function ConnectButton({
     );
   }
 
-  if (isDisconnected || isConnecting) {
+  if (isDisconnected || isConnecting || !sessionId) {
     return (
-      <Button {...btnProps} isLoading={isConnecting} onClick={handleConnect}>
+      <Button
+        {...btnProps}
+        isLoading={
+          isConnecting || authMutation.isPending || completeMutation.isPending
+        }
+        onClick={handleConnect}
+      >
         {connectContent}
       </Button>
     );
@@ -125,18 +153,6 @@ export function ConnectButton({
         onClick={mutation.mutate}
       >
         {installSnapContent}
-      </Button>
-    );
-  }
-
-  if (!sessionId) {
-    return (
-      <Button
-        {...btnProps}
-        isLoading={authMutation.isPending}
-        onClick={authMutation.mutate}
-      >
-        Log In
       </Button>
     );
   }

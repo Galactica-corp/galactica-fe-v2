@@ -7,20 +7,14 @@ import { Auth as AuthWidget, useAuthStatus } from "widget/auth";
 import { useGetSnapQuery } from "shared/snap/rq";
 
 type Props = {
-  isBackendNeeded?: boolean;
   isMetamaskNeeded?: boolean;
   isSnapNeeded?: boolean;
 };
 
-export const Auth = ({
-  isBackendNeeded,
-  isMetamaskNeeded,
-  isSnapNeeded,
-}: Props) => {
+export const Auth = ({ isMetamaskNeeded, isSnapNeeded }: Props) => {
   const { isConnected } = useAccount();
   const { isPending } = useGetSnapQuery();
   const { isAuth } = useAuthStatus({
-    isBackendNeeded,
     isMetamaskNeeded,
     isSnapNeeded,
   });
@@ -49,7 +43,6 @@ export const Auth = ({
     <div className="flex grow items-center py-9">
       <AuthWidget
         className="m-auto"
-        isBackendNeeded={isBackendNeeded}
         isMetamaskNeeded={isMetamaskNeeded}
         isSnapNeeded={isSnapNeeded}
         onComplete={onComplete}

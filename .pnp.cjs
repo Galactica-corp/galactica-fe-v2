@@ -62,6 +62,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:11.2.10"],\
           ["graphql", "npm:16.9.0"],\
           ["graphql-request", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.1.0"],\
+          ["graphql-ws", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.16.0"],\
           ["invariant", "npm:2.2.4"],\
           ["postcss", "npm:8.4.38"],\
           ["pre-commit", "npm:1.2.2"],\
@@ -2645,7 +2646,7 @@ const RAW_RUNTIME_STATE =
           ["@types/graphql", null],\
           ["@types/ws", "npm:8.5.10"],\
           ["graphql", "npm:16.9.0"],\
-          ["graphql-ws", "virtual:06ff9cd4ac53d3fd6b85740540c251d0aedb4780575e790b14ad37898fdc562116011767d2e6b8ee2d4a1e4a7c9fb99c8a4ba091e368ec1977576439beefce15#npm:5.16.0"],\
+          ["graphql-ws", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.16.0"],\
           ["isomorphic-ws", "virtual:5d2f13c1fe89ae0e871a80e9b0b2fb155664f71022c126ba29553ac89313ab19bebd87b1929d1461479e791c3671c499d9cde004a762e3db72e47032bf3a149c#npm:5.0.0"],\
           ["tslib", "npm:2.6.2"],\
           ["ws", "virtual:5d2f13c1fe89ae0e871a80e9b0b2fb155664f71022c126ba29553ac89313ab19bebd87b1929d1461479e791c3671c499d9cde004a762e3db72e47032bf3a149c#npm:8.18.0"]\
@@ -10191,10 +10192,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:06ff9cd4ac53d3fd6b85740540c251d0aedb4780575e790b14ad37898fdc562116011767d2e6b8ee2d4a1e4a7c9fb99c8a4ba091e368ec1977576439beefce15#npm:5.16.0", {\
-        "packageLocation": "./.yarn/__virtual__/graphql-ws-virtual-ba0e245d29/0/cache/graphql-ws-npm-5.16.0-98146e34fe-e56d903920.zip/node_modules/graphql-ws/",\
+      ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.16.0", {\
+        "packageLocation": "./.yarn/__virtual__/graphql-ws-virtual-d775ff1da0/0/cache/graphql-ws-npm-5.16.0-98146e34fe-e56d903920.zip/node_modules/graphql-ws/",\
         "packageDependencies": [\
-          ["graphql-ws", "virtual:06ff9cd4ac53d3fd6b85740540c251d0aedb4780575e790b14ad37898fdc562116011767d2e6b8ee2d4a1e4a7c9fb99c8a4ba091e368ec1977576439beefce15#npm:5.16.0"],\
+          ["graphql-ws", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.16.0"],\
           ["@types/graphql", null],\
           ["graphql", "npm:16.9.0"]\
         ],\
@@ -16156,6 +16157,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:11.2.10"],\
           ["graphql", "npm:16.9.0"],\
           ["graphql-request", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:7.1.0"],\
+          ["graphql-ws", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.16.0"],\
           ["invariant", "npm:2.2.4"],\
           ["postcss", "npm:8.4.38"],\
           ["pre-commit", "npm:1.2.2"],\

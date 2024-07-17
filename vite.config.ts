@@ -36,12 +36,22 @@ export default defineConfig(({ mode }) => {
         [`${env.VITE_QUEST_SERVICE}`]: {
           target: "https://quest-service.galactica.com",
           changeOrigin: true,
+          // headers: env.VITE_QUEST_SERVICE_AUTH_TOKEN
+          //   ? {
+          //       Authorization: `Bearer ${env.VITE_QUEST_SERVICE_AUTH_TOKEN}`,
+          //     }
+          //   : {},
+          rewrite: (path) => path.replace(/^\/quest-api/, ""),
+        },
+        "/quest-ws": {
+          target: "wss://quest-service.galactica.com",
+          changeOrigin: true,
           headers: env.VITE_QUEST_SERVICE_AUTH_TOKEN
             ? {
                 Authorization: `Bearer ${env.VITE_QUEST_SERVICE_AUTH_TOKEN}`,
               }
             : {},
-          rewrite: (path) => path.replace(/^\/quest-api/, ""),
+          rewrite: (path) => path.replace(/^\/quest-ws/, ""),
         },
       },
     },
