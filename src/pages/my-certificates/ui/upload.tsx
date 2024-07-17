@@ -7,6 +7,7 @@ import { RpcError } from "viem";
 import { useAccount, useChainId } from "wagmi";
 
 import { useCerts } from "entities/cert";
+import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { EncryptedZkCert } from "shared/snap";
 import {
   getZkCertStorageHashesQueryOptions,
@@ -26,11 +27,13 @@ export const Upload = ({ className }: UploadProps) => {
   const mutateAsync = mutation.mutateAsync;
   const queryClient = useQueryClient();
 
+  const completeMutation = useCompleteNonVerifiableQuestMutation();
+
   const { address } = useAccount();
   const chainId = useChainId();
   const { client } = useSnapClient();
 
-  const { setCerts } = useCerts();
+  const { setCerts, certs } = useCerts();
 
   const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
     if (rejectedFile) {
@@ -47,6 +50,15 @@ export const Upload = ({ className }: UploadProps) => {
 
       if ("message" in response) {
         return;
+      }
+
+      if (!certs.length) {
+        await completeMutation.mutateAsync({
+          params: {
+            quest: "pass-kyc",
+            section: "onboarding",
+          },
+        });
       }
 
       const queryOptions = getZkCertStorageHashesQueryOptions({

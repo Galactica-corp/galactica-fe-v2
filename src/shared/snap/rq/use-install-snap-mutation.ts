@@ -37,10 +37,9 @@ export const useInstallSnapMutation = <TContext = unknown>(
         },
       });
     },
-    onSuccess: (snaps) => {
+    onSuccess: async (snaps) => {
       invariant(snaps, "The snap not found");
-
-      queryClient.refetchQueries({ queryKey: ["snap"] });
+      await await queryClient.refetchQueries({ queryKey: ["snap"] });
     },
     onError: catchError,
     ...options,

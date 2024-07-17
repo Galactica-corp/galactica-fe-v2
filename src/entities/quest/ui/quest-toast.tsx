@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSessionStorage } from "@uidotdev/usehooks";
 
 import { Points } from "entities/points";
+import { Icon } from "shared/ui/icon";
 
 type Props = {
   points: number;
@@ -24,12 +25,18 @@ export const QuestToast = ({
     sectionId
   );
   return (
-    <div className="flex gap-x-5">
-      <img
-        alt="task"
-        className="size-20 shrink-0"
-        src={`quests/${questId}/node.png`}
-      />
+    <div className="relative flex gap-x-5">
+      <div className="relative inline-flex size-20 shrink-0">
+        <img
+          alt="task"
+          className="size-full"
+          src={`quests/${questId}/node.png`}
+        />
+        <Icon
+          className="absolute -right-1 -top-1 z-10 size-5 rounded-full bg-white p-0.5"
+          name="verifiedCheck"
+        />
+      </div>
       <div className="flex flex-col">
         <div>
           You have successfully completed <br /> <b>{questTitle}</b> task!

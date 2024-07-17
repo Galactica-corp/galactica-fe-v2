@@ -46,11 +46,11 @@ export default defineConfig(({ mode }) => {
         "/quest-ws": {
           target: "wss://quest-service.galactica.com",
           changeOrigin: true,
-          headers: env.VITE_QUEST_SERVICE_AUTH_TOKEN
-            ? {
-                Authorization: `Bearer ${env.VITE_QUEST_SERVICE_AUTH_TOKEN}`,
-              }
-            : {},
+          // headers: env.VITE_QUEST_SERVICE_AUTH_TOKEN
+          //   ? {
+          //       Authorization: `Bearer ${env.VITE_QUEST_SERVICE_AUTH_TOKEN}`,
+          //     }
+          //   : {},
           rewrite: (path) => path.replace(/^\/quest-ws/, ""),
         },
       },

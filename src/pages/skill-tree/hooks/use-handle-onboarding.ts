@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 
-import { useCerts } from "entities/cert";
 import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
 import { useInstallSnapMutation } from "shared/snap/rq";
 import { catchError } from "shared/ui/toast";
@@ -22,7 +21,6 @@ export const useHandleOnboarding = () => {
     },
   });
   const installSnapMutation = useInstallSnapMutation();
-  const { certs } = useCerts();
 
   return async (quest: Quest) => {
     try {
@@ -36,19 +34,7 @@ export const useHandleOnboarding = () => {
       }
 
       if (quest.id === "install-snap") {
-        await installSnapMutation.mutateAsync({
-          id: import.meta.env.VITE_SNAP_ID,
-          version: import.meta.env.VITE_SNAP_VERSION,
-        });
-        await mutation.mutateAsync({
-          params: {
-            quest: quest.id,
-            section,
-          },
-        });
-      }
-
-      if (quest.id === "pass-kyc" && certs.length > 0) {
+        await installSnapMutation.mutateAsync({});
         await mutation.mutateAsync({
           params: {
             quest: quest.id,

@@ -45,7 +45,7 @@ export const useQuestCompletionSubscription = (
             console.error(error);
           },
           complete() {
-            console.log("Closed");
+            console.log("ws closed");
           },
         }
       );

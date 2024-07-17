@@ -41,7 +41,7 @@ export function ConnectButton({
   const chainId = useChainId();
 
   const snapQuery = useGetSnapQuery();
-  const mutation = useInstallSnapMutation();
+  const installSnapMutation = useInstallSnapMutation();
   const [sessionId] = useSessionStore();
 
   const { switchChain, isPending: isSwitchChainPending } = useSwitchChain();
@@ -149,8 +149,22 @@ export function ConnectButton({
     return (
       <Button
         {...btnProps}
-        isLoading={mutation.isPending}
-        onClick={mutation.mutate}
+        isLoading={installSnapMutation.isPending}
+        onClick={() => {
+          installSnapMutation.mutate(
+            {},
+            {
+              onSuccess: () => {
+                completeMutation.mutate({
+                  params: {
+                    quest: "install-snap",
+                    section: "onboarding",
+                  },
+                });
+              },
+            }
+          );
+        }}
       >
         {installSnapContent}
       </Button>
