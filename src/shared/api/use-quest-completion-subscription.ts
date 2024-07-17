@@ -13,7 +13,9 @@ import { useSessionStore } from "shared/stores";
 
 const path = import.meta.env.VITE_QUEST_SERVICE_WS;
 
-const wsLink = `ws://${path.startsWith("/") ? `${window.location.host}${path}` : path}/api/graphql/query`;
+const wsOrigin = path.startsWith("/")
+  ? `ws://${window.location.host}${path}`
+  : path;
 
 type Props = {
   onEvent: (
@@ -62,7 +64,7 @@ export const useQuestCompletionSubscription = (
 
 function initClient(sessionId: string) {
   return createClient({
-    url: wsLink,
+    url: `${wsOrigin}/api/graphql/query`,
     connectionParams: {
       authorization: sessionId,
     },
