@@ -101,6 +101,7 @@ export const useCerts = () => {
     ? set.size > entries.length || entries.length !== lsEntries.length
     : false;
 
+  certsStore.map();
   return {
     certs: certsStore,
     setCerts,

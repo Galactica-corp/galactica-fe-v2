@@ -24,7 +24,7 @@ export const Progress = (props: Props) => {
         <div className="flex">
           {section.title} is
           <span className="ml-1 text-basketBallOrange">
-            {percent}% complete
+            {Number.isNaN(percent) ? 0 : percent}% complete
           </span>
         </div>
         <div className="flex">
