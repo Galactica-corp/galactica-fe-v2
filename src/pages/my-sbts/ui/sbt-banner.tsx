@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import { twMerge } from "tailwind-merge";
 
@@ -8,14 +8,8 @@ import { ClassName } from "shared/types";
 import { Button } from "shared/ui/button";
 import { catchError } from "shared/ui/toast";
 
-import { ToastTask } from "./toast";
-
 export const SBTBanner = ({ className }: ClassName) => {
   const mutation = useGenerateSBTMutation();
-
-  const handleLearnMoreClick = () => {
-    toast(<ToastTask />);
-  };
 
   const handleGenerate = () => {
     mutation.mutate(undefined, {
@@ -48,7 +42,12 @@ export const SBTBanner = ({ className }: ClassName) => {
       </div>
 
       <div className="ml-auto flex items-start gap-x-2">
-        <Button onClick={handleLearnMoreClick} theme="pickledBluewood-white">
+        <Button
+          as={Link}
+          target="_blank"
+          theme="pickledBluewood-white"
+          to="https://docs.galactica.com/galactica-developer-documentation/galactica-concepts/zero-knowledge-kyc/verification-sbt"
+        >
           Learn more
         </Button>
         <Button isLoading={mutation.isPending} onClick={handleGenerate}>

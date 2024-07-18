@@ -16,6 +16,7 @@ export const Passport = () => {
   const { address } = useAccount();
   const balanceQuery = useBalance({ address });
   const { data } = useSuspenseSectionsQuery(undefined, {
+    staleTime: 1000 * 60 * 5,
     select: (data) =>
       data.sections
         .flatMap((s) => s.points)

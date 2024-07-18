@@ -5,12 +5,15 @@ import { useSessionStore } from "shared/stores";
 
 export const useSignOutMutation = () => {
   const queryClient = useQueryClient();
-  const [_, setSession] = useSessionStore();
+  const [sessionId, setSession] = useSessionStore();
   return useMutation({
     mutationFn: async () => {
       const response = await fetch(
         `${import.meta.env.VITE_QUEST_SERVICE}/api/auth/sign-out`,
         {
+          headers: {
+            Authorization: `Bearer ${sessionId}`,
+          },
           method: "POST",
         }
       );

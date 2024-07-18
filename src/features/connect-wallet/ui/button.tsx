@@ -1,6 +1,5 @@
 import { ComponentProps, ReactNode } from "react";
 
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { twMerge } from "tailwind-merge";
 import {
   ConnectorAlreadyConnectedError,
@@ -11,8 +10,7 @@ import {
   useSwitchChain,
 } from "wagmi";
 
-import { useAuthMutation } from "shared/api";
-import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
+import { useAuthMutation, useCompleteQuestMutation } from "shared/api";
 import { useGetSnapQuery, useInstallSnapMutation } from "shared/snap/rq";
 import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
@@ -48,11 +46,7 @@ export function ConnectButton({
   const { disconnect, isPending: isDisconnectPending } = useDisconnect();
   const { connectAsync, connectors } = useConnect();
   const authMutation = useAuthMutation();
-  const completeMutation = useCompleteNonVerifiableQuestMutation();
-  const [isJoinCompleted, setIsJoinCompleted] = useLocalStorage(
-    "is-join-completed",
-    false
-  );
+  const completeMutation = useCompleteQuestMutation();
 
   const handleConnect = async () => {
     const metamaskConnector = connectors.find(
@@ -78,21 +72,12 @@ export function ConnectButton({
       catchError(error);
     }
 
-    if (!isJoinCompleted) {
-      completeMutation.mutate(
-        {
-          params: {
-            quest: "join",
-            section: "onboarding",
-          },
-        },
-        {
-          onSuccess: () => {
-            setIsJoinCompleted(true);
-          },
-        }
-      );
-    }
+    completeMutation.mutate({
+      params: {
+        quest: "join",
+        section: "onboarding",
+      },
+    });
   };
 
   const btnProps: ComponentProps<typeof Button> = {

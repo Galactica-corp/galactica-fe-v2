@@ -7,7 +7,7 @@ import { RpcError } from "viem";
 import { useAccount, useChainId } from "wagmi";
 
 import { useCerts } from "entities/cert";
-import { useCompleteNonVerifiableQuestMutation } from "shared/graphql";
+import { useCompleteQuestMutation } from "shared/api";
 import { EncryptedZkCert } from "shared/snap";
 import {
   getZkCertStorageHashesQueryOptions,
@@ -27,7 +27,7 @@ export const Upload = ({ className }: UploadProps) => {
   const mutateAsync = mutation.mutateAsync;
   const queryClient = useQueryClient();
 
-  const completeMutation = useCompleteNonVerifiableQuestMutation();
+  const completeMutation = useCompleteQuestMutation();
 
   const { address } = useAccount();
   const chainId = useChainId();

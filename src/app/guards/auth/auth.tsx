@@ -4,7 +4,6 @@ import { useSessionStorage } from "@uidotdev/usehooks";
 import { useAccount, useAccountEffect } from "wagmi";
 import { Auth as AuthWidget, useAuthStatus } from "widget/auth";
 
-import { useSignOutMutation } from "shared/api";
 import { useGetSnapQuery } from "shared/snap/rq";
 
 type Props = {
@@ -19,7 +18,6 @@ export const Auth = ({ isMetamaskNeeded, isSnapNeeded }: Props) => {
     isMetamaskNeeded,
     isSnapNeeded,
   });
-  const signOutMutation = useSignOutMutation();
 
   const [holdAnimation, setHoldAnimation] = useSessionStorage(
     "hold-passport-animation",
@@ -29,7 +27,6 @@ export const Auth = ({ isMetamaskNeeded, isSnapNeeded }: Props) => {
   useAccountEffect({
     onDisconnect() {
       setHoldAnimation(true);
-      signOutMutation.mutate();
     },
   });
 

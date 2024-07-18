@@ -1,11 +1,9 @@
 import { useMemo, useState } from "react";
-import { toast } from "react-toastify";
 
 import dagre from "@dagrejs/dagre";
 import { useSessionStorage } from "@uidotdev/usehooks";
 import { Edge, Node, NodeMouseHandler, Position } from "reactflow";
 
-import { QuestToast } from "entities/quest";
 import { PageLayout } from "pages/ui/page-layout";
 import { QuestTree, useSuspenseSectionsQuery } from "shared/graphql";
 
@@ -14,7 +12,6 @@ import { Card } from "./quest/card";
 import { Progress } from "./quest/progress";
 import { Tree } from "./quest/tree";
 import { QuestsTabs } from "./tabs";
-import { TrophyCard } from "./trophy-card";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -22,7 +19,9 @@ const nodeWidth = 90;
 const nodeHeight = 90;
 
 export const SkillTreePage = () => {
-  const { data } = useSuspenseSectionsQuery(undefined);
+  const { data } = useSuspenseSectionsQuery(undefined, {
+    staleTime: 1000 * 60 * 5,
+  });
 
   const [activeSectionId, setActiveSectionId] = useSessionStorage(
     "active-quest-sections",
@@ -63,7 +62,7 @@ export const SkillTreePage = () => {
           <div className="flex h-3/4 min-h-[600px] grow">
             <Tree edges={edges} nodes={nodes} onNodeClick={handleNodeClick} />
           </div>
-          <div
+          {/* <div
             className="flex gap-x-9 self-center"
             onClick={() => {
               toast(
@@ -88,7 +87,7 @@ export const SkillTreePage = () => {
                 />
               );
             })}
-          </div>
+          </div> */}
         </div>
 
         <div className="basis-2/6 px-16">

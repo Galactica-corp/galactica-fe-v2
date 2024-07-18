@@ -180,7 +180,7 @@ export const Sidebar = ({
                   className="cursor-pointer transition-colors hover:brightness-150"
                   name="logout"
                   onClick={() => {
-                    signOutMutation.mutate();
+                    signOutMutation.mutate(undefined);
                     disconnect();
                   }}
                 />
