@@ -5,6 +5,7 @@ import { useAccount, useAccountEffect } from "wagmi";
 import { Auth as AuthWidget, useAuthStatus } from "widget/auth";
 
 import { useGetSnapQuery } from "shared/snap/rq";
+import { useSessionStore } from "shared/stores";
 
 type Props = {
   isMetamaskNeeded?: boolean;
@@ -18,6 +19,8 @@ export const Auth = ({ isMetamaskNeeded, isSnapNeeded }: Props) => {
     isMetamaskNeeded,
     isSnapNeeded,
   });
+
+  const [_, setSessionId] = useSessionStore();
   const [holdAnimation, setHoldAnimation] = useSessionStorage(
     "hold-passport-animation",
     !isAuth
@@ -25,6 +28,7 @@ export const Auth = ({ isMetamaskNeeded, isSnapNeeded }: Props) => {
 
   useAccountEffect({
     onDisconnect() {
+      setSessionId(undefined);
       setHoldAnimation(true);
     },
   });
