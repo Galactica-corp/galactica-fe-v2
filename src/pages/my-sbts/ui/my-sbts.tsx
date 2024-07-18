@@ -5,7 +5,7 @@ import { PageLayout } from "pages/ui";
 import { useSBTsSuspenseQuery } from "shared/api";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
-import { OriginalSBTBanner } from "./original-sbt-banner";
+import { SBTBanner } from "./sbt-banner";
 
 type TabValue = "active" | "expired";
 
@@ -41,7 +41,7 @@ export const MySBTs = () => {
           )}
         </Tab>
       </Tabs>
-      {!activeSBTs.length && <OriginalSBTBanner className="mt-8" />}
+      {!activeSBTs.length && <SBTBanner className="mt-8" />}
 
       <div className="mt-8 flex flex-wrap gap-6">
         {activeTab === "active" &&

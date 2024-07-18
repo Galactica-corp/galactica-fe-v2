@@ -52,14 +52,12 @@ export const Upload = ({ className }: UploadProps) => {
         return;
       }
 
-      if (!certs.length) {
-        await completeMutation.mutateAsync({
-          params: {
-            quest: "pass-kyc",
-            section: "onboarding",
-          },
-        });
-      }
+      await completeMutation.mutateAsync({
+        params: {
+          quest: "pass-kyc",
+          section: "onboarding",
+        },
+      });
 
       const queryOptions = getZkCertStorageHashesQueryOptions({
         chainId,

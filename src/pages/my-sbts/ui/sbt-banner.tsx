@@ -10,7 +10,7 @@ import { catchError } from "shared/ui/toast";
 
 import { ToastTask } from "./toast";
 
-export const OriginalSBTBanner = ({ className }: ClassName) => {
+export const SBTBanner = ({ className }: ClassName) => {
   const mutation = useGenerateSBTMutation();
 
   const handleLearnMoreClick = () => {
