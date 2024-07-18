@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { DataGuardiansPage } from "pages/data-guardians";
 import { DevPage } from "pages/dev";
 import { ErrorPage } from "pages/error";
 import { KYCGuardiansPage } from "pages/kyc-guardians";
@@ -51,7 +50,7 @@ const router = createBrowserRouter([
       {
         element: <Layout />,
         children: [
-          { path: "/data-guardians", element: <DataGuardiansPage /> },
+          // { path: "/data-guardians", element: <DataGuardiansPage /> },
           { path: "/kyc-guardians", element: <KYCGuardiansPage /> },
           {
             element: <AuthGuard isMetamaskNeeded />,

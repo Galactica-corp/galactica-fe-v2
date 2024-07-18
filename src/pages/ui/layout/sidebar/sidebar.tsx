@@ -70,12 +70,12 @@ export const Sidebar = ({
       text: "KYC Guardians",
       disabled: false,
     },
-    {
-      iconName: "scan",
-      to: "/data-guardians",
-      text: "Data Guardians",
-      disabled: false,
-    },
+    // {
+    //   iconName: "scan",
+    //   to: "/data-guardians",
+    //   text: "Data Guardians",
+    //   disabled: false,
+    // },
     {
       iconName: "shieldZap",
       to: "/skill-tree",

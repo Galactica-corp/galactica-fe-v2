@@ -28,25 +28,25 @@ const guardians = [
     },
     link: "https://kyc-andromeda.galactica.com",
   },
-  {
-    provider: {
-      title: "SwissBorg",
-      description: "swissborg.com",
-      img: (
-        <div className="rounded-full bg-white p-1 inner-border-santaGrey">
-          <Icon className="size-8" name="swissborg" />
-        </div>
-      ),
-    },
-    score: "TBD",
-    totalDocsCount: "TBD",
-    docsPerMonth: "TBD",
-    avgIssueTime: {
-      title: "TBD",
-      description: "",
-    },
-    link: "https://stage-swissborg.galactica.com",
-  },
+  // {
+  //   provider: {
+  //     title: "SwissBorg",
+  //     description: "swissborg.com",
+  //     img: (
+  //       <div className="rounded-full bg-white p-1 inner-border-santaGrey">
+  //         <Icon className="size-8" name="swissborg" />
+  //       </div>
+  //     ),
+  //   },
+  //   score: "TBD",
+  //   totalDocsCount: "TBD",
+  //   docsPerMonth: "TBD",
+  //   avgIssueTime: {
+  //     title: "TBD",
+  //     description: "",
+  //   },
+  //   link: "https://stage-swissborg.galactica.com",
+  // },
 ];
 
 type KYCGuardian = (typeof guardians)[number];
