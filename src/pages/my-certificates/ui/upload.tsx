@@ -33,7 +33,7 @@ export const Upload = ({ className }: UploadProps) => {
   const chainId = useChainId();
   const { client } = useSnapClient();
 
-  const { setCerts, certs } = useCerts();
+  const { setCerts } = useCerts();
 
   const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
     if (rejectedFile) {
