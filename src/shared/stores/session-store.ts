@@ -1,7 +1,5 @@
 import { useEffect, useSyncExternalStore } from "react";
 
-import { useAccountEffect } from "wagmi";
-
 let session: string | undefined =
   window.localStorage.getItem("session") ?? undefined;
 const subscribers = new Set<VoidFunction>();
@@ -30,12 +28,6 @@ export const useSessionStore = () => {
     sessionStore.subscribe,
     sessionStore.get
   );
-
-  useAccountEffect({
-    onDisconnect: () => {
-      sessionStore.set(undefined);
-    },
-  });
 
   return [sessionId, sessionStore.set] as const;
 };
