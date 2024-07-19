@@ -43,7 +43,7 @@ export const Root = () => {
 
   return (
     <>
-      <Outlet />;
+      <Outlet />
       <ToastContainer
         closeButton={CloseButton}
         icon={false}
