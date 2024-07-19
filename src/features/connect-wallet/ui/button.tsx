@@ -87,7 +87,8 @@ export function ConnectButton({
   if (
     !connectors.some(
       (connector) =>
-        connector.name === "MetaMask" || connector.name === "MetaMask Flask"
+        connector.name === "MetaMask" ||
+        (import.meta.env.DEV && connector.name === "MetaMask Flask")
     )
   ) {
     return (
