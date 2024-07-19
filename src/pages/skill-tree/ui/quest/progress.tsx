@@ -39,7 +39,7 @@ export const Progress = (props: Props) => {
         <div
           className="h-full rounded-full bg-basketBallOrange shadow-basketBallOrange"
           style={{
-            width: `${percent}%`,
+            width: `${Number.isNaN(percent) ? 0 : percent}%`,
           }}
         />
       </div>
