@@ -38,11 +38,8 @@ const router = createBrowserRouter([
                 path: "/dev",
                 element: <DevPage />,
               },
+              { path: "/skill-tree", element: <SkillTreePage /> },
             ],
-          },
-          {
-            element: <AuthGuard isMetamaskNeeded isSnapNeeded />,
-            children: [{ path: "/skill-tree", element: <SkillTreePage /> }],
           },
           { path: "*", element: <div>Not found</div> },
         ],
