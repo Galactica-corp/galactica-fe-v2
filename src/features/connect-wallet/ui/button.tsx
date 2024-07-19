@@ -140,7 +140,7 @@ export function ConnectButton({
               onSuccess: () => {
                 completeMutation.mutate({
                   quest: "install-snap",
-                  section: "onboarding",
+                  section: "1-onboarding",
                 });
               },
             }

@@ -4,13 +4,14 @@ import { catchError } from "shared/ui/toast";
 
 import { Quest } from "../types";
 
-const section = "onboarding";
+const section = "1-onboarding";
 
 export const useHandleOnboarding = () => {
   const mutation = useCompleteQuestMutation();
   const installSnapMutation = useInstallSnapMutation();
 
   return async (quest: Quest) => {
+    console.log(section, quest);
     try {
       if (quest.id === "join") {
         await mutation.mutateAsync({

@@ -28,7 +28,7 @@ export const Card = (props: Props) => {
     HTMLAnchorElement | HTMLButtonElement
   > = async (event) => {
     const target = event.currentTarget;
-    if (target.tagName === "BUTTON" && section.id === "onboarding")
+    if (target.tagName === "BUTTON" && section.id === "1-onboarding")
       handleOnboarding(quest);
   };
 

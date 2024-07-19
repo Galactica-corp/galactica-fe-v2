@@ -68,7 +68,7 @@ export const SkillTreePage = () => {
                   points={50}
                   questId="join"
                   questTitle="Join the Galactica Network"
-                  sectionId="onboarding"
+                  sectionId="1-onboarding"
                   sectionTitle="Onboarding"
                 />,
                 { autoClose: 100000 }

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { CompleteNonVerifiableQuestParams } from "shared/graphql";
 import { sdk } from "shared/providers/graphql-client";
+import { catchError } from "shared/ui/toast";
 
 import { questsQueries } from "./queries";
 
@@ -12,8 +13,17 @@ export const useCompleteQuestMutation = () => {
 
   return useMutation({
     mutationKey,
-    mutationFn: (params: CompleteNonVerifiableQuestParams) => {
-      return sdk.CompleteNonVerifiableQuest({ params });
+    mutationFn: async (params: CompleteNonVerifiableQuestParams) => {
+      const response = await sdk.CompleteNonVerifiableQuest({ params });
+
+      if (response.errors) {
+        throw new Error(response.errors[0].message);
+      }
+
+      return response;
+    },
+    onError: (error) => {
+      catchError(error);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
