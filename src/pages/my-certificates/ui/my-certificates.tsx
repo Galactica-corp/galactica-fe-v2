@@ -14,6 +14,13 @@ export const MyCertificates = () => {
 
   const { certs, hasUpdates, updateCerts } = useCerts();
 
+  const filteredCerts = certs.filter((c) => {
+    if (active === 1) return c.standard === "gip1";
+    if (active === 1) return c.standard === "gip2";
+
+    return c.standard !== "gip1" && c.standard !== "gip2";
+  });
+
   const handleUpdate = async () => {
     try {
       updateCerts({});
@@ -22,8 +29,12 @@ export const MyCertificates = () => {
     }
   };
 
-  const activeCerts = certs.filter((c) => c.expirationDateMS > Date.now());
-  const expiredCerts = certs.filter((c) => c.expirationDateMS <= Date.now());
+  const activeCerts = filteredCerts.filter(
+    (c) => c.expirationDateMS > Date.now()
+  );
+  const expiredCerts = filteredCerts.filter(
+    (c) => c.expirationDateMS <= Date.now()
+  );
 
   const hasCertificates = activeCerts.length > 0 || expiredCerts.length > 0;
 
