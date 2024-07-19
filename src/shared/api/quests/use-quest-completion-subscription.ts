@@ -17,20 +17,23 @@ const wsOrigin = path.startsWith("/")
   ? `ws://${window.location.host}${path}`
   : path;
 
-type Props = {
-  onEvent: (
-    data: QuestCompletionSubscription | null | undefined,
-    errors: readonly GraphQLError[] | undefined
-  ) => void;
+type EventHandler = (
+  data: QuestCompletionSubscription | null | undefined,
+  errors: readonly GraphQLError[] | undefined
+) => void;
+
+type Options = {
+  onConnect?: () => void;
+  onEvent?: EventHandler;
 };
 
-export const useQuestCompletionSubscription = (
-  options: Props = { onEvent: () => {} }
-) => {
+export const useQuestCompletionSubscription = (options: Options = {}) => {
+  const { onEvent = () => {}, onConnect = () => {} } = options;
   const queryClient = useQueryClient();
   const [sessionId] = useSessionStore();
 
-  const handleEvent = useEventCallback(options.onEvent);
+  const handleEvent = useEventCallback(onEvent);
+  const handleConnect = useEventCallback(onConnect);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -59,7 +62,7 @@ export const useQuestCompletionSubscription = (
       unsubscribe();
       client.dispose();
     };
-  }, [sessionId, queryClient, handleEvent]);
+  }, [sessionId, queryClient, handleEvent, handleConnect]);
 };
 
 function initClient(sessionId: string) {

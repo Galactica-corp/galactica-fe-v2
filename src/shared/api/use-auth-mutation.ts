@@ -17,6 +17,8 @@ import { getWalletClientQueryOptions } from "wagmi/query";
 import { useSessionStore } from "shared/stores";
 import { bufferToBase64 } from "shared/utils";
 
+import { questsQueries } from "./quests/queries";
+
 type ChallengeResponse = {
   challenge: string;
 };
@@ -104,11 +106,9 @@ export const useAuthMutation = () => {
     onSuccess: async (data) => {
       setSession(data.session_id);
       reset();
-      // await queryClient.invalidateQueries({
-      //   predicate: (query) => {
-      //     return query.queryKey.includes(useSectionsQuery.getKey());
-      //   },
-      // });
+      await queryClient.invalidateQueries({
+        queryKey: questsQueries.allSections(),
+      });
     },
   });
 };
