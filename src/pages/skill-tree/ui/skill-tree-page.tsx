@@ -127,7 +127,7 @@ function getLayoutedElements(
       // We are shifting the dagre node position (anchor=center center) to the top left
       // so it matches the React Flow node anchor point (top left).
       position: {
-        x: idx === 0 ? 0 : nodeWithPosition.x - nodeWidth / 2,
+        x: idx === 0 ? 20 : nodeWithPosition.x - nodeWidth / 2,
         y: idx === 0 ? 0 : nodeWithPosition.y - nodeHeight / 2,
       },
     };
