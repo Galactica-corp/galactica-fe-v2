@@ -1,12 +1,14 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 import { SectionsQuery } from "shared/graphql";
+import { useSessionStore } from "shared/stores";
 
 import { questsQueries } from "./queries";
 
 export const useQuestsPointsQuery = () => {
+  const [sessionId] = useSessionStore();
   return useQuery({
-    ...questsQueries.sections(),
+    ...questsQueries.sections(sessionId),
     select: (data: SectionsQuery) =>
       data.sections
         .flatMap((s) => s.points)
@@ -18,8 +20,9 @@ export const useQuestsPointsQuery = () => {
 };
 
 export const useSuspenseSectionsQuery = () => {
+  const [sessionId] = useSessionStore();
   return useSuspenseQuery({
-    ...questsQueries.sections(),
+    ...questsQueries.sections(sessionId),
     select: (data) => data.sections,
   });
 };

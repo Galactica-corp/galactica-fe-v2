@@ -27,7 +27,7 @@ export const useCompleteQuestMutation = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: questsQueries.sections().queryKey,
+        queryKey: questsQueries.allSections(),
       });
     },
   });

@@ -24,7 +24,7 @@ export const useSignOutMutation = () => {
     onSuccess: async () => {
       setSession(undefined);
       await queryClient.invalidateQueries({
-        queryKey: questsQueries.sections().queryKey,
+        queryKey: questsQueries.allSections(),
       });
     },
   });

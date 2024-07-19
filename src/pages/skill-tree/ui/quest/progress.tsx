@@ -16,7 +16,7 @@ export const Progress = (props: Props) => {
     (q) => q.status === "COMPLETED"
   ).length;
 
-  const percent = (completedQuests / questsLength) * 100;
+  const percent = Math.floor((completedQuests / questsLength) * 100);
 
   return (
     <div className={twMerge("flex w-full flex-col", className)}>
