@@ -14,7 +14,6 @@ import {
 } from "wagmi";
 import { getWalletClientQueryOptions } from "wagmi/query";
 
-import { useSectionsQuery } from "shared/graphql";
 import { useSessionStore } from "shared/stores";
 import { bufferToBase64 } from "shared/utils";
 
@@ -105,11 +104,11 @@ export const useAuthMutation = () => {
     onSuccess: async (data) => {
       setSession(data.session_id);
       reset();
-      await queryClient.invalidateQueries({
-        predicate: (query) => {
-          return query.queryKey.includes(useSectionsQuery.getKey());
-        },
-      });
+      // await queryClient.invalidateQueries({
+      //   predicate: (query) => {
+      //     return query.queryKey.includes(useSectionsQuery.getKey());
+      //   },
+      // });
     },
   });
 };

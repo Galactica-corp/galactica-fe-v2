@@ -1,12 +1,6 @@
-import {
-  useMutation,
-  useQuery,
-  useSuspenseQuery,
-  UseMutationOptions,
-  UseQueryOptions,
-  UseSuspenseQueryOptions,
-} from "@tanstack/react-query";
-import { graphqlRequestFetcher } from "./fetcher.ts";
+import { GraphQLClient, RequestOptions } from "graphql-request";
+import { GraphQLError, print } from "graphql";
+import gql from "graphql-tag";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -27,6 +21,7 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
     };
+type GraphQLClientRequestHeaders = RequestOptions["requestHeaders"];
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string };
@@ -245,156 +240,164 @@ export type QuestCompletionSubscription = {
   };
 };
 
-export const CompleteNonVerifiableQuestDocument = `
-    mutation CompleteNonVerifiableQuest($params: CompleteNonVerifiableQuestParams!) {
-  completeNonVerifiableQuest(params: $params)
-}
-    `;
-
-export const useCompleteNonVerifiableQuestMutation = <
-  TError = unknown,
-  TContext = unknown,
->(
-  options?: UseMutationOptions<
-    CompleteNonVerifiableQuestMutation,
-    TError,
-    CompleteNonVerifiableQuestMutationVariables,
-    TContext
-  >
-) => {
-  return useMutation<
-    CompleteNonVerifiableQuestMutation,
-    TError,
-    CompleteNonVerifiableQuestMutationVariables,
-    TContext
-  >({
-    mutationKey: ["CompleteNonVerifiableQuest"],
-    mutationFn: (variables?: CompleteNonVerifiableQuestMutationVariables) =>
-      graphqlRequestFetcher<
-        CompleteNonVerifiableQuestMutation,
-        CompleteNonVerifiableQuestMutationVariables
-      >(CompleteNonVerifiableQuestDocument, variables)(),
-    ...options,
-  });
-};
-
-useCompleteNonVerifiableQuestMutation.getKey = () => [
-  "CompleteNonVerifiableQuest",
-];
-
-export const SectionsDocument = `
-    query Sections {
-  sections {
-    id
-    title
-    questTree {
-      quests {
+export const CompleteNonVerifiableQuestDocument = gql`
+  mutation CompleteNonVerifiableQuest(
+    $params: CompleteNonVerifiableQuestParams!
+  ) {
+    completeNonVerifiableQuest(params: $params)
+  }
+`;
+export const SectionsDocument = gql`
+  query Sections {
+    sections {
+      id
+      title
+      questTree {
+        quests {
+          id
+          icon
+          image
+          title
+          description
+          action {
+            text
+            url
+          }
+          learnMore {
+            text
+            url
+          }
+          points
+          status
+        }
+        edges {
+          requirement
+          unlocks
+        }
+      }
+      rewards {
+        id
+        title
+        description
+        icon
+        points
+        tokenID
+      }
+      status
+      points
+    }
+  }
+`;
+export const QuestCompletionDocument = gql`
+  subscription QuestCompletion {
+    questCompletion {
+      section {
+        id
+        title
+        status
+        points
+      }
+      quest {
         id
         icon
         image
         title
         description
-        action {
-          text
-          url
-        }
-        learnMore {
-          text
-          url
-        }
         points
         status
       }
-      edges {
-        requirement
-        unlocks
-      }
     }
-    rewards {
-      id
-      title
-      description
-      icon
-      points
-      tokenID
-    }
-    status
-    points
   }
+`;
+
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string,
+  variables?: any
+) => Promise<T>;
+
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+  _variables
+) => action();
+const CompleteNonVerifiableQuestDocumentString = print(
+  CompleteNonVerifiableQuestDocument
+);
+const SectionsDocumentString = print(SectionsDocument);
+const QuestCompletionDocumentString = print(QuestCompletionDocument);
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper
+) {
+  return {
+    CompleteNonVerifiableQuest(
+      variables: CompleteNonVerifiableQuestMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<{
+      data: CompleteNonVerifiableQuestMutation;
+      errors?: GraphQLError[];
+      extensions?: any;
+      headers: Headers;
+      status: number;
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<CompleteNonVerifiableQuestMutation>(
+            CompleteNonVerifiableQuestDocumentString,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CompleteNonVerifiableQuest",
+        "mutation",
+        variables
+      );
+    },
+    Sections(
+      variables?: SectionsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<{
+      data: SectionsQuery;
+      errors?: GraphQLError[];
+      extensions?: any;
+      headers: Headers;
+      status: number;
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<SectionsQuery>(SectionsDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "Sections",
+        "query",
+        variables
+      );
+    },
+    QuestCompletion(
+      variables?: QuestCompletionSubscriptionVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<{
+      data: QuestCompletionSubscription;
+      errors?: GraphQLError[];
+      extensions?: any;
+      headers: Headers;
+      status: number;
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<QuestCompletionSubscription>(
+            QuestCompletionDocumentString,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "QuestCompletion",
+        "subscription",
+        variables
+      );
+    },
+  };
 }
-    `;
-
-export const useSectionsQuery = <TData = SectionsQuery, TError = unknown>(
-  variables?: SectionsQueryVariables,
-  options?: Omit<UseQueryOptions<SectionsQuery, TError, TData>, "queryKey"> & {
-    queryKey?: UseQueryOptions<SectionsQuery, TError, TData>["queryKey"];
-  }
-) => {
-  return useQuery<SectionsQuery, TError, TData>({
-    queryKey: variables === undefined ? ["Sections"] : ["Sections", variables],
-    queryFn: graphqlRequestFetcher<SectionsQuery, SectionsQueryVariables>(
-      SectionsDocument,
-      variables
-    ),
-    ...options,
-  });
-};
-
-useSectionsQuery.getKey = (variables?: SectionsQueryVariables) =>
-  variables === undefined ? ["Sections"] : ["Sections", variables];
-
-export const useSuspenseSectionsQuery = <
-  TData = SectionsQuery,
-  TError = unknown,
->(
-  variables?: SectionsQueryVariables,
-  options?: Omit<
-    UseSuspenseQueryOptions<SectionsQuery, TError, TData>,
-    "queryKey"
-  > & {
-    queryKey?: UseSuspenseQueryOptions<
-      SectionsQuery,
-      TError,
-      TData
-    >["queryKey"];
-  }
-) => {
-  return useSuspenseQuery<SectionsQuery, TError, TData>({
-    queryKey:
-      variables === undefined
-        ? ["SectionsSuspense"]
-        : ["SectionsSuspense", variables],
-    queryFn: graphqlRequestFetcher<SectionsQuery, SectionsQueryVariables>(
-      SectionsDocument,
-      variables
-    ),
-    ...options,
-  });
-};
-
-useSuspenseSectionsQuery.getKey = (variables?: SectionsQueryVariables) =>
-  variables === undefined
-    ? ["SectionsSuspense"]
-    : ["SectionsSuspense", variables];
-
-export const QuestCompletionDocument = `
-    subscription QuestCompletion {
-  questCompletion {
-    section {
-      id
-      title
-      status
-      points
-    }
-    quest {
-      id
-      icon
-      image
-      title
-      description
-      points
-      status
-    }
-  }
-}
-    `;
+export type Sdk = ReturnType<typeof getSdk>;

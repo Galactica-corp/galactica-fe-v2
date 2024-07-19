@@ -18,7 +18,7 @@ const config: CodegenConfig = {
       plugins: [
         "typescript",
         "typescript-operations",
-        "typescript-react-query",
+        "typescript-graphql-request",
       ],
       // options for typescript-react-query plugin: https://github.com/dotansimha/graphql-code-generator-community/blob/main/packages/plugins/typescript/react-query/src/config.ts
       config: {
@@ -29,10 +29,7 @@ const config: CodegenConfig = {
           Points: "number",
           Void: "void",
         },
-        exposeQueryKeys: true,
-        exposeMutationKeys: true,
-        addSuspenseQuery: true,
-        reactQueryVersion: 5,
+        rawRequest: true,
         avoidOptionals: true,
         constEnums: true,
         enumsAsTypes: true,

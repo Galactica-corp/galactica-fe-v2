@@ -53,10 +53,8 @@ export const Upload = ({ className }: UploadProps) => {
       }
 
       await completeMutation.mutateAsync({
-        params: {
-          quest: "pass-kyc",
-          section: "onboarding",
-        },
+        quest: "pass-kyc",
+        section: "1-onboarding",
       });
 
       const queryOptions = getZkCertStorageHashesQueryOptions({

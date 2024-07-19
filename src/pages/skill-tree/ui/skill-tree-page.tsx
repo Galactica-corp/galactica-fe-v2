@@ -5,7 +5,8 @@ import { useSessionStorage } from "@uidotdev/usehooks";
 import { Edge, Node, NodeMouseHandler, Position } from "reactflow";
 
 import { PageLayout } from "pages/ui/page-layout";
-import { QuestTree, useSuspenseSectionsQuery } from "shared/graphql";
+import { useSuspenseSectionsQuery } from "shared/api";
+import { QuestTree } from "shared/graphql";
 
 import { Quest } from "../types";
 import { Card } from "./quest/card";
@@ -19,16 +20,13 @@ const nodeWidth = 90;
 const nodeHeight = 90;
 
 export const SkillTreePage = () => {
-  const { data } = useSuspenseSectionsQuery(undefined, {
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data: sections } = useSuspenseSectionsQuery();
 
   const [activeSectionId, setActiveSectionId] = useSessionStorage(
     "active-quest-sections",
-    data.sections[0].id
+    sections[0].id
   );
-  const section =
-    data.sections.find((s) => s.id === activeSectionId) ?? data.sections[0];
+  const section = sections.find((s) => s.id === activeSectionId) ?? sections[0];
 
   const [quest, setQuest] = useState<Quest>({
     ...(section.questTree.quests.find((q) => q.status === "AVAILABLE") ??

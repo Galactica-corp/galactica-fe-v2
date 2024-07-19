@@ -4,7 +4,8 @@ import { useIsMutating } from "@tanstack/react-query";
 import { twJoin } from "tailwind-merge";
 
 import { Points } from "entities/points";
-import { Section, useCompleteNonVerifiableQuestMutation } from "shared/graphql";
+import { useCompleteQuestMutation } from "shared/api";
+import { Section } from "shared/graphql";
 import { Button } from "shared/ui/button";
 
 import { useHandleOnboarding } from "../../hooks/use-handle-onboarding";
@@ -20,7 +21,7 @@ export const Card = (props: Props) => {
   const { title, points, description, action, learnMore, id, status } = quest;
   const handleOnboarding = useHandleOnboarding();
   const isMutating = useIsMutating({
-    mutationKey: useCompleteNonVerifiableQuestMutation.getKey(),
+    mutationKey: useCompleteQuestMutation.mutationKey,
   });
 
   const handleClick: MouseEventHandler<

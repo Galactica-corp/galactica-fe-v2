@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { GraphQLError } from "graphql";
+import { GraphQLError, print } from "graphql";
 import { createClient } from "graphql-ws";
 
 import {
@@ -38,7 +38,7 @@ export const useQuestCompletionSubscription = (
 
     const subscribe = () => {
       return client.subscribe<QuestCompletionSubscription>(
-        { query: QuestCompletionDocument },
+        { query: print(QuestCompletionDocument) },
         {
           next({ data, errors }) {
             handleEvent(data, errors);

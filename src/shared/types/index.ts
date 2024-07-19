@@ -43,3 +43,6 @@ export type MutationOptions<
   TVariables = void,
   TContext = unknown,
 > = Omit<UseMutationOptions<TData, TError, TVariables, TContext>, "mutationFn">;
+
+export type GetKey<T extends ((...params: any[]) => QueryKey) | QueryKey> =
+  T extends (...params: any[]) => any ? ReturnType<T> : T;

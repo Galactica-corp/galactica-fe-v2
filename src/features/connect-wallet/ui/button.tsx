@@ -73,10 +73,8 @@ export function ConnectButton({
     }
 
     completeMutation.mutate({
-      params: {
-        quest: "join",
-        section: "onboarding",
-      },
+      quest: "join",
+      section: "1-onboarding",
     });
   };
 
@@ -141,10 +139,8 @@ export function ConnectButton({
             {
               onSuccess: () => {
                 completeMutation.mutate({
-                  params: {
-                    quest: "install-snap",
-                    section: "onboarding",
-                  },
+                  quest: "install-snap",
+                  section: "onboarding",
                 });
               },
             }

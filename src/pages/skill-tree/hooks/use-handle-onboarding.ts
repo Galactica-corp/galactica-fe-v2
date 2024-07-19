@@ -14,20 +14,16 @@ export const useHandleOnboarding = () => {
     try {
       if (quest.id === "join") {
         await mutation.mutateAsync({
-          params: {
-            quest: quest.id,
-            section,
-          },
+          quest: quest.id,
+          section,
         });
       }
 
       if (quest.id === "install-snap") {
         await installSnapMutation.mutateAsync({});
         await mutation.mutateAsync({
-          params: {
-            quest: quest.id,
-            section,
-          },
+          quest: quest.id,
+          section,
         });
       }
     } catch (error) {

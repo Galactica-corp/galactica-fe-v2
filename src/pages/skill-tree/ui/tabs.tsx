@@ -1,6 +1,6 @@
 import { twJoin } from "tailwind-merge";
 
-import { useSuspenseSectionsQuery } from "shared/graphql";
+import { useSuspenseSectionsQuery } from "shared/api";
 import { ClassName } from "shared/types";
 import { Tab, Tabs } from "shared/ui/tabs";
 
@@ -11,13 +11,11 @@ type Props = {
 
 export const QuestsTabs = (props: Props) => {
   const { activeSectionId, onChange, className } = props;
-  const { data } = useSuspenseSectionsQuery(undefined, {
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data: sections } = useSuspenseSectionsQuery();
 
   return (
     <Tabs className={twJoin("gap-x-4", className)}>
-      {data.sections.map((section) => {
+      {sections.map((section) => {
         const disabled = section.status === "LOCKED";
 
         return (

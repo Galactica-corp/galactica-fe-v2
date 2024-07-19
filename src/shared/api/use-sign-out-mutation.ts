@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useSectionsQuery } from "shared/graphql";
 import { useSessionStore } from "shared/stores";
+
+import { questsQueries } from "./quests/queries";
 
 export const useSignOutMutation = () => {
   const queryClient = useQueryClient();
@@ -20,10 +21,11 @@ export const useSignOutMutation = () => {
 
       return response.ok;
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       setSession(undefined);
-      const key = useSectionsQuery.getKey();
-      queryClient.invalidateQueries({ queryKey: key });
+      await queryClient.invalidateQueries({
+        queryKey: questsQueries.sections().queryKey,
+      });
     },
   });
 };
