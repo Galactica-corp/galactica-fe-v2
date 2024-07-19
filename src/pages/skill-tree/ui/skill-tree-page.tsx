@@ -14,10 +14,14 @@ import { Progress } from "./quest/progress";
 import { Tree } from "./quest/tree";
 import { QuestsTabs } from "./tabs";
 
+const paddingX = 150;
+const paddingY = 50;
+
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
-const nodeWidth = 90;
-const nodeHeight = 90;
+
+const nodeWidth = 90 + paddingX;
+const nodeHeight = 90 + paddingY;
 
 export const SkillTreePage = () => {
   const { data: sections } = useSuspenseSectionsQuery();
@@ -114,7 +118,7 @@ function getLayoutedElements(
 
   dagre.layout(dagreGraph);
 
-  const newNodes = nodes.map((node) => {
+  const newNodes = nodes.map((node, idx) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     const newNode: Node<Quest> = {
       ...node,
@@ -123,8 +127,8 @@ function getLayoutedElements(
       // We are shifting the dagre node position (anchor=center center) to the top left
       // so it matches the React Flow node anchor point (top left).
       position: {
-        x: nodeWithPosition.x - nodeWidth / 2,
-        y: nodeWithPosition.y - nodeHeight / 2,
+        x: idx === 0 ? 0 : nodeWithPosition.x - nodeWidth / 2,
+        y: idx === 0 ? 0 : nodeWithPosition.y - nodeHeight / 2,
       },
     };
 
