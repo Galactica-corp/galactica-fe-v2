@@ -10,6 +10,7 @@ import {
   useQuestCompletionSubscription,
 } from "shared/api";
 import { questsQueries } from "shared/api/quests/queries";
+import { useGetSnapQuery } from "shared/snap/rq";
 import { useSessionStore, useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
 
@@ -17,6 +18,7 @@ export const Root = () => {
   const queryClient = useQueryClient();
   useSyncSession();
   const { mutate } = useCompleteQuestMutation();
+  const snapQuery = useGetSnapQuery();
 
   const [_, setSessionId] = useSessionStore();
 
@@ -32,6 +34,13 @@ export const Root = () => {
         quest: "join",
         section: "1-onboarding",
       });
+
+      if (snapQuery.data) {
+        mutate({
+          quest: "install-snap",
+          section: "1-onboarding",
+        });
+      }
     },
     onEvent: (data, errors) => {
       if (errors?.[0].message.includes("unauthorized")) {
