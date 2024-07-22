@@ -23,7 +23,10 @@ export const useCompleteQuestMutation = () => {
       return response;
     },
     onError: (error) => {
-      if (error.message.includes("not found")) return;
+      if (error.message.includes("not found")) {
+        console.error(error);
+        return;
+      }
       catchError(error);
     },
     onSuccess: async () => {
