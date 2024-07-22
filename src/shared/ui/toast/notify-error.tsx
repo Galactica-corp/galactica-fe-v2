@@ -8,5 +8,8 @@ export const notifyError = (
   description?: string,
   options?: ToastOptions<ErrorData> | undefined
 ) => {
-  return toast.error(ErrorToast, { ...options, data: { message } });
+  return toast(<ErrorToast details={description} message={message} />, {
+    ...options,
+    data: { message },
+  });
 };
