@@ -16,7 +16,6 @@ import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
 import { catchError } from "shared/ui/toast";
-import { sleep } from "shared/utils";
 import { shortAddress } from "shared/web3/utils";
 
 type Props = {
@@ -73,11 +72,11 @@ export function ConnectButton({
       catchError(error);
     }
 
-    await sleep(1000);
-    completeMutation.mutate({
-      quest: "join",
-      section: "1-onboarding",
-    });
+    // await sleep(5000);
+    // completeMutation.mutate({
+    //   quest: "join",
+    //   section: "1-onboarding",
+    // });
   };
 
   const btnProps: ComponentProps<typeof Button> = {

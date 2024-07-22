@@ -23,7 +23,7 @@ const CARDS_MAP: Record<
 > = {
   unknown: {
     name: "unknown",
-    title: "Unknown KYC",
+    title: "KYC Sample",
     background: "from-transparent to-azure/8",
     border: "border-azure/10",
     icon: "certificate",

@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useAccountEffect } from "wagmi";
 
 import { QuestToast } from "entities/quest";
 import { useQuestCompletionSubscription } from "shared/api";
+import { questsQueries } from "shared/api/quests/queries";
 import { useSessionStore, useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
 
 export const Root = () => {
+  const queryClient = useQueryClient();
   useSyncSession();
 
   const [_, setSessionId] = useSessionStore();
@@ -37,6 +40,10 @@ export const Root = () => {
             sectionTitle={section.title}
           />
         );
+
+        queryClient.invalidateQueries({
+          queryKey: questsQueries.allSections(),
+        });
       }
     },
   });

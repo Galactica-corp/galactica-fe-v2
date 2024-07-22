@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 
-import dagre from "@dagrejs/dagre";
 import { useSessionStorage } from "@uidotdev/usehooks";
-import { Edge, Node, NodeMouseHandler, Position } from "reactflow";
+import { Edge, Node, NodeMouseHandler } from "reactflow";
 
 import { PageLayout } from "pages/ui/page-layout";
 import { useSuspenseSectionsQuery } from "shared/api";
@@ -14,14 +13,14 @@ import { Progress } from "./quest/progress";
 import { Tree } from "./quest/tree";
 import { QuestsTabs } from "./tabs";
 
-const paddingX = 150;
-const paddingY = 50;
+// const paddingX = 200;
+// const paddingY = 30;
 
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
+// const dagreGraph = new dagre.graphlib.Graph();
+// dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-const nodeWidth = 90 + paddingX;
-const nodeHeight = 90 + paddingY;
+// const nodeWidth = 90;
+// const nodeHeight = 90;
 
 export const SkillTreePage = () => {
   const { data: sections } = useSuspenseSectionsQuery();
@@ -100,43 +99,43 @@ export const SkillTreePage = () => {
   );
 };
 
-function getLayoutedElements(
-  nodes: Node<Quest>[],
-  edges: Edge[],
-  direction = "TB"
-) {
-  const isHorizontal = direction === "LR";
-  dagreGraph.setGraph({ rankdir: direction });
+// function getLayoutedElements(
+//   nodes: Node<Quest>[],
+//   edges: Edge[],
+//   direction = "TB"
+// ) {
+//   const isHorizontal = direction === "LR";
+//   dagreGraph.setGraph({ rankdir: direction });
 
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
+//   nodes.forEach((node) => {
+//     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+//   });
 
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
+//   edges.forEach((edge) => {
+//     dagreGraph.setEdge(edge.source, edge.target);
+//   });
 
-  dagre.layout(dagreGraph);
+//   dagre.layout(dagreGraph);
 
-  const newNodes = nodes.map((node, idx) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    const newNode: Node<Quest> = {
-      ...node,
-      targetPosition: isHorizontal ? Position.Left : Position.Top,
-      sourcePosition: isHorizontal ? Position.Right : Position.Bottom,
-      // We are shifting the dagre node position (anchor=center center) to the top left
-      // so it matches the React Flow node anchor point (top left).
-      position: {
-        x: idx === 0 ? 20 : nodeWithPosition.x - nodeWidth / 2,
-        y: idx === 0 ? 0 : nodeWithPosition.y - nodeHeight / 2,
-      },
-    };
+//   const newNodes = nodes.map((node, idx) => {
+//     const nodeWithPosition = dagreGraph.node(node.id);
+//     const newNode: Node<Quest> = {
+//       ...node,
+//       targetPosition: isHorizontal ? Position.Left : Position.Top,
+//       sourcePosition: isHorizontal ? Position.Right : Position.Bottom,
+//       // We are shifting the dagre node position (anchor=center center) to the top left
+//       // so it matches the React Flow node anchor point (top left).
+//       position: {
+//         x: idx === 0 ? 20 : nodeWithPosition.x - nodeWidth / 2,
+//         y: idx === 0 ? 0 : nodeWithPosition.y - nodeHeight / 2,
+//       },
+//     };
 
-    return newNode;
-  });
+//     return newNode;
+//   });
 
-  return { nodes: newNodes, edges };
-}
+//   return { nodes: newNodes, edges };
+// }
 
 function mapTree(tree: QuestTree, activeQuestId: string) {
   const edges = tree.edges.map((e) => {
@@ -153,7 +152,8 @@ function mapTree(tree: QuestTree, activeQuestId: string) {
   const nodes = tree.quests.map((q) => {
     const node: Node<Quest> = {
       id: q.id,
-      position: { x: 351, y: 350 },
+      position: getPosition(q.id),
+      // position: { x: 0, y: 0 },
       data: { ...q, isSelected: activeQuestId === q.id },
       type: "quest",
     };
@@ -161,5 +161,25 @@ function mapTree(tree: QuestTree, activeQuestId: string) {
     return node;
   });
 
-  return getLayoutedElements(nodes, edges);
+  return { nodes, edges };
+
+  // return getLayoutedElements(nodes, edges);
 }
+
+const getPosition = (id: string) => {
+  if (id === "join") {
+    return { x: 0, y: 0 };
+  }
+
+  if (id === "get-gnet") return { x: 700, y: 200 };
+
+  if (id === "install-snap") return { x: 225, y: 200 };
+
+  if (id === "pass-kyc") return { x: 375, y: 350 };
+  if (id === "your-first-sbt") return { x: 375, y: 500 };
+
+  if (id === "get-data-zkCert") return { x: 75, y: 350 };
+  if (id === "generate-data-proof") return { x: 75, y: 500 };
+
+  return { x: 0, y: 0 };
+};

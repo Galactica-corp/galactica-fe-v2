@@ -14,6 +14,7 @@ export const useCompleteQuestMutation = () => {
   return useMutation({
     mutationKey,
     mutationFn: async (params: CompleteNonVerifiableQuestParams) => {
+      console.log("send request");
       const response = await sdk.CompleteNonVerifiableQuest({ params });
 
       if (response.errors) {
