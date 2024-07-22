@@ -2,10 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 import { useCerts } from "entities/cert";
 import { useCompleteQuestMutation } from "shared/api";
+import { Quest } from "shared/graphql";
 import { useInstallSnapMutation } from "shared/snap/rq";
 import { catchError } from "shared/ui/toast";
-
-import { Quest } from "../types";
 
 const section = "1-onboarding";
 

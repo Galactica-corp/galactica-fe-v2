@@ -5,11 +5,10 @@ import { twJoin } from "tailwind-merge";
 
 import { Points } from "entities/points";
 import { useCompleteQuestMutation } from "shared/api";
-import { Section } from "shared/graphql";
+import { Quest, Section } from "shared/graphql";
 import { Button } from "shared/ui/button";
 
 import { useHandleOnboarding } from "../../hooks/use-handle-onboarding";
-import { Quest } from "../../types";
 
 type Props = {
   quest: Quest;

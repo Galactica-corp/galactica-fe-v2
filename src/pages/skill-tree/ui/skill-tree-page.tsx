@@ -31,19 +31,22 @@ export const SkillTreePage = () => {
   );
   const section = sections.find((s) => s.id === activeSectionId) ?? sections[0];
 
-  const [quest, setQuest] = useState<Quest>({
-    ...(section.questTree.quests.find((q) => q.status === "AVAILABLE") ??
-      section.questTree.quests[0]),
-    isSelected: true,
-  });
+  const [questId, setQuestId] = useState<string>(
+    section.questTree.quests.find((q) => q.status === "AVAILABLE")?.id ??
+      section.questTree.quests[0].id
+  );
+
+  const activeQuest =
+    section.questTree.quests.find((q) => q.id === questId) ??
+    section.questTree.quests[0];
 
   const { nodes, edges } = useMemo(() => {
-    return mapTree(section.questTree, quest.id);
-  }, [section.questTree, quest.id]);
+    return mapTree(section.questTree, questId);
+  }, [section.questTree, questId]);
 
   const handleNodeClick: NodeMouseHandler = (e, node: Node<Quest>) => {
     if (node.data.status === "LOCKED") return;
-    setQuest(node.data);
+    setQuestId(node.data.id);
   };
 
   return (
@@ -92,7 +95,7 @@ export const SkillTreePage = () => {
         </div>
 
         <div className="basis-2/6 px-16">
-          {quest && <Card quest={quest} section={section} />}
+          {activeQuest && <Card quest={activeQuest} section={section} />}
         </div>
       </div>
     </PageLayout>
