@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { GraphQLError, print } from "graphql";
@@ -28,6 +28,7 @@ type Options = {
 };
 
 export const useQuestCompletionSubscription = (options: Options = {}) => {
+  const [isConnected, setIsConnected] = useState(false);
   const { onEvent = () => {}, onConnect = () => {} } = options;
   const queryClient = useQueryClient();
   const [sessionId] = useSessionStore();
@@ -41,6 +42,7 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
 
     client.on("connected", () => {
       console.log("connected");
+      setIsConnected(true);
       handleConnect();
     });
 
@@ -56,6 +58,7 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
           },
           complete() {
             console.log("ws closed");
+            setIsConnected(false);
           },
         }
       );
@@ -68,6 +71,8 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
       client.dispose();
     };
   }, [sessionId, queryClient, handleEvent, handleConnect]);
+
+  return { isConnected };
 };
 
 function initClient(sessionId: string) {

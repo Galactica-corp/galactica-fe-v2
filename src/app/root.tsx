@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -19,32 +18,10 @@ import { CloseButton } from "shared/ui/toast";
 export const Root = () => {
   useSyncSession();
 
-  const [isWSConnected, setIsWSConnected] = useState(false);
   const queryClient = useQueryClient();
 
   const { mutate } = useCompleteQuestMutation();
   const snapQuery = useGetSnapQuery();
-
-  console.log(Boolean(snapQuery.data && isWSConnected));
-
-  useEffectOnce(
-    () => {
-      mutate({
-        quest: "join",
-        section: "1-onboarding",
-      });
-
-      console.log("HELL", Boolean(snapQuery.data));
-      console.log(snapQuery);
-      if (snapQuery.data) {
-        mutate({
-          quest: "install-snap",
-          section: "1-onboarding",
-        });
-      }
-    },
-    Boolean(isWSConnected && snapQuery.data)
-  );
 
   const [_, setSessionId] = useSessionStore();
 
@@ -54,10 +31,7 @@ export const Root = () => {
     },
   });
 
-  useQuestCompletionSubscription({
-    onConnect: () => {
-      setIsWSConnected(true);
-    },
+  const { isConnected: isWSConnected } = useQuestCompletionSubscription({
     onEvent: (data, errors) => {
       if (errors?.[0].message.includes("unauthorized")) {
         setSessionId(undefined);
@@ -82,6 +56,25 @@ export const Root = () => {
       }
     },
   });
+
+  useEffectOnce(
+    () => {
+      mutate({
+        quest: "join",
+        section: "1-onboarding",
+      });
+
+      console.log("HELL", Boolean(snapQuery.data));
+      console.log(snapQuery);
+      if (snapQuery.data) {
+        mutate({
+          quest: "install-snap",
+          section: "1-onboarding",
+        });
+      }
+    },
+    Boolean(isWSConnected && snapQuery.data)
+  );
 
   return (
     <>
