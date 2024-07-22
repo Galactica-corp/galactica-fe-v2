@@ -5,7 +5,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAccountEffect } from "wagmi";
 
 import { QuestToast } from "entities/quest";
-import { useQuestCompletionSubscription } from "shared/api";
+import {
+  useCompleteQuestMutation,
+  useQuestCompletionSubscription,
+} from "shared/api";
 import { questsQueries } from "shared/api/quests/queries";
 import { useSessionStore, useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
@@ -13,6 +16,7 @@ import { CloseButton } from "shared/ui/toast";
 export const Root = () => {
   const queryClient = useQueryClient();
   useSyncSession();
+  const { mutate } = useCompleteQuestMutation();
 
   const [_, setSessionId] = useSessionStore();
 
@@ -23,6 +27,12 @@ export const Root = () => {
   });
 
   useQuestCompletionSubscription({
+    onConnect: () => {
+      mutate({
+        quest: "join",
+        section: "1-onboarding",
+      });
+    },
     onEvent: (data, errors) => {
       if (errors?.[0].message.includes("unauthorized")) {
         setSessionId(undefined);

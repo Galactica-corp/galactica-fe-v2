@@ -11,8 +11,6 @@ import {
 import { useEventCallback } from "shared/hooks";
 import { useSessionStore } from "shared/stores";
 
-import { useCompleteQuestMutation } from "./use-complete-quest-mutation";
-
 const path = import.meta.env.VITE_QUEST_SERVICE_WS;
 
 const wsOrigin = path.startsWith("/")
@@ -33,7 +31,6 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
   const { onEvent = () => {}, onConnect = () => {} } = options;
   const queryClient = useQueryClient();
   const [sessionId] = useSessionStore();
-  const { mutate } = useCompleteQuestMutation();
 
   const handleEvent = useEventCallback(onEvent);
   const handleConnect = useEventCallback(onConnect);
@@ -45,10 +42,6 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
     client.on("connected", () => {
       console.log("connected");
       handleConnect();
-      mutate({
-        quest: "join",
-        section: "1-onboarding",
-      });
     });
 
     const subscribe = () => {
@@ -74,7 +67,7 @@ export const useQuestCompletionSubscription = (options: Options = {}) => {
       unsubscribe();
       client.dispose();
     };
-  }, [sessionId, queryClient, handleEvent, handleConnect, mutate]);
+  }, [sessionId, queryClient, handleEvent, handleConnect]);
 };
 
 function initClient(sessionId: string) {

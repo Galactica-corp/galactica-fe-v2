@@ -71,12 +71,6 @@ export function ConnectButton({
     } catch (error) {
       catchError(error);
     }
-
-    // await sleep(5000);
-    // completeMutation.mutate({
-    //   quest: "join",
-    //   section: "1-onboarding",
-    // });
   };
 
   const btnProps: ComponentProps<typeof Button> = {
@@ -108,9 +102,7 @@ export function ConnectButton({
     return (
       <Button
         {...btnProps}
-        isLoading={
-          isConnecting || authMutation.isPending || completeMutation.isPending
-        }
+        isLoading={isConnecting || authMutation.isPending}
         onClick={handleConnect}
       >
         {connectContent}
