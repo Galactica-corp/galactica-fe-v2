@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { twMerge } from "tailwind-merge";
-import { RpcError } from "viem";
 import { useAccount, useChainId } from "wagmi";
 
 import { useCerts } from "entities/cert";
@@ -16,6 +15,7 @@ import {
 import { useSnapClient } from "shared/snap/wagmi";
 import { Icon } from "shared/ui/icon";
 import { Spinner } from "shared/ui/spinner";
+import { catchError } from "shared/ui/toast";
 import { readFileAsJSON } from "shared/utils";
 
 type UploadProps = {
@@ -33,7 +33,7 @@ export const Upload = ({ className }: UploadProps) => {
   const chainId = useChainId();
   const { client } = useSnapClient();
 
-  const { setCerts } = useCerts();
+  const { setCerts, updateCerts } = useCerts();
 
   const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
     if (rejectedFile) {
@@ -49,10 +49,11 @@ export const Upload = ({ className }: UploadProps) => {
       });
 
       if ("message" in response) {
+        if (response.message.includes("been imported")) await updateCerts({});
         return;
       }
 
-      await completeMutation.mutateAsync({
+      completeMutation.mutate({
         quest: "pass-kyc",
         section: "1-onboarding",
       });
@@ -67,10 +68,8 @@ export const Upload = ({ className }: UploadProps) => {
 
       setCerts(response, hashesResponse);
     } catch (error) {
-      if (error instanceof RpcError) return toast.error(error.message);
-
-      // TODO: sentry event
-      toast("Something went wrong");
+      console.error(error);
+      catchError(error);
     }
   };
 
