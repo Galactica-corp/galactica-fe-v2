@@ -64,8 +64,6 @@ export const Root = () => {
         section: "1-onboarding",
       });
 
-      console.log("HELL", Boolean(snapQuery.data));
-      console.log(snapQuery);
       if (snapQuery.data) {
         mutate({
           quest: "install-snap",
@@ -73,7 +71,7 @@ export const Root = () => {
         });
       }
     },
-    Boolean(isWSConnected && snapQuery.data)
+    Boolean(isWSConnected && snapQuery.isSuccess)
   );
 
   return (
