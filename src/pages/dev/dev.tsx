@@ -3,7 +3,8 @@ import { useInvokeSnapMutation } from "shared/snap/rq";
 import { Button } from "shared/ui/button";
 
 export const Dev = () => {
-  const invokeMutation = useInvokeSnapMutation("clearStorage");
+  const clearMutation = useInvokeSnapMutation("clearStorage");
+  const listMutation = useInvokeSnapMutation("listZkCerts");
 
   const mutation = useAuthMutation();
 
@@ -19,10 +20,25 @@ export const Dev = () => {
 
       <Button
         onClick={() => {
-          invokeMutation.mutate();
+          clearMutation.mutate();
         }}
       >
         ClearStorage
+      </Button>
+
+      <Button
+        onClick={() => {
+          listMutation.mutate(
+            {},
+            {
+              onSuccess(data) {
+                console.log(data);
+              },
+            }
+          );
+        }}
+      >
+        List zk cert
       </Button>
     </div>
   );

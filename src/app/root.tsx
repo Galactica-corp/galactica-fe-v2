@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { useAccountEffect } from "wagmi";
+import { useAccount, useAccountEffect } from "wagmi";
 
 import { QuestToast } from "entities/quest";
 import {
@@ -16,6 +16,8 @@ import { useSessionStore, useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
 
 export const Root = () => {
+  const account = useAccount();
+  console.log(account);
   useSyncSession();
 
   const queryClient = useQueryClient();

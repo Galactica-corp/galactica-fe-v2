@@ -35,7 +35,7 @@ export const Tab = <E extends ElementType = "li">(
       className={twMerge(
         "relative flex cursor-pointer items-center gap-x-2 pb-3 text-sm text-mistBlue transition",
         isActive && "text-basketBallOrange",
-        disabled && "text-aluminium",
+        disabled && "cursor-default text-aluminium",
         className
       )}
       onClick={onClick}

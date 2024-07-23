@@ -16,7 +16,8 @@ export const QuestsTabs = (props: Props) => {
   return (
     <Tabs className={twJoin("gap-x-4", className)}>
       {sections.map((section) => {
-        const disabled = section.status === "LOCKED";
+        const disabled =
+          section.status === "LOCKED" || section.id.includes("Coming soon");
 
         return (
           <Tab
