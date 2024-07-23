@@ -9,7 +9,7 @@ import { catchError } from "shared/ui/toast";
 const section = "1-onboarding";
 
 export const useHandleOnboarding = () => {
-  const { certs } = useCerts();
+  const { certs, hasUpdates } = useCerts();
   const mutation = useCompleteQuestMutation();
   const installSnapMutation = useInstallSnapMutation();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export const useHandleOnboarding = () => {
         });
       }
 
-      if (quest.id === "pass-kyc") {
+      if (quest.id === "pass-kyc" && !hasUpdates) {
         if (certs.find((c) => c.standard === "gip1")) {
           await mutation.mutateAsync({
             quest: quest.id,
