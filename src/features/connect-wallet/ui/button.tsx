@@ -16,6 +16,7 @@ import { useSessionStore } from "shared/stores";
 import { ClassName } from "shared/types";
 import { Button, ButtonProps } from "shared/ui/button";
 import { catchError } from "shared/ui/toast";
+import { sleep } from "shared/utils";
 import { shortAddress } from "shared/web3/utils";
 
 type Props = {
