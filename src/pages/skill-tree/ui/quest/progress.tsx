@@ -11,27 +11,37 @@ type Props = {
 
 export const Progress = (props: Props) => {
   const { className, section } = props;
-  const questsLength = section.questTree.quests.length;
+  const allQuests = section.questTree.quests;
   const completedQuests = section.questTree.quests.filter(
     (q) => q.status === "COMPLETED"
-  ).length;
+  );
 
-  const percent = Math.floor((completedQuests / questsLength) * 100);
+  const percent = Math.floor((completedQuests.length / allQuests.length) * 100);
+
+  const receivedPoints = completedQuests.reduce((acc, q) => {
+    acc = acc + q.points;
+    return acc;
+  }, 0);
+
+  const points = allQuests.reduce((acc, quest) => {
+    acc = acc + quest.points;
+    return acc;
+  }, 0);
 
   return (
     <div className={twMerge("flex w-full flex-col", className)}>
       <div className="flex justify-between text-sm text-riverBed">
         <div className="flex">
-          {section.title} is
+          {section.title}:
           <span className="ml-1 text-basketBallOrange">
-            {Number.isNaN(percent) ? 0 : percent}% complete
+            {receivedPoints} / {points}
           </span>
         </div>
         <div className="flex">
           Left before the {section.title} is completed
           <span className="ml-1.5 flex items-center font-semibold text-basketBallOrange">
             <Icon className="mr-1 size-3.5" name="verifiedCheck" />
-            {pluralize(questsLength - completedQuests, "task")}
+            {pluralize(allQuests.length - completedQuests.length, "task")}
           </span>
         </div>
       </div>
