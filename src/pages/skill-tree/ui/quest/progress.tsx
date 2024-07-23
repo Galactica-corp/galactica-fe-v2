@@ -33,8 +33,9 @@ export const Progress = (props: Props) => {
       <div className="flex justify-between text-sm text-riverBed">
         <div className="flex">
           {section.title}:
-          <span className="ml-1 text-basketBallOrange">
-            {receivedPoints} / {points}
+          <span className="ml-1 flex items-center text-basketBallOrange">
+            {receivedPoints} / {points}{" "}
+            <Icon className="size-3" name="lightning" />
           </span>
         </div>
         <div className="flex">

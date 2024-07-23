@@ -3,6 +3,7 @@ import { MouseEventHandler } from "react";
 import { useIsMutating } from "@tanstack/react-query";
 import { twJoin } from "tailwind-merge";
 
+import { useCerts } from "entities/cert";
 import { Points } from "entities/points";
 import { useCompleteQuestMutation } from "shared/api";
 import { Quest, Section } from "shared/graphql";
@@ -18,6 +19,7 @@ type Props = {
 export const Card = (props: Props) => {
   const { quest, section } = props;
   const { title, points, description, action, learnMore, id, status } = quest;
+  const { hasUpdates } = useCerts();
   const handleOnboarding = useHandleOnboarding();
   const isMutating = useIsMutating({
     mutationKey: useCompleteQuestMutation.mutationKey,
@@ -64,7 +66,11 @@ export const Card = (props: Props) => {
         {action?.text && (
           <Button
             as={action.url ? "a" : "button"}
-            disabled={status === "COMPLETED" || status === "LOCKED"}
+            disabled={
+              status === "COMPLETED" ||
+              status === "LOCKED" ||
+              (quest.id === "pass-kyc" && hasUpdates)
+            }
             href={action.url}
             isLoading={isMutating > 0}
             onClick={handleClick}
