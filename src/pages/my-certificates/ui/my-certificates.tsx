@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useCerts } from "entities/cert";
 import { KYCCard } from "entities/kyc-card";
 import { PageLayout } from "pages/ui";
-import { Button } from "shared/ui/button";
 import { Tab, TabIndicator, Tabs } from "shared/ui/tabs";
 
 import { Upload } from "./upload";
@@ -12,7 +11,7 @@ export const MyCertificates = () => {
   const [active, setActive] = useState(1);
   const [activeBottom, setActiveBottom] = useState(1);
 
-  const { certs, hasUpdates, updateCerts } = useCerts();
+  const { certs } = useCerts();
 
   const filteredCerts = certs.filter((c) => {
     if (active === 1) return c.standard === "gip1";
@@ -20,14 +19,6 @@ export const MyCertificates = () => {
 
     return c.standard !== "gip1" && c.standard !== "gip2";
   });
-
-  const handleUpdate = async () => {
-    try {
-      updateCerts({});
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const activeCerts = filteredCerts.filter(
     (c) => c.expirationDateMS > Date.now()
@@ -40,7 +31,6 @@ export const MyCertificates = () => {
 
   return (
     <PageLayout title="My Certificates">
-      {hasUpdates && <Button onClick={handleUpdate}>Reload store</Button>}
       <Tabs className="mb-8 mt-6">
         <Tab isActive={active === 1} onClick={() => setActive(1)}>
           My KYCs

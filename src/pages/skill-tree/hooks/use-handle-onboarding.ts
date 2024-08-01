@@ -15,7 +15,6 @@ export const useHandleOnboarding = () => {
   const navigate = useNavigate();
 
   return async (quest: Quest) => {
-    console.log(section, quest);
     try {
       if (quest.id === "join") {
         await mutation.mutateAsync({

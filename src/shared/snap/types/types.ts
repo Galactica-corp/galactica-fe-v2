@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type ZkCertStandard = "gip1" | "gip2";
+export type ZkCertStandard = "gip1" | "gip2" | "gip69";
 
 export type ZkCertSelectionParams = {
   chainID?: number;
