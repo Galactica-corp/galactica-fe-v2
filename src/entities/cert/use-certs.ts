@@ -92,6 +92,19 @@ export const useCerts = () => {
     onError: catchError,
   });
 
+  const clearMutation = useInvokeSnapMutation("clearStorage");
+
+  const handleUpdateCerts = async () => {
+    try {
+      if (query.data?.gip69) {
+        await clearMutation.mutateAsync();
+      }
+      await mutation.mutateAsync({});
+    } catch (error) {
+      catchError(error);
+    }
+  };
+
   const entries = query.isSuccess ? Object.values(query.data) : [];
   const lsEntries = Object.values(hashes).filter(Boolean);
 
@@ -104,7 +117,7 @@ export const useCerts = () => {
   return {
     certs: certsStore,
     setCerts,
-    updateCerts: mutation.mutateAsync,
+    updateCerts: handleUpdateCerts,
     hasUpdates,
   } as const;
 };

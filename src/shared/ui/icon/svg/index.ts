@@ -22,6 +22,7 @@ export { default as occamDataGuardian } from "./occam-data-guardian.svg?react";
 export { default as passwordLock } from "./password-lock.svg?react";
 export { default as plus } from "./plus.svg?react";
 export { default as reddit } from "./reddit-socail.svg?react";
+export { default as reload } from "./reload.svg?react";
 export { default as scan } from "./scan.svg?react";
 export { default as shieldZap } from "./shield-zap.svg?react";
 export { default as stars } from "./stars.svg?react";

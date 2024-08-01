@@ -9120,7 +9120,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-prettier", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:9.1.0"],\
           ["prettier", "npm:3.3.2"],\
           ["prettier-linter-helpers", "npm:1.0.0"],\
-          ["synckit", "npm:0.8.8"]\
+          ["synckit", "npm:0.9.1"]\
         ],\
         "packagePeers": [\
           "@types/eslint-config-prettier",\
@@ -14849,10 +14849,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["synckit", [\
-      ["npm:0.8.8", {\
-        "packageLocation": "./.yarn/cache/synckit-npm-0.8.8-f5ee4a6dac-2864a5c3e6.zip/node_modules/synckit/",\
+      ["npm:0.9.1", {\
+        "packageLocation": "./.yarn/cache/synckit-npm-0.9.1-2153077746-bff3903976.zip/node_modules/synckit/",\
         "packageDependencies": [\
-          ["synckit", "npm:0.8.8"],\
+          ["synckit", "npm:0.9.1"],\
           ["@pkgr/core", "npm:0.1.1"],\
           ["tslib", "npm:2.6.2"]\
         ],\

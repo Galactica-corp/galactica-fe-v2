@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { Id, ToastContainer, toast } from "react-toastify";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useAccountEffect } from "wagmi";
 
+import { UpdateCertsToast, useCerts } from "entities/cert";
 import { QuestToast } from "entities/quest";
 import {
   useCompleteQuestMutation,
@@ -17,6 +18,9 @@ import { CloseButton } from "shared/ui/toast";
 
 export const Root = () => {
   useSyncSession();
+
+  const toastRef = useRef<Id | null>(null);
+  const { hasUpdates } = useCerts();
 
   const queryClient = useQueryClient();
 
@@ -63,7 +67,6 @@ export const Root = () => {
     },
   });
 
-  // hack
   useEffect(() => {
     if (
       sessionId &&
@@ -86,6 +89,17 @@ export const Root = () => {
       shouldInitRef.current = false;
     }
   }, [sessionId, isWSConnected, snapQuery.isSuccess, snapQuery.data, mutate]);
+
+  useEffect(() => {
+    if (!hasUpdates || toastRef.current) return;
+
+    toastRef.current = toast(<UpdateCertsToast />, {
+      autoClose: false,
+      onClose: () => {
+        toastRef.current = null;
+      },
+    });
+  }, [hasUpdates]);
 
   return (
     <>

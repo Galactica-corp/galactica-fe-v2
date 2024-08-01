@@ -84,5 +84,8 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2"
   },
+  "resolutions": {
+    "synckit": "^0.9.1"
+  },
   "packageManager": "yarn@4.3.0"
 }

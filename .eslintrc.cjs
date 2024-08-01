@@ -1,9 +1,5 @@
 const path = require("path");
 
-// DO NOT UPDATE VSCODE TO 1.90.0
-// IF SOMETHING WENT WRONG just use 1.89.1 version
-// https://code.visualstudio.com/updates/v1_89
-
 // https://github.com/yarnpkg/berry/issues/6335
 
 /** @type {import("eslint").ESLint.ConfigData} */

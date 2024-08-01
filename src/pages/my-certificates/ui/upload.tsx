@@ -49,7 +49,7 @@ export const Upload = ({ className }: UploadProps) => {
       });
 
       if ("message" in response) {
-        if (response.message.includes("been imported")) await updateCerts({});
+        if (response.message.includes("been imported")) await updateCerts();
         return;
       }
 
