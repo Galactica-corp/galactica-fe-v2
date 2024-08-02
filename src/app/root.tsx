@@ -96,12 +96,20 @@ export const Root = () => {
   useEffect(() => {
     if (!hasUpdates || toastRef.current) return;
 
-    toastRef.current = toast(<UpdateCertsToast />, {
-      autoClose: false,
-      onClose: () => {
-        toastRef.current = null;
-      },
-    });
+    toastRef.current = toast(
+      <UpdateCertsToast
+        onUpdate={() => {
+          toastRef.current && toast.dismiss(toastRef.current);
+          toastRef.current = null;
+        }}
+      />,
+      {
+        autoClose: false,
+        onClose: () => {
+          toastRef.current = null;
+        },
+      }
+    );
   }, [hasUpdates]);
 
   return (

@@ -3,7 +3,11 @@ import { Icon } from "shared/ui/icon";
 
 import metamaskSrc from "./metamask.svg";
 
-export const UpdateToast = () => {
+type Props = {
+  onUpdate: () => void;
+};
+
+export const UpdateToast = ({ onUpdate }: Props) => {
   const { updateCerts } = useCerts();
 
   return (
@@ -20,7 +24,10 @@ export const UpdateToast = () => {
         </div>
         <button
           className="mt-1.5 flex items-center text-sm font-semibold text-basketBallOrange transition-colors hover:brightness-105"
-          onClick={() => updateCerts()}
+          onClick={async () => {
+            await updateCerts();
+            onUpdate();
+          }}
         >
           Update now <Icon className="ml-2 size-3.5" name="reload" />
         </button>
