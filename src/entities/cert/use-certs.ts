@@ -111,7 +111,9 @@ export const useCerts = () => {
   const set = new Set([...entries, ...lsEntries]);
 
   const hasUpdates = query.isSuccess
-    ? set.size > entries.length || entries.length !== lsEntries.length
+    ? set.size > entries.length ||
+      entries.length !== lsEntries.length ||
+      Boolean(query.data.gip69)
     : false;
 
   return {

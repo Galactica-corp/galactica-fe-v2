@@ -33,7 +33,7 @@ export const Upload = ({ className }: UploadProps) => {
   const chainId = useChainId();
   const { client } = useSnapClient();
 
-  const { setCerts, updateCerts } = useCerts();
+  const { setCerts, updateCerts, hasUpdates } = useCerts();
 
   const onDrop = async ([file]: File[], [rejectedFile]: FileRejection[]) => {
     if (rejectedFile) {
@@ -43,6 +43,11 @@ export const Upload = ({ className }: UploadProps) => {
 
     try {
       const encryptedZkCert: EncryptedZkCert = await readFileAsJSON(file);
+
+      if (hasUpdates) {
+        await updateCerts();
+      }
+
       const response = await mutateAsync({
         encryptedZkCert,
         listZkCerts: true,

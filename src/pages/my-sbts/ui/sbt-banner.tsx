@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { twMerge } from "tailwind-merge";
 
+import { useCerts } from "entities/cert";
 import { SBTCard } from "entities/sbt";
 import { useGenerateSBTMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
@@ -10,8 +11,12 @@ import { catchError } from "shared/ui/toast";
 
 export const SBTBanner = ({ className }: ClassName) => {
   const mutation = useGenerateSBTMutation();
+  const { hasUpdates, updateCerts } = useCerts();
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
+    if (hasUpdates) {
+      await updateCerts();
+    }
     mutation.mutate(undefined, {
       onSuccess: () => {},
       onError: catchError,
