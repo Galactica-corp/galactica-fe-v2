@@ -105,6 +105,7 @@ export const Root = () => {
       />,
       {
         autoClose: false,
+        closeButton: false,
         onClose: () => {
           toastRef.current = null;
         },

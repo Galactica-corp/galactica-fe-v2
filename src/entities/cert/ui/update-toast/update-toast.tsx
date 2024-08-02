@@ -12,7 +12,7 @@ export const UpdateToast = ({ onUpdate }: Props) => {
 
   return (
     <div className="relative flex gap-x-5">
-      <div className="relative inline-flex size-20 shrink-0">
+      <div className="relative inline-flex size-20 shrink-0 select-none">
         <img alt="task" className="size-full" src={metamaskSrc} />
       </div>
       <div className="flex flex-col">
