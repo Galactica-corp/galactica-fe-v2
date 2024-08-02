@@ -7,7 +7,6 @@ import { SBTCard } from "entities/sbt";
 import { useGenerateSBTMutation } from "shared/snap/rq";
 import { ClassName } from "shared/types";
 import { Button } from "shared/ui/button";
-import { catchError } from "shared/ui/toast";
 
 export const SBTBanner = ({ className }: ClassName) => {
   const mutation = useGenerateSBTMutation();
@@ -19,7 +18,6 @@ export const SBTBanner = ({ className }: ClassName) => {
     }
     mutation.mutate(undefined, {
       onSuccess: () => {},
-      onError: catchError,
     });
   };
 
