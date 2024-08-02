@@ -12,6 +12,7 @@ const root = createRoot(container!);
 window.GalacticaInfo = {
   chainId: import.meta.env.VITE_CHAIN_ID,
   questServiceUrl: import.meta.env.VITE_QUEST_SERVICE,
+  ...import.meta.env,
 };
 
 root.render(
