@@ -98,6 +98,18 @@ export function ConnectButton({
     );
   }
 
+  if (isDisconnected || isConnecting || !sessionId) {
+    return (
+      <Button
+        {...btnProps}
+        isLoading={isConnecting || authMutation.isPending}
+        onClick={handleConnect}
+      >
+        {connectContent}
+      </Button>
+    );
+  }
+
   if (!chain) {
     return (
       <Button
@@ -115,18 +127,6 @@ export function ConnectButton({
         }}
       >
         {switchChainContent}
-      </Button>
-    );
-  }
-
-  if (isDisconnected || isConnecting || !sessionId) {
-    return (
-      <Button
-        {...btnProps}
-        isLoading={isConnecting || authMutation.isPending}
-        onClick={handleConnect}
-      >
-        {connectContent}
       </Button>
     );
   }
