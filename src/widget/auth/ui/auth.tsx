@@ -90,7 +90,6 @@ export const Auth = ({
               </defs>
             </svg>
           </div>
-
           <p
             className={twMerge(
               "mt-4 font-medium text-grapefruit",
