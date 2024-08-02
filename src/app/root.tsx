@@ -16,8 +16,11 @@ import { useGetSnapQuery } from "shared/snap/rq";
 import { useSessionStore, useSyncSession } from "shared/stores";
 import { CloseButton } from "shared/ui/toast";
 
+import { useLocalStorageMigrations } from "./use-localstorage-migrations";
+
 export const Root = () => {
   useSyncSession();
+  useLocalStorageMigrations();
 
   const toastRef = useRef<Id | null>(null);
   const { hasUpdates } = useCerts();

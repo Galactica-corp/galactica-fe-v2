@@ -98,6 +98,27 @@ export function ConnectButton({
     );
   }
 
+  if (!chain) {
+    return (
+      <Button
+        {...btnProps}
+        isLoading={isSwitchChainPending}
+        onClick={() => {
+          switchChain(
+            { connector: connector, chainId },
+            {
+              onError: (error) => {
+                catchError(error);
+              },
+            }
+          );
+        }}
+      >
+        {switchChainContent}
+      </Button>
+    );
+  }
+
   if (isDisconnected || isConnecting || !sessionId) {
     return (
       <Button
@@ -106,18 +127,6 @@ export function ConnectButton({
         onClick={handleConnect}
       >
         {connectContent}
-      </Button>
-    );
-  }
-
-  if (!chain) {
-    return (
-      <Button
-        {...btnProps}
-        isLoading={isSwitchChainPending}
-        onClick={() => switchChain({ connector: connector, chainId })}
-      >
-        {switchChainContent}
       </Button>
     );
   }

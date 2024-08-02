@@ -1,9 +1,13 @@
 import { createClient, http } from "viem";
-import { createConfig } from "wagmi";
+import { createConfig, createStorage } from "wagmi";
 
 import { supportedChains } from "shared/config";
 
 export const config = createConfig({
+  storage: createStorage({
+    key: `galactica-wagmi.${supportedChains[0].id}`,
+    storage: localStorage,
+  }),
   chains: supportedChains,
   client: ({ chain }) => {
     return createClient({

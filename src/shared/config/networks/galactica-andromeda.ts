@@ -1,12 +1,6 @@
 import { Chain } from "viem";
 
-export const galacticaAndromeda = {
-  blockExplorers: {
-    default: {
-      name: "BlockScout",
-      url: "https://explorer-andromeda.galactica.com/",
-    },
-  },
+export const galacticaAndromeda: Chain = {
   id: 41238,
   name: "Galactica-Andromeda",
   nativeCurrency: {
@@ -22,6 +16,12 @@ export const galacticaAndromeda = {
     public: {
       http: ["https://evm-rpc-http-andromeda.galactica.com/"],
       webSocket: ["wss://evm-rpc-ws-andromeda.galactica.com/"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "BlockScout",
+      url: "https://explorer-andromeda.galactica.com/",
     },
   },
   testnet: true,

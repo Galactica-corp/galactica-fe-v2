@@ -1,5 +1,11 @@
 import { Chain } from "viem";
 
-import { galacticaAndromeda } from "./networks/galactica-testnet";
+import { galacticaAndromeda } from "./networks/galactica-andromeda";
+import { galacticaReticulumTestnet } from "./networks/galactica-reticulum";
 
-export const supportedChains: [Chain, ...Chain[]] = [galacticaAndromeda];
+export const supportedChains = [
+  galacticaAndromeda,
+  galacticaReticulumTestnet,
+].filter(
+  (chain) => chain.id === Number.parseInt(import.meta.env.VITE_CHAIN_ID)
+) as [Chain, ...Chain[]];
